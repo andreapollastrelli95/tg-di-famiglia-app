@@ -1,0 +1,24 @@
+name: Aggiornamento quotidiano (Cloudflare Pages)
+
+# Il sito è pubblicato da Cloudflare Pages, collegato a questo repository: ogni push lo ricostruisce.
+# Ogni mattina questo workflow chiama il "Deploy hook" di Cloudflare, così la build raccoglie
+# le notizie del giorno. Il segreto CF_DEPLOY_HOOK si crea seguendo PUBBLICAZIONE.md.
+on:
+  schedule:
+    - cron: "30 4 * * *"   # 04:30 UTC (05:30 ora solare, 06:30 ora legale)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ricostruisci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Avvia la build su Cloudflare Pages
+        env:
+          HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "Manca il segreto CF_DEPLOY_HOOK (vedi PUBBLICAZIONE.md)"; exit 1; fi
+          curl -fsS -X POST "$HOOK" > /dev/null && echo "Build avviata"

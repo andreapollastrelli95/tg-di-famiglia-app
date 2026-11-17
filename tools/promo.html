@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><title>Generatore materiale promo</title>
+<script src="../lib/qrcode.js"></script>
+<script src="../lib/jspdf.umd.min.js"></script>
+<script src="../regalo.js"></script>
+</head><body>
+<script>
+/* Usato da tools/promo (headless): ogni funzione restituisce un data URL. Non pubblicato. */
+const SANS = '-apple-system, "Segoe UI", Roboto, Arial, sans-serif', SERIF = 'Georgia, "Times New Roman", serif';
+const SITO = 'tg-di-famiglia.pages.dev';
+const carica = (src) => new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; });
+const tela = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return [c, c.getContext('2d')]; };
+function tondo(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+function righe(c, testo, max) { const out = []; let r = ''; for (const p of testo.split(' ')) { const t = r ? r + ' ' + p : p; if (c.measureText(t).width > max && r) { out.push(r); r = p; } else r = t; } if (r) out.push(r); return out; }
+function logo(c, x, y, s) { c.fillStyle = '#c8102e'; tondo(c, x, y, s, s, s * 0.23); c.fill(); c.fillStyle = '#fff'; c.font = `900 ${s * 0.5}px ${SANS}`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('TG', x + s / 2, y + s / 2 + 2); }
+function sfondoBlu(c, w, h) { const g = c.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#0b2a55'); g.addColorStop(1, '#16457f'); c.fillStyle = g; c.fillRect(0, 0, w, h); }
+
+async function screenshotPlay(src, titolo, sotto) {
+  const [cv, c] = tela(1080, 1920);
+  sfondoBlu(c, 1080, 1920);
+  c.textAlign = 'center'; c.textBaseline = 'alphabetic'; c.fillStyle = '#fff'; c.font = `800 86px ${SANS}`;
+  const r = righe(c, titolo, 940); r.forEach((x, i) => c.fillText(x, 540, 170 + i * 100));
+  let y = 170 + r.length * 100;
+  if (sotto) { c.font = `44px ${SANS}`; c.fillStyle = '#cfe0ff'; righe(c, sotto, 940).forEach((x, i) => c.fillText(x, 540, y + 10 + i * 56)); y += 60; }
+  const img = await carica(src);
+  const w = 780, h = Math.min(img.height * w / img.width, 1920 - y - 40);
+  const x = (1080 - w) / 2, top = y + 50;
+  c.fillStyle = '#071b38'; tondo(c, x - 18, top - 18, w + 36, h + 60, 64); c.fill();
+  c.save(); tondo(c, x, top, w, h + 40, 48); c.clip();
+  c.drawImage(img, 0, 0, img.width, (h + 40) * img.width / w, x, top, w, h + 40); c.restore();
+  return cv.toDataURL('image/png');
+}
+function inEvidenza() {
+  const [cv, c] = tela(1024, 500);
+  sfondoBlu(c, 1024, 500);
+  logo(c, 60, 60, 96);
+  c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.fillStyle = '#fff'; c.font = `800 70px ${SANS}`; c.fillText('TG di Famiglia', 60, 260);
+  c.font = `36px ${SANS}`; c.fillStyle = '#cfe0ff'; c.fillText('Le notizie del giorno, lette come al TG', 60, 320);
+  c.fillText('con il saluto per la tua famiglia', 60, 366);
+  c.fillStyle = '#c8102e'; c.beginPath(); c.arc(830, 250, 150, 0, Math.PI * 2); c.fill();
+  c.fillStyle = '#fff'; c.beginPath(); c.moveTo(790, 175); c.lineTo(790, 325); c.lineTo(915, 250); c.closePath(); c.fill();
+  return cv.toDataURL('image/png');
+}
+function biglietto(tema, famiglia, messaggio, citta = '') {
+  const cv = document.createElement('canvas');
+  RegaloTG.disegna(cv, { tema, famiglia, messaggio, url: RegaloTG.linkRegalo(famiglia, citta) });
+  return cv;
+}
+const bigliettoPng = (...a) => biglietto(...a).toDataURL('image/png');
+function bigliettoPdf(...a) {
+  const pdf = new jspdf.jsPDF({ unit: 'mm', format: 'a5' });
+  pdf.addImage(biglietto(...a).toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, 148, 210);
+  pdf.setProperties({ title: 'TG di Famiglia – biglietto regalo di esempio', creator: 'TG di Famiglia', author: 'TG di Famiglia' });
+  return pdf.output('datauristring');
+}
+function pinterest(tema, famiglia, messaggio, variante) {
+  const [cv, c] = tela(1000, 1500);
+  const t = RegaloTG.TEMI[tema];
+  const chiaro = variante % 2 === 0;
+  c.fillStyle = chiaro ? '#f6f3ec' : t.sfondo; c.fillRect(0, 0, 1000, 1500);
+  c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+  c.fillStyle = chiaro ? '#0b2a55' : '#fff'; c.font = `800 70px ${SANS}`;
+  righe(c, 'Regala alla tua famiglia un TG', 900).forEach((x, i) => c.fillText(x, 500, 120 + i * 82));
+  c.font = `36px ${SANS}`; c.fillStyle = chiaro ? '#3d4450' : t.accento;
+  c.fillText(`Idea regalo · ${t.nome.replace(/^\S+\s/, '')}`, 500, 300);
+  const b = biglietto(tema, famiglia, messaggio);
+  const w = 760, h = w * b.height / b.width, x = 120, y = 340;
+  c.save(); c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 40; c.shadowOffsetY = 14; c.fillStyle = '#000'; c.fillRect(x, y, w, h); c.restore();
+  c.drawImage(b, x, y, w, h);
+  c.fillStyle = chiaro ? '#c8102e' : '#fff'; c.font = `700 34px ${SANS}`;
+  c.fillText('Crea il tuo biglietto gratis su ' + SITO, 500, 1470);
+  return cv.toDataURL('image/png');
+}
+/** Volantino A4 da bacheca (300 dpi) con i biglietti a strappo in basso. */
+function bacheca() {
+  const W = 2480, H = 3508;
+  const [cv, c] = tela(W, H);
+  c.fillStyle = '#f6f3ec'; c.fillRect(0, 0, W, H);
+  c.fillStyle = '#0b2a55'; c.fillRect(0, 0, W, 760);
+  logo(c, 180, 150, 200);
+  c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.fillStyle = '#fff'; c.font = `800 150px ${SANS}`; c.fillText('TG di Famiglia', 440, 300);
+  c.font = `70px ${SANS}`; c.fillStyle = '#cfe0ff'; c.fillText('Il telegiornale personale in 5 minuti', 440, 400);
+  c.textAlign = 'center'; c.fillStyle = '#fff'; c.font = `800 120px ${SERIF}`; c.fillText('Le notizie del giorno, lette per voi', W / 2, 640);
+  // punti
+  c.textAlign = 'left'; c.fillStyle = '#111418'; c.font = `64px ${SANS}`;
+  ['📺  Si preme play e si ascolta, come al telegiornale', '📍  Le notizie della propria città e il meteo', '👵  Pensato per chi non legge bene il telefono', '🎁  Un regalo perfetto per nonni e genitori'].forEach((x, i) => c.fillText(x, 200, 930 + i * 110));
+  // QR
+  const lato = 1050, qx = (W - lato) / 2, qy = 1400;
+  c.fillStyle = '#c8102e'; tondo(c, qx - 40, qy - 40, lato + 80, lato + 80, 70); c.fill();
+  c.fillStyle = '#fff'; tondo(c, qx - 16, qy - 16, lato + 32, lato + 32, 50); c.fill();
+  const qr = qrcode(0, 'M'); qr.addData('https://' + SITO + '/?da=bacheca'); qr.make();
+  const n = qr.getModuleCount(), m = 50, cella = (lato - 2 * m) / n; c.fillStyle = '#0b2a55';
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (qr.isDark(y, x)) c.fillRect(Math.floor(qx + m + x * cella), Math.floor(qy + m + y * cella), Math.ceil(cella), Math.ceil(cella));
+  c.textAlign = 'center'; c.fillStyle = '#0b2a55'; c.font = `800 80px ${SANS}`; c.fillText('Inquadra il QR con la fotocamera', W / 2, 2620);
+  c.font = `60px ${SANS}`; c.fillStyle = '#3d4450'; c.fillText('Gratis i primi 15 giorni · Android e iPhone · senza registrazione', W / 2, 2720);
+  // biglietti a strappo
+  const top = 2860, n2 = 8, lw = W / n2;
+  c.strokeStyle = '#6b7280'; c.lineWidth = 6; c.setLineDash([26, 18]);
+  c.beginPath(); c.moveTo(0, top); c.lineTo(W, top); c.stroke();
+  for (let i = 1; i < n2; i++) { c.beginPath(); c.moveTo(i * lw, top); c.lineTo(i * lw, H); c.stroke(); }
+  c.setLineDash([]);
+  c.font = `700 58px ${SANS}`; c.fillStyle = '#0b2a55';
+  for (let i = 0; i < n2; i++) {
+    c.save(); c.translate(i * lw + lw / 2, top + (H - top) / 2); c.rotate(-Math.PI / 2);
+    c.fillText('TG di Famiglia', 0, -18); c.font = `46px ${SANS}`; c.fillStyle = '#c8102e'; c.fillText(SITO, 0, 44);
+    c.font = `700 58px ${SANS}`; c.fillStyle = '#0b2a55'; c.restore();
+  }
+  c.textAlign = 'center'; c.font = `40px ${SANS}`; c.fillStyle = '#6b7280'; c.fillText('✂  Strappa un biglietto e prova a casa', W / 2, top - 30);
+  const png = cv.toDataURL('image/png');
+  const pdf = new jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+  pdf.addImage(cv.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, 210, 297);
+  pdf.setProperties({ title: 'TG di Famiglia – volantino da bacheca', creator: 'TG di Famiglia', author: 'TG di Famiglia' });
+  return { png, pdf: pdf.output('datauristring') };
+}
+</script>
+</body></html>

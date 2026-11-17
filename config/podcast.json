@@ -1,0 +1,111 @@
+{
+ "_nota": "Podcast italiani di attualità e calcio, cercati con la iTunes Search API (country=it): il titolo deve contenere 'nome' e l'autore 'autore'. 'feedUrl' (facoltativo) salta la ricerca. calcio=true per quelli sul calcio. I podcast locali si cercano da soli per ogni provincia.",
+ "giorni_massimi": 3,
+ "podcast": [
+  {
+   "nome": "Stories",
+   "autore": "Chora",
+   "calcio": false
+  },
+  {
+   "nome": "Il Mondo",
+   "autore": "Internazionale",
+   "calcio": false
+  },
+  {
+   "nome": "Giorno per giorno",
+   "autore": "Corriere della Sera",
+   "calcio": false
+  },
+  {
+   "nome": "SEIETRENTA",
+   "autore": "Chora",
+   "calcio": false
+  },
+  {
+   "nome": "24 Mattino - Rassegna stampa",
+   "autore": "Radio 24",
+   "calcio": false
+  },
+  {
+   "nome": "Effetto notte",
+   "autore": "Radio 24",
+   "calcio": false
+  },
+  {
+   "nome": "Nessun luogo è lontano",
+   "autore": "Radio 24",
+   "calcio": false
+  },
+  {
+   "nome": "Focus economia",
+   "autore": "Radio 24",
+   "calcio": false
+  },
+  {
+   "nome": "Non Stop News",
+   "autore": "RTL 102.5",
+   "calcio": false
+  },
+  {
+   "nome": "ANSA In diretta dal mondo",
+   "autore": "ANSA",
+   "calcio": false
+  },
+  {
+   "nome": "ANSA EconoMIA",
+   "autore": "ANSA",
+   "calcio": false
+  },
+  {
+   "nome": "Sky TG24 Economia",
+   "autore": "Sky TG24",
+   "calcio": false
+  },
+  {
+   "nome": "Globo",
+   "autore": "Il Post",
+   "calcio": false
+  },
+  {
+   "nome": "Stampa e regime",
+   "autore": "Radio Radicale",
+   "calcio": false
+  },
+  {
+   "nome": "La Zanzara",
+   "autore": "Radio 24",
+   "calcio": false
+  },
+  {
+   "nome": "Tutti Convocati",
+   "autore": "Radio 24",
+   "calcio": true
+  },
+  {
+   "nome": "Deejay Football Club",
+   "autore": "Deejay",
+   "calcio": true
+  },
+  {
+   "nome": "Rasoiate",
+   "autore": "Cronache di spogliatoio",
+   "calcio": true
+  },
+  {
+   "nome": "La Tripletta",
+   "autore": "Gazzetta",
+   "calcio": true
+  },
+  {
+   "nome": "In The Box",
+   "autore": "Gazzetta",
+   "calcio": true
+  },
+  {
+   "nome": "Sky Calcio Unplugged",
+   "autore": "Sky Sport",
+   "calcio": true
+  }
+ ]
+}

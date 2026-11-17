@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+/* Link da un biglietto regalo (?famiglia=…) o da una condivisione (?da=…): si va dritti all'app,
+   che legge i parametri e prepara saluto e città. */
+(function () { const q = location.search; if (/[?&](famiglia|citta|da|installa)=/.test(q)) location.replace('app/' + q); })();
+</script>
+<title>Regala alla tua famiglia un TG – TG di Famiglia</title>
+<meta name="description" content="Ogni mattina le notizie più importanti, lette come al telegiornale, con il saluto per la tua famiglia. Gratis. Crea un biglietto regalo con il QR per nonni, papà e mamma.">
+<meta name="theme-color" content="#0b2a55">
+<link rel="canonical" href="https://tg-di-famiglia.pages.dev/">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="app/icons/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="TG di Famiglia">
+<meta property="og:title" content="Regala alla tua famiglia un TG">
+<meta property="og:description" content="Ogni mattina le notizie più importanti, lette come al telegiornale, con il saluto per la tua famiglia. Gratis.">
+<meta property="og:url" content="https://tg-di-famiglia.pages.dev/">
+<meta property="og:image" content="https://tg-di-famiglia.pages.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- PINTEREST: incolla qui il tag di verifica, es. <meta name="p:domain_verify" content="…"/> -->
+<link rel="stylesheet" href="sito.css">
+<script src="statistiche.js"></script>
+<style>
+header.eroe-box{background:#0b2a55;color:#fff;padding:20px 0 50px}
+header .marchio{margin-bottom:26px}
+.eroe{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.eroe h1{color:#fff;font-size:46px;line-height:1.08;margin:0 0 14px}
+.eroe .sotto{color:#fff;opacity:.92;font-size:21px;margin:0 0 22px}
+.nota{font-size:16px;opacity:.85;margin-top:12px}
+.telefono{justify-self:center;width:min(270px,100%);border-radius:30px;border:8px solid #071b38;box-shadow:0 18px 40px rgba(0,0,0,.35);overflow:hidden;background:#071b38}
+.telefono img{display:block;width:100%}
+.tre{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tre .scheda{margin:0}
+.tre h3{margin:6px 0;font-size:21px}
+.tre p{margin:0;color:var(--tenue)}
+.ico{font-size:34px}
+.foto{display:flex;gap:16px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
+.foto figure{margin:0;flex:0 0 220px;scroll-snap-align:start}
+.foto img{width:100%;border-radius:18px;border:1px solid var(--bordo);display:block}
+.foto figcaption{font-size:16px;color:var(--tenue);margin-top:6px;text-align:center}
+.due{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.due .scheda{margin:0}
+details{background:var(--carta);border:1px solid var(--bordo);border-radius:16px;padding:14px 18px;margin-bottom:10px}
+summary{font-weight:800;cursor:pointer;font-size:20px}
+details p{color:var(--tenue);margin:10px 0 0}
+.avviso{background:var(--giallo);border:2px solid #e2c23d;border-radius:14px;padding:14px 18px;font-size:17px}
+.guide a{display:block;margin:6px 0}
+.contenitore.largo{max-width:980px}
+@media (max-width:760px){.eroe{grid-template-columns:1fr}.eroe h1{font-size:36px}.tre,.due{grid-template-columns:1fr}.telefono{width:230px}}
+</style>
+</head>
+<body>
+<header class="eroe-box">
+  <div class="contenitore largo">
+    <a class="marchio" href="./"><span class="logo">TG</span> TG di Famiglia</a>
+    <div class="eroe">
+      <div>
+        <h1>Regala alla tua famiglia un TG</h1>
+        <p class="sotto">Ogni mattina le notizie più importanti, lette come al telegiornale, con il saluto per la tua famiglia. Gratis.</p>
+        <div class="riga-btn" style="max-width:520px">
+          <a class="cta" href="#regalo">🎁 Crea il biglietto regalo</a>
+          <a class="cta" href="app/" style="background:#fff;color:#0b2a55">▶ Apri il TG</a>
+        </div>
+        <p class="nota">Senza registrazione e senza store: <a href="#installa" style="color:#fff">si installa da qui</a> su Android e iPhone · 15 giorni gratis, poi Premium a 1,99 €/mese</p>
+      </div>
+      <div class="telefono"><img src="screenshot/tg.png" alt="Il TG di oggi con il grande tasto play" width="412" height="892"></div>
+    </div>
+  </div>
+</header>
+
+<main class="contenitore largo">
+  <section>
+    <h2>Cosa fa</h2>
+    <div class="tre">
+      <div class="scheda"><div class="ico">📺</div><h3>Un vero TG in 5 minuti</h3><p>Dieci notizie scelte ogni giorno tra le principali testate italiane, raccontate con parole semplici da una voce, con sigla e stacchi. Si ascolta anche a schermo spento.</p></div>
+      <div class="scheda"><div class="ico">👨‍👩‍👧</div><h3>Il saluto per la famiglia</h3><p>«Buongiorno Famiglia Rossi!»: la conduttrice saluta per nome e racconta anche le notizie delle vostre città e della vostra squadra.</p></div>
+      <div class="scheda"><div class="ico">🎧</div><h3>Podcast, radio e meteo</h3><p>Dieci podcast consigliati con due righe di spiegazione, radio per genere e il meteo delle vostre città. In auto basta il Bluetooth.</p></div>
+    </div>
+  </section>
+
+  <section id="regalo">
+    <h2>🎁 Crea il biglietto regalo</h2>
+    <p class="sotto">Scrivi il nome della famiglia e un messaggio, scegli il tema: Natale, Festa del papà, Festa della mamma, compleanno o nonni. Ottieni un biglietto A5 da stampare con il QR al centro e le istruzioni. Chi lo apre trova il saluto già pronto.</p>
+    <div class="scheda" id="generatore"></div>
+  </section>
+
+  <section>
+    <h2>Come si presenta</h2>
+    <div class="foto">
+      <figure><img src="screenshot/demo.png" alt="L'edizione dimostrativa" loading="lazy" width="412" height="892"><figcaption>Prima la demo, senza chiedere niente</figcaption></figure>
+      <figure><img src="screenshot/config.png" alt="La scelta delle città e del calcio" loading="lazy" width="412" height="892"><figcaption>Le vostre città e la vostra squadra</figcaption></figure>
+      <figure><img src="screenshot/notizie.png" alt="Le notizie del giorno con la fonte" loading="lazy" width="412" height="892"><figcaption>Ogni notizia con la sua fonte</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="installa">
+    <h2>📲 Installala sul telefono</h2>
+    <p class="sotto">Nessuno store e nessuna registrazione: TG di Famiglia si mette sulla schermata Home come le altre app, direttamente da qui.</p>
+    <p><a class="cta" href="app/?installa=1">📲 Installa l'app</a></p>
+    <p class="piccolo">Su Android il telefono propone da solo l'installazione; su iPhone ti mostriamo i tre passaggi.</p>
+    <div class="due">
+      <div class="scheda"><h3>🤖 Android (Chrome)</h3><ol><li>Apri <a href="app/">il TG</a> con Chrome.</li><li>Tocca <b>Installa</b> quando compare la richiesta, oppure il menu <b>⋮</b> in alto a destra.</li><li>Scegli <b>«Installa app»</b> oppure <b>«Aggiungi a schermata Home»</b>.</li><li>Trovi l'icona <b>TG</b> sulla schermata Home: toccala e premi ▶.</li></ol></div>
+      <div class="scheda"><h3>🍏 iPhone (Safari)</h3><ol><li>Apri <a href="app/">il TG</a> con Safari.</li><li>Tocca il tasto <b>Condividi</b> (il quadrato con la freccia in su, in basso).</li><li>Scorri e scegli <b>«Aggiungi alla schermata Home»</b>, poi <b>Aggiungi</b>.</li><li>Trovi l'icona <b>TG</b> sulla schermata Home: toccala e premi ▶.</li></ol></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Domande frequenti</h2>
+    <details><summary>È gratis?</summary><p>I primi 15 giorni sono gratis, con tutte le funzioni, a partire dal primo TG ascoltato. Poi si continua con Premium a 1,99 € al mese, che si disdice quando si vuole. La demo, il biglietto regalo e la condivisione restano sempre gratuiti. Nessuna pubblicità.</p></details>
+    <details><summary>Perché serve una chiave Google?</summary><p>Il TG è scritto ogni mattina dall'intelligenza artificiale di Google (Gemini). La chiave è il tuo accesso personale e gratuito a Gemini: si crea in un minuto su aistudio.google.com con il tuo account Google, senza carta di credito, e l'app ti guida passo passo. Prima di inserirla puoi guardare la demo.</p></details>
+    <details><summary>I miei dati dove finiscono?</summary><p>Restano sul tuo telefono: nome, città, squadra e chiave non vengono inviati a nessun nostro server. La chiave viene usata solo per parlare con Google. Contiamo in forma anonima, senza cookie, quante persone usano l'app. Tutti i dettagli nella <a href="privacy.html">privacy policy</a>.</p></details>
+    <details><summary>Le notizie sono affidabili?</summary><p>Le notizie sono riassunti scritti dall'intelligenza artificiale a partire da articoli di testate giornalistiche, sempre con il nome della fonte e il link all'articolo originale. L'AI può sbagliare: per i dettagli verifica sempre sulla fonte.</p></details>
+  </section>
+
+  <section class="guide">
+    <h2>Guide e idee</h2>
+    <a href="guide/idee-regalo-nonni.html">🎁 Idee regalo originali per i nonni</a>
+    <a href="guide/regalo-natale-papa-notizie.html">🎄 Regalo di Natale per papà che ama le notizie</a>
+    <a href="guide/notizie-per-chi-non-legge-bene-il-telefono.html">🔊 Come far ascoltare le notizie a chi non legge bene il telefono</a>
+  </section>
+
+  <section>
+    <p class="avviso">ℹ️ TG di Famiglia non è una testata giornalistica: le notizie sono riassunti generati automaticamente dall'intelligenza artificiale con il link alle fonti originali e possono contenere errori. Verificale sempre sulle fonti.</p>
+    <p style="text-align:center;margin-top:28px"><a class="cta" href="app/">▶ Apri il TG</a></p>
+  </section>
+</main>
+
+<footer>
+  <a href="privacy.html">Privacy</a> · <a href="stampa/">Stampa</a> · <a href="regalo.html">Biglietto regalo</a> · <a href="mailto:tgdifamiglia.app@gmail.com">Contatti</a><span id="caffe"></span>
+  <p>TG di Famiglia · fatto con cura in Italia</p>
+</footer>
+<script src="regalo.js"></script>
+<script>
+RegaloTG.monta(document.getElementById('generatore'), { radice: './' });
+fetch('config.json').then((r) => r.json()).then((c) => {
+  if (c.kofi_caffe) document.getElementById('caffe').innerHTML = ` · <a href="${c.kofi_caffe}" target="_blank" rel="noopener">☕ Offrici un caffè</a>`;
+}).catch(() => {});
+document.querySelectorAll('a[href="app/"]').forEach((a) => a.addEventListener('click', () => window.evento('apri-dalla-landing')));
+</script>
+</body>
+</html>

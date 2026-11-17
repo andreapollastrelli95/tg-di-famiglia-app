@@ -1,0 +1,29 @@
+:root{--sfondo:#f6f3ec;--carta:#fff;--testo:#111418;--tenue:#3d4450;--bordo:#d5d0c4;--blu:#0b2a55;--blu-chiaro:#e3eaf5;--rosso:#c8102e;--giallo:#fff4c2;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sfondo:#0d1117;--carta:#171c24;--testo:#f4f6fa;--tenue:#c3c9d4;--bordo:#323a47;--blu:#8fb4ff;--blu-chiaro:#1c2a44;--rosso:#ff4d63;--giallo:#3a3210;color-scheme:dark}}
+:root[data-theme="dark"]{--sfondo:#0d1117;--carta:#171c24;--testo:#f4f6fa;--tenue:#c3c9d4;--bordo:#323a47;--blu:#8fb4ff;--blu-chiaro:#1c2a44;--rosso:#ff4d63;--giallo:#3a3210;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sfondo);color:var(--testo);font:19px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--blu)}
+.contenitore{max-width:860px;margin:0 auto;padding:0 16px}
+.testata{background:#0b2a55;color:#fff;padding:16px 0}
+.marchio{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:21px;color:#fff;text-decoration:none}
+.logo{width:42px;height:42px;border-radius:10px;background:#c8102e;display:inline-grid;place-items:center;font-weight:900}
+main{padding:26px 16px 60px}
+h1{font-size:34px;line-height:1.15;color:var(--blu);margin:0 0 12px}
+h2{font-size:25px;color:var(--blu);margin:30px 0 10px}
+.sotto{font-size:20px;color:var(--tenue)}
+.scheda{background:var(--carta);border:1px solid var(--bordo);border-radius:18px;padding:20px;margin:16px 0}
+.piccolo{font-size:16px;color:var(--tenue)}
+.campo{display:block;width:100%;font:inherit;font-size:19px;padding:12px;border-radius:12px;border:2px solid var(--blu);background:var(--carta);color:var(--testo);margin:6px 0 14px}
+.btn{min-height:54px;padding:10px 18px;border-radius:14px;border:2px solid var(--blu);background:var(--carta);color:var(--blu);font:inherit;font-weight:700;font-size:18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;cursor:pointer}
+.btn.pieno{background:var(--blu);color:var(--carta)}
+.btn.rosso{background:var(--rosso);border-color:var(--rosso);color:#fff}
+.btn.whatsapp{background:#1fa855;border-color:#1fa855;color:#fff}
+.btn.attiva{background:var(--blu);color:var(--carta)}
+.riga-btn{display:flex;gap:10px;flex-wrap:wrap}
+.riga-btn .btn{flex:1 1 200px}
+.regalo-temi{display:flex;flex-wrap:wrap;gap:8px}
+.regalo-temi .btn{flex:1 1 150px;min-height:50px;font-size:17px}
+.cta{display:inline-flex;align-items:center;gap:10px;background:#c8102e;color:#fff;text-decoration:none;font-weight:800;font-size:21px;padding:15px 26px;border-radius:16px}
+article p{margin:0 0 14px}
+footer{padding:30px 0 46px;color:var(--tenue);font-size:16px;text-align:center}

@@ -1,0 +1,42 @@
+[
+ {
+  "n": 1,
+  "nome": "Classico"
+ },
+ {
+  "n": 2,
+  "nome": "Sinfonico"
+ },
+ {
+  "n": 3,
+  "nome": "Elettronico"
+ },
+ {
+  "n": 4,
+  "nome": "Pianoforte"
+ },
+ {
+  "n": 5,
+  "nome": "Fanfara"
+ },
+ {
+  "n": 6,
+  "nome": "Serale"
+ },
+ {
+  "n": 7,
+  "nome": "Ultima ora"
+ },
+ {
+  "n": 8,
+  "nome": "Mattino"
+ },
+ {
+  "n": 9,
+  "nome": "Notturno"
+ },
+ {
+  "n": 10,
+  "nome": "Avventura"
+ }
+]

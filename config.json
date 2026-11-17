@@ -1,0 +1,12 @@
+{
+ "_nota": "Impostazioni pubbliche dell'app (lette dal telefono). PREMIUM_ENABLED=false spegne prova, avvisi e blocco: l'app resta gratis per tutti.",
+ "PREMIUM_ENABLED": true,
+ "giorni_prova": 15,
+ "giorno_donazione": 3,
+ "giorno_avviso": 12,
+ "prezzo": "1,99 €/mese",
+ "sito": "https://tg-di-famiglia.pages.dev",
+ "email": "tgdifamiglia.app@gmail.com",
+ "kofi_caffe": "https://ko-fi.com/tgdifamiglia",
+ "kofi_abbonamento": "https://ko-fi.com/tgdifamiglia/tiers"
+}

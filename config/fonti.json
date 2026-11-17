@@ -1,0 +1,159 @@
+{
+ "_nota": "Feed RSS nazionali. categoria: generale (attualità) | sport | calcio. Le notizie locali delle province e quelle delle squadre arrivano da Google News (vedi config/province.json e config/squadre.json). Se un feed non risponde viene saltato; 'ore_massime' indica quanto possono essere vecchie le notizie.",
+ "ore_massime": 30,
+ "max_per_feed": 25,
+ "feed": [
+  {
+   "fonte": "ANSA",
+   "categoria": "generale",
+   "url": "https://www.ansa.it/sito/notizie/topnews/topnews_rss.xml"
+  },
+  {
+   "fonte": "ANSA",
+   "categoria": "generale",
+   "url": "https://www.ansa.it/sito/notizie/politica/politica_rss.xml"
+  },
+  {
+   "fonte": "ANSA",
+   "categoria": "generale",
+   "url": "https://www.ansa.it/sito/notizie/economia/economia_rss.xml"
+  },
+  {
+   "fonte": "ANSA",
+   "categoria": "generale",
+   "url": "https://www.ansa.it/sito/notizie/mondo/mondo_rss.xml"
+  },
+  {
+   "fonte": "ANSA",
+   "categoria": "generale",
+   "url": "https://www.ansa.it/sito/notizie/cronaca/cronaca_rss.xml"
+  },
+  {
+   "fonte": "ANSA",
+   "categoria": "generale",
+   "url": "https://www.ansa.it/canale_scienza_tecnica/notizie/scienzaetecnica_rss.xml"
+  },
+  {
+   "fonte": "Rai News",
+   "categoria": "generale",
+   "url": "https://www.rainews.it/rss/tutti"
+  },
+  {
+   "fonte": "Rai News",
+   "categoria": "generale",
+   "url": "https://www.rainews.it/rss/politica"
+  },
+  {
+   "fonte": "Rai News",
+   "categoria": "generale",
+   "url": "https://www.rainews.it/rss/esteri"
+  },
+  {
+   "fonte": "Il Post",
+   "categoria": "generale",
+   "url": "https://www.ilpost.it/feed"
+  },
+  {
+   "fonte": "Sky TG24",
+   "categoria": "generale",
+   "url": "https://tg24.sky.it/rss/tg24.xml"
+  },
+  {
+   "fonte": "Corriere della Sera",
+   "categoria": "generale",
+   "url": "https://www.corriere.it/dynamic-feed/rss/section/Politica.xml"
+  },
+  {
+   "fonte": "Corriere della Sera",
+   "categoria": "generale",
+   "url": "https://www.corriere.it/dynamic-feed/rss/section/Esteri.xml"
+  },
+  {
+   "fonte": "la Repubblica",
+   "categoria": "generale",
+   "url": "https://www.repubblica.it/rss/homepage/rss2.0.xml"
+  },
+  {
+   "fonte": "la Repubblica",
+   "categoria": "generale",
+   "url": "https://www.repubblica.it/rss/esteri/rss2.0.xml"
+  },
+  {
+   "fonte": "Il Sole 24 Ore",
+   "categoria": "generale",
+   "url": "https://www.ilsole24ore.com/rss/italia.xml"
+  },
+  {
+   "fonte": "Il Sole 24 Ore",
+   "categoria": "generale",
+   "url": "https://www.ilsole24ore.com/rss/economia.xml"
+  },
+  {
+   "fonte": "Il Sole 24 Ore",
+   "categoria": "generale",
+   "url": "https://www.ilsole24ore.com/rss/mondo.xml"
+  },
+  {
+   "fonte": "ANSA Sport",
+   "categoria": "sport",
+   "url": "https://www.ansa.it/sito/notizie/sport/sport_rss.xml"
+  },
+  {
+   "fonte": "ANSA Calcio",
+   "categoria": "sport",
+   "url": "https://www.ansa.it/sito/notizie/sport/calcio/calcio_rss.xml"
+  },
+  {
+   "fonte": "La Gazzetta dello Sport",
+   "categoria": "sport",
+   "url": "https://www.gazzetta.it/dynamic-feed/rss/section/Calcio.xml"
+  },
+  {
+   "fonte": "Corriere dello Sport",
+   "categoria": "sport",
+   "url": "https://www.corrieredellosport.it/rss/calcio/serie-a"
+  },
+  {
+   "fonte": "Corriere dello Sport",
+   "categoria": "sport",
+   "url": "https://www.corrieredellosport.it/rss/calcio/champions-league"
+  },
+  {
+   "fonte": "La Gazzetta dello Sport",
+   "categoria": "calcio",
+   "url": "https://www.gazzetta.it/dynamic-feed/rss/section/Calcio/Serie-A.xml"
+  },
+  {
+   "fonte": "La Gazzetta dello Sport",
+   "categoria": "calcio",
+   "ore_massime": 72,
+   "url": "https://www.gazzetta.it/dynamic-feed/rss/section/Calcio/Champions-League.xml"
+  },
+  {
+   "fonte": "Tuttosport",
+   "categoria": "calcio",
+   "url": "https://www.tuttosport.com/rss/calcio/serie-a"
+  },
+  {
+   "fonte": "Tuttosport",
+   "categoria": "calcio",
+   "ore_massime": 48,
+   "url": "https://www.tuttosport.com/rss/calcio/calciomercato"
+  },
+  {
+   "fonte": "Corriere dello Sport",
+   "categoria": "calcio",
+   "url": "https://www.corrieredellosport.it/rss/calcio/serie-a"
+  },
+  {
+   "fonte": "TuttoMercatoWeb",
+   "categoria": "calcio",
+   "url": "https://www.tuttomercatoweb.com/rss"
+  },
+  {
+   "fonte": "ANSA Calcio",
+   "categoria": "calcio",
+   "url": "https://www.ansa.it/sito/notizie/sport/calcio/calcio_rss.xml"
+  }
+ ]
+}

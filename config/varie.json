@@ -1,0 +1,55 @@
+{
+ "_nota": "Guida TV della prima serata (canali nazionali).",
+ "tv": {
+  "url": [
+   "https://www.staseraintv.com/",
+   "https://www.staseraintv.com/index2.html"
+  ],
+  "canali": [
+   "LA7",
+   "La 7",
+   "NOVE",
+   "Rai 1",
+   "Rai 2",
+   "Rai 3",
+   "Rete 4",
+   "Canale 5",
+   "Italia 1",
+   "La7",
+   "TV8",
+   "Nove",
+   "20",
+   "Iris",
+   "Rai Movie",
+   "Rai 4",
+   "La5",
+   "Cielo",
+   "Real Time"
+  ]
+ },
+ "radio_preferite": [
+  {
+   "nome": "RTL 102.5",
+   "url": "https://dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S97044836/tbbP8T1ZRPBL/playlist_audio.m3u8",
+   "tipo": "hls"
+  },
+  {
+   "nome": "Radio Deejay",
+   "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/radiodeejay/radiodeejay/master_ma.m3u8",
+   "tipo": "hls"
+  },
+  {
+   "nome": "RDS",
+   "url": "https://icstream.rds.radio/rds"
+  },
+  {
+   "nome": "Radio Italia",
+   "url": "https://radioitaliasmi.akamaized.net/hls/live/2093120/RISMI/stream01/streamPlaylist.m3u8",
+   "tipo": "hls"
+  },
+  {
+   "nome": "Radio 105",
+   "url": "https://icecast.unitedradio.it/Radio105.mp3"
+  }
+ ]
+}

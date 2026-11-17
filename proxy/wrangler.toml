@@ -1,0 +1,12 @@
+name = "tg-di-famiglia-proxy"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+
+[vars]
+ORIGINE_APP = "https://tg-di-famiglia.pages.dev"
+
+# Crea il namespace con:  npx wrangler kv namespace create LIMITI
+# e incolla qui sotto l'id che ti viene restituito.
+[[kv_namespaces]]
+binding = "LIMITI"
+id = "INCOLLA-QUI-L-ID-DEL-NAMESPACE"

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Biglietto regalo – TG di Famiglia</title>
+<meta name="description" content="Crea gratis un biglietto regalo stampabile con il QR del TG di Famiglia: Natale, Festa del papà, Festa della mamma, compleanno, nonni.">
+<meta name="theme-color" content="#0b2a55">
+<link rel="canonical" href="https://tg-di-famiglia.pages.dev/regalo.html">
+<link rel="icon" href="favicon.png" type="image/png">
+<meta property="og:title" content="Regala alla tua famiglia un TG">
+<meta property="og:description" content="Crea gratis un biglietto regalo con il QR: chi lo riceve ascolta ogni mattina le notizie lette come al telegiornale.">
+<meta property="og:image" content="https://tg-di-famiglia.pages.dev/og-image.png">
+<link rel="stylesheet" href="sito.css">
+<script src="statistiche.js"></script>
+</head>
+<body>
+<header class="testata"><div class="contenitore"><a class="marchio" href="./"><span class="logo">TG</span> TG di Famiglia</a></div></header>
+<main class="contenitore">
+  <h1>🎁 Crea il biglietto regalo</h1>
+  <p class="sotto">Scrivi il nome della famiglia e un messaggio, scegli il tema: ottieni un biglietto A5 da stampare con il QR al centro. Chi lo inquadra si ritrova il saluto e le città già pronti. È gratis.</p>
+  <div class="scheda" id="regalo"></div>
+  <p class="piccolo">Il nome e le città finiscono solo nel link del QR: non vengono salvati da nessuna parte.</p>
+  <p><a href="app/">← Torna al TG</a></p>
+</main>
+<script src="regalo.js"></script>
+<script>RegaloTG.monta(document.getElementById('regalo'), { radice: './' });</script>
+</body>
+</html>

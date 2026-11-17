@@ -1,0 +1,753 @@
+{
+ "AG": {
+  "nome": "Agrigento",
+  "regione": "Sicilia",
+  "capoluoghi": [
+   "Agrigento"
+  ]
+ },
+ "AL": {
+  "nome": "Alessandria",
+  "regione": "Piemonte",
+  "capoluoghi": [
+   "Alessandria"
+  ]
+ },
+ "AN": {
+  "nome": "Ancona",
+  "regione": "Marche",
+  "capoluoghi": [
+   "Ancona"
+  ]
+ },
+ "AO": {
+  "nome": "Valle d'Aosta/Vallée d'Aoste",
+  "regione": "Valle d'Aosta/Vallée d'Aoste",
+  "capoluoghi": [
+   "Aosta"
+  ]
+ },
+ "AP": {
+  "nome": "Ascoli Piceno",
+  "regione": "Marche",
+  "capoluoghi": [
+   "Ascoli Piceno"
+  ]
+ },
+ "AQ": {
+  "nome": "L'Aquila",
+  "regione": "Abruzzo",
+  "capoluoghi": [
+   "L'Aquila"
+  ]
+ },
+ "AR": {
+  "nome": "Arezzo",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Arezzo"
+  ]
+ },
+ "AT": {
+  "nome": "Asti",
+  "regione": "Piemonte",
+  "capoluoghi": [
+   "Asti"
+  ]
+ },
+ "AV": {
+  "nome": "Avellino",
+  "regione": "Campania",
+  "capoluoghi": [
+   "Avellino"
+  ]
+ },
+ "BA": {
+  "nome": "Bari",
+  "regione": "Puglia",
+  "capoluoghi": [
+   "Bari"
+  ]
+ },
+ "BG": {
+  "nome": "Bergamo",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Bergamo"
+  ]
+ },
+ "BI": {
+  "nome": "Biella",
+  "regione": "Piemonte",
+  "capoluoghi": [
+   "Biella"
+  ]
+ },
+ "BL": {
+  "nome": "Belluno",
+  "regione": "Veneto",
+  "capoluoghi": [
+   "Belluno"
+  ]
+ },
+ "BN": {
+  "nome": "Benevento",
+  "regione": "Campania",
+  "capoluoghi": [
+   "Benevento"
+  ]
+ },
+ "BO": {
+  "nome": "Bologna",
+  "regione": "Emilia-Romagna",
+  "capoluoghi": [
+   "Bologna"
+  ]
+ },
+ "BR": {
+  "nome": "Brindisi",
+  "regione": "Puglia",
+  "capoluoghi": [
+   "Brindisi"
+  ]
+ },
+ "BS": {
+  "nome": "Brescia",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Brescia"
+  ]
+ },
+ "BT": {
+  "nome": "Barletta-Andria-Trani",
+  "regione": "Puglia",
+  "capoluoghi": [
+   "Andria",
+   "Barletta",
+   "Trani"
+  ]
+ },
+ "BZ": {
+  "nome": "Bolzano/Bozen",
+  "regione": "Trentino-Alto Adige/Südtirol",
+  "capoluoghi": [
+   "Bolzano"
+  ]
+ },
+ "CA": {
+  "nome": "Cagliari",
+  "regione": "Sardegna",
+  "capoluoghi": [
+   "Cagliari"
+  ]
+ },
+ "CB": {
+  "nome": "Campobasso",
+  "regione": "Molise",
+  "capoluoghi": [
+   "Campobasso"
+  ]
+ },
+ "CE": {
+  "nome": "Caserta",
+  "regione": "Campania",
+  "capoluoghi": [
+   "Caserta"
+  ]
+ },
+ "CH": {
+  "nome": "Chieti",
+  "regione": "Abruzzo",
+  "capoluoghi": [
+   "Chieti"
+  ]
+ },
+ "CL": {
+  "nome": "Caltanissetta",
+  "regione": "Sicilia",
+  "capoluoghi": [
+   "Caltanissetta"
+  ]
+ },
+ "CN": {
+  "nome": "Cuneo",
+  "regione": "Piemonte",
+  "capoluoghi": [
+   "Cuneo"
+  ]
+ },
+ "CO": {
+  "nome": "Como",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Como"
+  ]
+ },
+ "CR": {
+  "nome": "Cremona",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Cremona"
+  ]
+ },
+ "CS": {
+  "nome": "Cosenza",
+  "regione": "Calabria",
+  "capoluoghi": [
+   "Cosenza"
+  ]
+ },
+ "CT": {
+  "nome": "Catania",
+  "regione": "Sicilia",
+  "capoluoghi": [
+   "Catania"
+  ]
+ },
+ "CZ": {
+  "nome": "Catanzaro",
+  "regione": "Calabria",
+  "capoluoghi": [
+   "Catanzaro"
+  ]
+ },
+ "EN": {
+  "nome": "Enna",
+  "regione": "Sicilia",
+  "capoluoghi": [
+   "Enna"
+  ]
+ },
+ "FC": {
+  "nome": "Forlì-Cesena",
+  "regione": "Emilia-Romagna",
+  "capoluoghi": [
+   "Forlì"
+  ]
+ },
+ "FE": {
+  "nome": "Ferrara",
+  "regione": "Emilia-Romagna",
+  "capoluoghi": [
+   "Ferrara"
+  ]
+ },
+ "FG": {
+  "nome": "Foggia",
+  "regione": "Puglia",
+  "capoluoghi": [
+   "Foggia"
+  ]
+ },
+ "FI": {
+  "nome": "Firenze",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Firenze"
+  ]
+ },
+ "FM": {
+  "nome": "Fermo",
+  "regione": "Marche",
+  "capoluoghi": [
+   "Fermo"
+  ]
+ },
+ "FR": {
+  "nome": "Frosinone",
+  "regione": "Lazio",
+  "capoluoghi": [
+   "Frosinone"
+  ]
+ },
+ "GE": {
+  "nome": "Genova",
+  "regione": "Liguria",
+  "capoluoghi": [
+   "Genova"
+  ]
+ },
+ "GO": {
+  "nome": "Gorizia",
+  "regione": "Friuli-Venezia Giulia",
+  "capoluoghi": [
+   "Gorizia"
+  ]
+ },
+ "GR": {
+  "nome": "Grosseto",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Grosseto"
+  ]
+ },
+ "IM": {
+  "nome": "Imperia",
+  "regione": "Liguria",
+  "capoluoghi": [
+   "Imperia"
+  ]
+ },
+ "IS": {
+  "nome": "Isernia",
+  "regione": "Molise",
+  "capoluoghi": [
+   "Isernia"
+  ]
+ },
+ "KR": {
+  "nome": "Crotone",
+  "regione": "Calabria",
+  "capoluoghi": [
+   "Crotone"
+  ]
+ },
+ "LC": {
+  "nome": "Lecco",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Lecco"
+  ]
+ },
+ "LE": {
+  "nome": "Lecce",
+  "regione": "Puglia",
+  "capoluoghi": [
+   "Lecce"
+  ]
+ },
+ "LI": {
+  "nome": "Livorno",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Livorno"
+  ]
+ },
+ "LO": {
+  "nome": "Lodi",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Lodi"
+  ]
+ },
+ "LT": {
+  "nome": "Latina",
+  "regione": "Lazio",
+  "capoluoghi": [
+   "Latina"
+  ]
+ },
+ "LU": {
+  "nome": "Lucca",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Lucca"
+  ]
+ },
+ "MB": {
+  "nome": "Monza e della Brianza",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Monza"
+  ]
+ },
+ "MC": {
+  "nome": "Macerata",
+  "regione": "Marche",
+  "capoluoghi": [
+   "Macerata"
+  ]
+ },
+ "ME": {
+  "nome": "Messina",
+  "regione": "Sicilia",
+  "capoluoghi": [
+   "Messina"
+  ]
+ },
+ "MI": {
+  "nome": "Milano",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Milano"
+  ]
+ },
+ "MN": {
+  "nome": "Mantova",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Mantova"
+  ]
+ },
+ "MO": {
+  "nome": "Modena",
+  "regione": "Emilia-Romagna",
+  "capoluoghi": [
+   "Modena"
+  ]
+ },
+ "MS": {
+  "nome": "Massa-Carrara",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Massa"
+  ]
+ },
+ "MT": {
+  "nome": "Matera",
+  "regione": "Basilicata",
+  "capoluoghi": [
+   "Matera"
+  ]
+ },
+ "NA": {
+  "nome": "Napoli",
+  "regione": "Campania",
+  "capoluoghi": [
+   "Napoli"
+  ]
+ },
+ "NO": {
+  "nome": "Novara",
+  "regione": "Piemonte",
+  "capoluoghi": [
+   "Novara"
+  ]
+ },
+ "NU": {
+  "nome": "Nuoro",
+  "regione": "Sardegna",
+  "capoluoghi": [
+   "Nuoro"
+  ]
+ },
+ "OR": {
+  "nome": "Oristano",
+  "regione": "Sardegna",
+  "capoluoghi": [
+   "Oristano"
+  ]
+ },
+ "PA": {
+  "nome": "Palermo",
+  "regione": "Sicilia",
+  "capoluoghi": [
+   "Palermo"
+  ]
+ },
+ "PC": {
+  "nome": "Piacenza",
+  "regione": "Emilia-Romagna",
+  "capoluoghi": [
+   "Piacenza"
+  ]
+ },
+ "PD": {
+  "nome": "Padova",
+  "regione": "Veneto",
+  "capoluoghi": [
+   "Padova"
+  ]
+ },
+ "PE": {
+  "nome": "Pescara",
+  "regione": "Abruzzo",
+  "capoluoghi": [
+   "Pescara"
+  ]
+ },
+ "PG": {
+  "nome": "Perugia",
+  "regione": "Umbria",
+  "capoluoghi": [
+   "Perugia"
+  ]
+ },
+ "PI": {
+  "nome": "Pisa",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Pisa"
+  ]
+ },
+ "PN": {
+  "nome": "Pordenone",
+  "regione": "Friuli-Venezia Giulia",
+  "capoluoghi": [
+   "Pordenone"
+  ]
+ },
+ "PO": {
+  "nome": "Prato",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Prato"
+  ]
+ },
+ "PR": {
+  "nome": "Parma",
+  "regione": "Emilia-Romagna",
+  "capoluoghi": [
+   "Parma"
+  ]
+ },
+ "PT": {
+  "nome": "Pistoia",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Pistoia"
+  ]
+ },
+ "PU": {
+  "nome": "Pesaro e Urbino",
+  "regione": "Marche",
+  "capoluoghi": [
+   "Pesaro"
+  ]
+ },
+ "PV": {
+  "nome": "Pavia",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Pavia"
+  ]
+ },
+ "PZ": {
+  "nome": "Potenza",
+  "regione": "Basilicata",
+  "capoluoghi": [
+   "Potenza"
+  ]
+ },
+ "RA": {
+  "nome": "Ravenna",
+  "regione": "Emilia-Romagna",
+  "capoluoghi": [
+   "Ravenna"
+  ]
+ },
+ "RC": {
+  "nome": "Reggio Calabria",
+  "regione": "Calabria",
+  "capoluoghi": [
+   "Reggio di Calabria"
+  ]
+ },
+ "RE": {
+  "nome": "Reggio nell'Emilia",
+  "regione": "Emilia-Romagna",
+  "capoluoghi": [
+   "Reggio nell'Emilia"
+  ]
+ },
+ "RG": {
+  "nome": "Ragusa",
+  "regione": "Sicilia",
+  "capoluoghi": [
+   "Ragusa"
+  ]
+ },
+ "RI": {
+  "nome": "Rieti",
+  "regione": "Lazio",
+  "capoluoghi": [
+   "Rieti"
+  ]
+ },
+ "RM": {
+  "nome": "Roma",
+  "regione": "Lazio",
+  "capoluoghi": [
+   "Roma"
+  ]
+ },
+ "RN": {
+  "nome": "Rimini",
+  "regione": "Emilia-Romagna",
+  "capoluoghi": [
+   "Rimini"
+  ]
+ },
+ "RO": {
+  "nome": "Rovigo",
+  "regione": "Veneto",
+  "capoluoghi": [
+   "Rovigo"
+  ]
+ },
+ "SA": {
+  "nome": "Salerno",
+  "regione": "Campania",
+  "capoluoghi": [
+   "Salerno"
+  ]
+ },
+ "SI": {
+  "nome": "Siena",
+  "regione": "Toscana",
+  "capoluoghi": [
+   "Siena"
+  ]
+ },
+ "SO": {
+  "nome": "Sondrio",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Sondrio"
+  ]
+ },
+ "SP": {
+  "nome": "La Spezia",
+  "regione": "Liguria",
+  "capoluoghi": [
+   "La Spezia"
+  ]
+ },
+ "SR": {
+  "nome": "Siracusa",
+  "regione": "Sicilia",
+  "capoluoghi": [
+   "Siracusa"
+  ]
+ },
+ "SS": {
+  "nome": "Sassari",
+  "regione": "Sardegna",
+  "capoluoghi": [
+   "Sassari"
+  ]
+ },
+ "SU": {
+  "nome": "Sud Sardegna",
+  "regione": "Sardegna",
+  "capoluoghi": [
+   "Carbonia"
+  ]
+ },
+ "SV": {
+  "nome": "Savona",
+  "regione": "Liguria",
+  "capoluoghi": [
+   "Savona"
+  ]
+ },
+ "TA": {
+  "nome": "Taranto",
+  "regione": "Puglia",
+  "capoluoghi": [
+   "Taranto"
+  ]
+ },
+ "TE": {
+  "nome": "Teramo",
+  "regione": "Abruzzo",
+  "capoluoghi": [
+   "Teramo"
+  ]
+ },
+ "TN": {
+  "nome": "Trento",
+  "regione": "Trentino-Alto Adige/Südtirol",
+  "capoluoghi": [
+   "Trento"
+  ]
+ },
+ "TO": {
+  "nome": "Torino",
+  "regione": "Piemonte",
+  "capoluoghi": [
+   "Torino"
+  ]
+ },
+ "TP": {
+  "nome": "Trapani",
+  "regione": "Sicilia",
+  "capoluoghi": [
+   "Trapani"
+  ]
+ },
+ "TR": {
+  "nome": "Terni",
+  "regione": "Umbria",
+  "capoluoghi": [
+   "Terni"
+  ]
+ },
+ "TS": {
+  "nome": "Trieste",
+  "regione": "Friuli-Venezia Giulia",
+  "capoluoghi": [
+   "Trieste"
+  ]
+ },
+ "TV": {
+  "nome": "Treviso",
+  "regione": "Veneto",
+  "capoluoghi": [
+   "Treviso"
+  ]
+ },
+ "UD": {
+  "nome": "Udine",
+  "regione": "Friuli-Venezia Giulia",
+  "capoluoghi": [
+   "Udine"
+  ]
+ },
+ "VA": {
+  "nome": "Varese",
+  "regione": "Lombardia",
+  "capoluoghi": [
+   "Varese"
+  ]
+ },
+ "VB": {
+  "nome": "Verbano-Cusio-Ossola",
+  "regione": "Piemonte",
+  "capoluoghi": [
+   "Verbania"
+  ]
+ },
+ "VC": {
+  "nome": "Vercelli",
+  "regione": "Piemonte",
+  "capoluoghi": [
+   "Vercelli"
+  ]
+ },
+ "VE": {
+  "nome": "Venezia",
+  "regione": "Veneto",
+  "capoluoghi": [
+   "Venezia"
+  ]
+ },
+ "VI": {
+  "nome": "Vicenza",
+  "regione": "Veneto",
+  "capoluoghi": [
+   "Vicenza"
+  ]
+ },
+ "VR": {
+  "nome": "Verona",
+  "regione": "Veneto",
+  "capoluoghi": [
+   "Verona"
+  ]
+ },
+ "VT": {
+  "nome": "Viterbo",
+  "regione": "Lazio",
+  "capoluoghi": [
+   "Viterbo"
+  ]
+ },
+ "VV": {
+  "nome": "Vibo Valentia",
+  "regione": "Calabria",
+  "capoluoghi": [
+   "Vibo Valentia"
+  ]
+ }
+}
