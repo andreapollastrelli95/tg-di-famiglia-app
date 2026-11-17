@@ -20,5 +20,5 @@ jobs:
         env:
           HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
         run: |
-          if [ -z "$HOOK" ]; then echo "Manca il segreto CF_DEPLOY_HOOK (vedi PUBBLICAZIONE.md)"; exit 1; fi
+          if [ -z "$HOOK" ]; then echo "::warning::Manca il segreto CF_DEPLOY_HOOK (vedi PUBBLICAZIONE.md)"; exit 0; fi
           curl -fsS -X POST "$HOOK" > /dev/null && echo "Build avviata"
