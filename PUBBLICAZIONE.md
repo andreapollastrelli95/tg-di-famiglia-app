@@ -13,7 +13,7 @@ notizie del giorno** (Python, nessuna chiave). Ogni mattina un workflow di GitHu
 ## 1. Account Cloudflare (gratuito)
 
 1. Vai su [dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up) e registrati con l'email del
-   brand (es. `tgdifamiglia.app@gmail.com`). Conferma l'email.
+   brand. Conferma l'email.
 2. Non serve aggiungere un dominio né una carta di credito.
 
 ## 2. Creare il progetto Pages collegato a GitHub
@@ -72,9 +72,8 @@ Le intestazioni HTTP (service worker sempre aggiornato, manifest, dati non in ca
 
 | Segnaposto | Dove | Cosa fare |
 |---|---|---|
-| `TUO-CODICE` (GoatCounter) | `statistiche.js`, `app/index.html` (riga `GOATCOUNTER_CODICE`) | crea l'account su goatcounter.com con il codice scelto (es. `tgdifamiglia`) |
+| GoatCounter: `tgdifamiglia` (già inserito) | `statistiche.js`, `app/index.html` (riga `GOATCOUNTER_CODICE`) | statistiche su https://tgdifamiglia.goatcounter.com |
 | `https://ko-fi.com/tgdifamiglia` | `config.json` (`kofi_caffe`, `kofi_abbonamento`) | crea la pagina Ko-fi con quel nome e il livello di membership "Premium" a 1,99 €/mese |
-| `tgdifamiglia.app@gmail.com` | landing, privacy, stampa, app | crea la casella Gmail del brand |
 
 Dopo ogni modifica: commit e push su `main` → Cloudflare ripubblica da solo.
 

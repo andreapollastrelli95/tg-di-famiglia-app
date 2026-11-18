@@ -31,8 +31,8 @@ rep('''<meta name="format-detection" content="telephone=no">''', '''<meta name="
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <script>
 /* Statistiche anonime senza cookie (GoatCounter). Finché il codice è il segnaposto non parte niente. */
-window.GOATCOUNTER_CODICE = 'TUO-CODICE';
-if (!/TUO-CODICE/.test(window.GOATCOUNTER_CODICE)) {
+window.GOATCOUNTER_CODICE = 'tgdifamiglia';
+if (window.GOATCOUNTER_CODICE) {
   const sc = document.createElement('script');
   sc.async = true; sc.src = 'https://gc.zgo.at/count.js';
   sc.dataset.goatcounter = `https://${window.GOATCOUNTER_CODICE}.goatcounter.com/count`;
@@ -579,7 +579,7 @@ rep("""  <div class="riga-btn"><button class="btn pieno" id="modificaPreferenze"
   <div id="sostieni"><h3>☕ Sostieni TG di Famiglia</h3><p class="piccolo">Nessuna pubblicità: se ti piace, puoi offrirci un caffè.</p>
     <div class="riga-btn"><button class="btn" id="caffeImpostazioni" type="button">☕ Offri un caffè</button></div></div>""")
 rep("""  <p class="piccolo" style="margin-top:16px"><a href="../privacy.html" target="_blank" rel="noopener">Privacy</a> · <a href="../" target="_blank" rel="noopener">Informazioni sull'app</a><span id="caffe"></span></p>""",
-    """  <p class="piccolo" style="margin-top:16px"><a href="../privacy.html" target="_blank" rel="noopener">Privacy</a> · <a href="../" target="_blank" rel="noopener">Informazioni sull'app</a> · <a href="mailto:tgdifamiglia.app@gmail.com">Contatti</a></p>""")
+    """  <p class="piccolo" style="margin-top:16px"><a href="../privacy.html" target="_blank" rel="noopener">Privacy</a> · <a href="../" target="_blank" rel="noopener">Informazioni sull'app</a> · <a href="https://pinterest.com/tgdifamiglia" target="_blank" rel="noopener">Contatti</a></p>""")
 rep("""  kofi: 'https://ko-fi.com/TUO-NOME', // tasto donazione: resta nascosto finché c'è il segnaposto
 """, "")
 rep("""async function avviaTG() {

@@ -4,7 +4,7 @@
    - data/*.json: sempre dalla rete (network-first), copia di riserva in cache
    - data/audio/*.mp3: voce del giorno, scaricata a ogni nuova edizione e poi disponibile anche offline
    - richieste ad altri siti (Gemini, podcast, radio): non toccate */
-const CACHE = 'tgapp-v1';
+const CACHE = 'tgapp-v2';
 const GUSCIO = ['./', 'index.html', 'manifest.json', 'comuni.json',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
 

@@ -21,15 +21,15 @@ Logo per i profili: `app/icons/icon-512.png` (o `promo/screenshot/icona-512.png`
      `TG di Famiglia – il tuo telegiornale di famiglia · https://tg-di-famiglia.pages.dev`
    - **Foto del profilo**: [myaccount.google.com](https://myaccount.google.com) → Informazioni personali → Foto → carica `icona-512.png`.
 
-**Se l'indirizzo non è `tgdifamiglia.app@gmail.com`**, va sostituito in questi file (lo fa Claude Code):
-`index.html`, `privacy.html`, `stampa/index.html`, `app/index.html` (2 punti, nella build: `pubblica_app.py`),
-`config.json` (`email`), `PUBBLICAZIONE.md`, `LANCIO.md`.
+**Contatto pubblico:** per ora nessuna email (l'indirizzo previsto non esiste): landing, privacy, cartella
+stampa e app rimandano al profilo https://pinterest.com/tgdifamiglia. Quando ci sarà l'email del brand,
+Claude Code la inserisce in `index.html`, `privacy.html`, `stampa/index.html`, `app/index.html` e `config.json`.
 
 ## 2. Account tecnici dell'app
 
 ### GoatCounter (statistiche anonime, gratis)
 1. [goatcounter.com/signup](https://www.goatcounter.com/signup) → *Code*: **`tgdifamiglia`**, email del brand.
-2. Dai a Claude Code il codice: va messo al posto di `TUO-CODICE` in `statistiche.js` e in `app/index.html`.
+2. ✅ Codice `tgdifamiglia` già inserito nell'app e nel sito (statistiche su https://tgdifamiglia.goatcounter.com).
 3. In GoatCounter → Settings: attiva *"Don't track IPs"* (o lascia il default anonimo).
 
 ### Ko-fi (donazioni e Premium, gratis)

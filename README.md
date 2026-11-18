@@ -56,7 +56,7 @@ Calcio spento: niente notizie sportive, niente podcast di calcio, scheda CALCIO 
 
 ## Statistiche anonime (GoatCounter, senza cookie)
 
-Codice in `statistiche.js` e `app/index.html` (`TUO-CODICE`). Eventi (mai nomi, città o chiavi):
+Codice `tgdifamiglia` (https://tgdifamiglia.goatcounter.com) in `statistiche.js` e `app/index.html`. Eventi (mai nomi, città o chiavi):
 `apertura-app`, `apri-dalla-landing`, `demo-avviata`, `riquadro-chiave`, `piu-tardi`, `chiave-verificata`,
 `sblocco-riuscito`, `onboarding-completato`, `installata`, `avvio-standalone`, `play`, `approfondisci`,
 `podcast`, `prova-iniziata`, `donazione-mostrata`, `caffe`, `caffe-altra-volta`, `avviso-fine-prova`,
