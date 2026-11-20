@@ -106,6 +106,90 @@
    "nome": "Sky Calcio Unplugged",
    "autore": "Sky Sport",
    "calcio": true
+  },
+  {
+   "nome": "Algoritmi",
+   "autore": "Datapizza",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Ciao, Internet!",
+   "autore": "Matteo Flora",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Il Caffettino di Mario Moroni",
+   "autore": "OnePodcast",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Digitalia",
+   "autore": "Franco Solerio",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "TechnoPillz",
+   "autore": "Alex Raccuglia",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Risorse Artificiali",
+   "autore": "RisorseArtificiali",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Late Tech Show",
+   "autore": "Gigi Beltrame",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Pillole di Cybersicurezza",
+   "autore": "SHOT",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Shift",
+   "autore": "Radio 24",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Ci vuole una scienza",
+   "autore": "Il Post",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Il Caffettino per 2",
+   "autore": "OnePodcast",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
+  },
+  {
+   "nome": "Speciale Intelligenza Artificiale",
+   "autore": "Radio 24",
+   "calcio": false,
+   "gruppo": "tech",
+   "giorni_massimi": 30
   }
  ]
 }

@@ -17,7 +17,7 @@ squadra del cuore, lette da una voce con sigla e stacchi, più 10 podcast consig
 3. Configurazione: nome della famiglia, fino a 5 città (autocompletamento dei 7.896 comuni ISTAT),
    calcio sì/no e squadra del cuore. Dal link di un biglietto regalo (`?famiglia=…&citta=…`) nome e città
    arrivano già compilati.
-4. Il primo TG ascoltato fa partire la **prova gratuita di 15 giorni**.
+4. Fino al 31/12/2026 si ha la versione Base gratis; dal 2027 15 giorni con tutte le funzioni dal primo TG ascoltato.
 
 ### Scaletta delle 10 notizie
 
@@ -31,19 +31,27 @@ squadra del cuore, lette da una voce con sigla e stacchi, più 10 podcast consig
 Le notizie locali hanno la città all'inizio del titolo; se non se ne trovano, il posto va a una nazionale.
 Calcio spento: niente notizie sportive, niente podcast di calcio, scheda CALCIO nascosta.
 
-## Modello: prova, donazione, Premium (`config.json`)
+## Modello: Base, Completo e regole nel tempo (`config.json`)
 
-- `PREMIUM_ENABLED` (true/false) accende o spegne tutto il modello.
-- Giorni 1-15 gratis (dal primo TG ascoltato); in Impostazioni "Prova gratuita: mancano X giorni".
-- 3° giorno: dopo il TG, una sola volta, il riquadro "Ti sta piacendo TG di Famiglia? ☕" (Ko-fi).
-  La donazione resta in Impostazioni → "Sostieni TG di Famiglia".
-- 12° giorno: avviso "Mancano 3 giorni alla fine della prova gratuita…".
-- Dal 16° giorno: schermata "Continua con TG di Famiglia Premium – 1,99 €/mese". Restano gratis demo,
-  biglietto regalo e condivisione.
-- Web: abbonamento Ko-fi → codice personale verificato con l'hash in `premium-codes.json`
-  (`python tools/genera_codici.py 20`; i codici in chiaro non vanno mai nel repository).
+Tutto si cambia in `config.json` (date nel fuso Europe/Rome), senza toccare il codice.
+
+| Livello | Funzioni (`FUNZIONI_BASE` / `FUNZIONI_COMPLETO`) |
+|---|---|
+| **Base** (gratis) | TG del giorno con 10 notizie lette dalla voce, saluto per la famiglia, 1 città con le notizie locali, link alla fonte (Approfondisci) |
+| **Completo** (sbloccato) | fino a 5 città, squadra del cuore, 10 podcast (anche locali), sigla/stacchi/musica, meteo, radio (anche della zona), edizione serale, scelta della voce, schede Varie, Novità, Tech & AI e Altro |
+
+- **Fino al 31/12/2026** (`REGALO_NATALE_FINO_AL`): Base gratis per tutti, senza scadenza; il Completo solo con lo sblocco.
+- **Dal 1/1/2027** (`INIZIO_NUOVE_REGOLE`): 15 giorni (`GIORNI_PROVA`) con tutte le funzioni dal primo TG
+  ascoltato (chi c'era già parte dal 1/1/2027). Poi `DOPO_PROVA`: `"blocco"` = serve lo sblocco, `"base"` = resta la Base.
+- Avvisi: al 12° giorno di prova e 7 giorni prima della scadenza di uno sblocco.
+- Sempre gratis: demo, biglietto regalo, condivisione WhatsApp.
+- **Sblocco** (`SBLOCCO`): contributo da 5 € = 3 mesi (codice `3M`) oppure mensile 1,99 € (codice `1M`: 1 mese + 5
+  giorni di tolleranza, a ogni rinnovo un codice nuovo). Pagamento su Ko-fi (shop e membership); il codice si
+  inserisce in ⚙️ → Sblocca tutto. I codici si creano con `python tools/genera_codici.py 3M 10`; nel repository
+  solo le impronte (`codici-sblocco.json`).
 - Nessuno store: l'app si distribuisce solo con il link e si installa dalla schermata Home (tasto
   "📲 Installa l'app": su Android usa l'installazione automatica di Chrome, su iPhone mostra i passaggi).
+- Per provare le date: `http://localhost:8770/app/?oggi=2027-01-20` (il parametro funziona solo su localhost).
 
 ## Regalo e condivisione
 
@@ -59,8 +67,9 @@ Calcio spento: niente notizie sportive, niente podcast di calcio, scheda CALCIO 
 Codice `tgdifamiglia` (https://tgdifamiglia.goatcounter.com) in `statistiche.js` e `app/index.html`. Eventi (mai nomi, città o chiavi):
 `apertura-app`, `apri-dalla-landing`, `demo-avviata`, `riquadro-chiave`, `piu-tardi`, `chiave-verificata`,
 `sblocco-riuscito`, `onboarding-completato`, `installata`, `avvio-standalone`, `play`, `approfondisci`,
-`podcast`, `prova-iniziata`, `donazione-mostrata`, `caffe`, `caffe-altra-volta`, `avviso-fine-prova`,
-`premium-mostrata`, `abbonati`, `codice-premium-attivato`, `biglietto-creato`, `biglietto-scaricato`,
+`podcast`, `prova-iniziata`, `prova-scaduta`, `sblocco-scaduto`, `avviso-fine-prova`, `caffe`, `installa-premuto`,
+`funzione-bloccata-toccata/<funzione>`, `schermata-sblocca-mostrata`, `scelta-5euro-3mesi`, `scelta-mensile`,
+`codice-attivato-3M`, `codice-attivato-1M`, `codice-non-valido`, `biglietto-creato`, `biglietto-scaricato`,
 `regalo-whatsapp`, `aperta-da-biglietto`, `condivisione`, `aperta-da-whatsapp`.
 
 ## Come funziona
@@ -83,10 +92,10 @@ index.html, regalo.html, privacy.html   landing, generatore di biglietti, privac
 guide/                                  3 pagine utili per i motori di ricerca
 stampa/                                 cartella stampa
 app/                                    l'app (PWA)
-config.json, premium-codes.json         impostazioni pubbliche, impronte dei codici Premium
+config.json, codici-sblocco.json        regole, funzioni e prezzi; impronte dei codici di sblocco
 regalo.js, sito.css, statistiche.js     codice e stile condivisi; lib/ = qrcode-generator e jsPDF
 config/, scripts/                       fonti e raccolta dati; scripts/build.sh per Cloudflare
-tools/                                  comuni ISTAT, codici Premium, QR, generatore promo (non pubblicato)
+tools/                                  comuni ISTAT, codici di sblocco, QR, generatore promo, costruzione-app (genera app/index.html)
 promo/                                  screenshot 1080×1920, Pinterest, volantino A4, biglietti di esempio
 proxy/                                  Cloudflare Worker per Gemini (non attivo)
 _headers, robots.txt, sitemap.xml

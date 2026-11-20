@@ -35,6 +35,7 @@ header .marchio{margin-bottom:26px}
 .eroe h1{color:#fff;font-size:46px;line-height:1.08;margin:0 0 14px}
 .eroe .sotto{color:#fff;opacity:.92;font-size:21px;margin:0 0 22px}
 .nota{font-size:16px;opacity:.85;margin-top:12px}
+.offerta-landing{background:#fff4c2;color:#111418;border:2px solid #e2c23d;border-radius:14px;padding:14px 16px;font-size:18px;margin:0 0 20px;line-height:1.45}
 .telefono{justify-self:center;width:min(270px,100%);border-radius:30px;border:8px solid #071b38;box-shadow:0 18px 40px rgba(0,0,0,.35);overflow:hidden;background:#071b38}
 .telefono img{display:block;width:100%}
 .tre{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -65,11 +66,12 @@ details p{color:var(--tenue);margin:10px 0 0}
       <div>
         <h1>Regala alla tua famiglia un TG</h1>
         <p class="sotto">Ogni mattina le notizie più importanti, lette come al telegiornale, con il saluto per la tua famiglia. Gratis.</p>
+        <div class="offerta-landing" id="offerta"><b>🎄 Regalo di Natale: TG di Famiglia è gratis fino al 31 dicembre 2026.</b><br>Con un contributo di <b>5 €</b> sblocchi <b>tutte le funzioni per 3 mesi</b>: fino a 5 città, la tua squadra, podcast, meteo, radio, edizione serale e molto altro.</div>
         <div class="riga-btn" style="max-width:520px">
           <a class="cta" href="#regalo">🎁 Crea il biglietto regalo</a>
           <a class="cta" href="app/" style="background:#fff;color:#0b2a55">▶ Apri il TG</a>
         </div>
-        <p class="nota">Senza registrazione e senza store: <a href="#installa" style="color:#fff">si installa da qui</a> su Android e iPhone · 15 giorni gratis, poi Premium a 1,99 €/mese</p>
+        <p class="nota">Senza registrazione e senza store: <a href="#installa" style="color:#fff">si installa da qui</a> su Android e iPhone</p>
       </div>
       <div class="telefono"><img src="screenshot/tg.png" alt="Il TG di oggi con il grande tasto play" width="412" height="892"></div>
     </div>
@@ -114,7 +116,7 @@ details p{color:var(--tenue);margin:10px 0 0}
 
   <section>
     <h2>Domande frequenti</h2>
-    <details><summary>È gratis?</summary><p>I primi 15 giorni sono gratis, con tutte le funzioni, a partire dal primo TG ascoltato. Poi si continua con Premium a 1,99 € al mese, che si disdice quando si vuole. La demo, il biglietto regalo e la condivisione restano sempre gratuiti. Nessuna pubblicità.</p></details>
+    <details><summary>È gratis?</summary><p id="faqGratis">Fino al 31 dicembre 2026 la versione <b>Base</b> è gratuita per tutti: il TG del giorno con le 10 notizie lette dalla voce, il saluto per la tua famiglia, 1 città con le sue notizie locali e il link alla fonte. Con un contributo di <b>5 €</b> sblocchi <b>TG di Famiglia Completo per 3 mesi</b> (fino a 5 città, squadra del cuore, podcast, sigla e musica, meteo, radio, edizione serale, scelta della voce e tutte le altre schede), oppure <b>1,99 € al mese</b>, che disdici quando vuoi. La demo, il biglietto regalo e la condivisione restano sempre gratuiti. Nessuna pubblicità.</p></details>
     <details><summary>Perché serve una chiave Google?</summary><p>Il TG è scritto ogni mattina dall'intelligenza artificiale di Google (Gemini). La chiave è il tuo accesso personale e gratuito a Gemini: si crea in un minuto su aistudio.google.com con il tuo account Google, senza carta di credito, e l'app ti guida passo passo. Prima di inserirla puoi guardare la demo.</p></details>
     <details><summary>I miei dati dove finiscono?</summary><p>Restano sul tuo telefono: nome, città, squadra e chiave non vengono inviati a nessun nostro server. La chiave viene usata solo per parlare con Google. Contiamo in forma anonima, senza cookie, quante persone usano l'app. Tutti i dettagli nella <a href="privacy.html">privacy policy</a>.</p></details>
     <details><summary>Le notizie sono affidabili?</summary><p>Le notizie sono riassunti scritti dall'intelligenza artificiale a partire da articoli di testate giornalistiche, sempre con il nome della fonte e il link all'articolo originale. L'AI può sbagliare: per i dettagli verifica sempre sulla fonte.</p></details>
@@ -141,6 +143,13 @@ details p{color:var(--tenue);margin:10px 0 0}
 <script>
 RegaloTG.monta(document.getElementById('generatore'), { radice: './' });
 fetch('config.json').then((r) => r.json()).then((c) => {
+  // dal 1/1/2027 il riquadro e la FAQ cambiano da soli (data in fuso Europe/Rome)
+  const oggi = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Rome' });
+  const a = c.SBLOCCO['3M'].prezzo, b = c.SBLOCCO['1M'].prezzo;
+  if (oggi >= c.INIZIO_NUOVE_REGOLE) {
+    document.getElementById('offerta').innerHTML = `<b>${c.GIORNI_PROVA} giorni gratis, poi scegli:</b> ${a} per 3 mesi oppure ${b}.<br>Durante la prova hai <b>tutte le funzioni</b>: fino a 5 città, la tua squadra, podcast, meteo, radio, edizione serale e molto altro.`;
+    document.getElementById('faqGratis').innerHTML = `Per i primi <b>${c.GIORNI_PROVA} giorni</b> dal primo TG ascoltato hai tutte le funzioni, gratis. Poi scegli: <b>${a}</b> per 3 mesi di TG di Famiglia Completo oppure <b>${b}</b>, che disdici quando vuoi (${c.DOPO_PROVA === 'base' ? 'senza sblocco resta la versione Base gratuita' : 'senza sblocco il TG si ferma'}). La demo, il biglietto regalo e la condivisione restano sempre gratuiti. Nessuna pubblicità.`;
+  }
   if (c.kofi_caffe) document.getElementById('caffe').innerHTML = ` · <a href="${c.kofi_caffe}" target="_blank" rel="noopener">☕ Offrici un caffè</a>`;
 }).catch(() => {});
 document.querySelectorAll('a[href="app/"]').forEach((a) => a.addEventListener('click', () => window.evento('apri-dalla-landing')));

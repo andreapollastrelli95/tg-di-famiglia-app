@@ -1,5 +1,5 @@
 {
- "_nota": "Feed RSS nazionali. categoria: generale (attualità) | sport | calcio. Le notizie locali delle province e quelle delle squadre arrivano da Google News (vedi config/province.json e config/squadre.json). Se un feed non risponde viene saltato; 'ore_massime' indica quanto possono essere vecchie le notizie.",
+ "_nota": "Feed RSS nazionali. categoria: generale | sport | calcio | tennis | formula1 | motogp (Altri sport) | tech | futuro (TECH & AI) | lavoro (Futuro del lavoro). Le notizie locali delle province e quelle delle squadre arrivano da Google News (config/province.json, config/squadre.json).",
  "ore_massime": 30,
  "max_per_feed": 25,
  "feed": [
@@ -154,6 +154,181 @@
    "fonte": "ANSA Calcio",
    "categoria": "calcio",
    "url": "https://www.ansa.it/sito/notizie/sport/calcio/calcio_rss.xml"
+  },
+  {
+   "fonte": "La Gazzetta dello Sport",
+   "categoria": "tennis",
+   "ore_massime": 60,
+   "max": 12,
+   "url": "https://www.gazzetta.it/dynamic-feed/rss/section/Tennis.xml"
+  },
+  {
+   "fonte": "Tuttosport",
+   "categoria": "tennis",
+   "ore_massime": 60,
+   "max": 10,
+   "url": "https://www.tuttosport.com/rss/tennis"
+  },
+  {
+   "fonte": "Corriere dello Sport",
+   "categoria": "tennis",
+   "ore_massime": 60,
+   "max": 10,
+   "url": "https://www.corrieredellosport.it/rss/tennis"
+  },
+  {
+   "fonte": "La Gazzetta dello Sport",
+   "categoria": "formula1",
+   "ore_massime": 96,
+   "max": 12,
+   "url": "https://www.gazzetta.it/dynamic-feed/rss/section/Formula-1.xml"
+  },
+  {
+   "fonte": "Tuttosport",
+   "categoria": "formula1",
+   "ore_massime": 96,
+   "max": 10,
+   "url": "https://www.tuttosport.com/rss/formula-1"
+  },
+  {
+   "fonte": "Corriere dello Sport",
+   "categoria": "formula1",
+   "ore_massime": 96,
+   "max": 10,
+   "url": "https://www.corrieredellosport.it/rss/formula-1"
+  },
+  {
+   "fonte": "La Gazzetta dello Sport",
+   "categoria": "motogp",
+   "ore_massime": 120,
+   "max": 12,
+   "url": "https://www.gazzetta.it/dynamic-feed/rss/section/Moto/moto-GP.xml"
+  },
+  {
+   "fonte": "Tuttosport",
+   "categoria": "motogp",
+   "ore_massime": 168,
+   "max": 10,
+   "url": "https://www.tuttosport.com/rss/moto"
+  },
+  {
+   "fonte": "Corriere dello Sport",
+   "categoria": "motogp",
+   "ore_massime": 168,
+   "max": 10,
+   "url": "https://www.corrieredellosport.it/rss/moto"
+  },
+  {
+   "fonte": "Il Post",
+   "categoria": "tech",
+   "ore_massime": 72,
+   "max": 10,
+   "url": "https://www.ilpost.it/tecnologia/feed/"
+  },
+  {
+   "fonte": "DDay",
+   "categoria": "tech",
+   "ore_massime": 48,
+   "max": 20,
+   "url": "https://www.dday.it/rss"
+  },
+  {
+   "fonte": "Punto Informatico",
+   "categoria": "tech",
+   "ore_massime": 48,
+   "max": 15,
+   "url": "https://www.punto-informatico.it/feed/"
+  },
+  {
+   "fonte": "AI4Business",
+   "categoria": "tech",
+   "ore_massime": 96,
+   "max": 10,
+   "url": "https://www.ai4business.it/feed/"
+  },
+  {
+   "fonte": "Agenda Digitale",
+   "categoria": "tech",
+   "ore_massime": 96,
+   "max": 10,
+   "url": "https://www.agendadigitale.eu/feed/"
+  },
+  {
+   "fonte": "StartupItalia",
+   "categoria": "tech",
+   "ore_massime": 48,
+   "max": 15,
+   "url": "https://www.startupitalia.eu/feed"
+  },
+  {
+   "fonte": "la Repubblica Tecnologia",
+   "categoria": "tech",
+   "ore_massime": 48,
+   "max": 12,
+   "url": "https://www.repubblica.it/rss/tecnologia/rss2.0.xml"
+  },
+  {
+   "fonte": "Corriere Tecnologia",
+   "categoria": "tech",
+   "ore_massime": 48,
+   "max": 15,
+   "url": "https://www.corriere.it/dynamic-feed/rss/section/Tecnologia.xml"
+  },
+  {
+   "fonte": "HDblog",
+   "categoria": "tech",
+   "ore_massime": 36,
+   "max": 12,
+   "url": "https://www.hdblog.it/feed/"
+  },
+  {
+   "fonte": "MIT Technology Review",
+   "categoria": "tech",
+   "ore_massime": 96,
+   "max": 10,
+   "url": "https://www.technologyreview.com/feed/"
+  },
+  {
+   "fonte": "The Verge",
+   "categoria": "tech",
+   "ore_massime": 72,
+   "max": 10,
+   "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"
+  },
+  {
+   "fonte": "TechCrunch",
+   "categoria": "tech",
+   "ore_massime": 72,
+   "max": 12,
+   "url": "https://techcrunch.com/category/artificial-intelligence/feed/"
+  },
+  {
+   "fonte": "ANSA Scienza e Tecnica",
+   "categoria": "futuro",
+   "ore_massime": 120,
+   "max": 25,
+   "url": "https://www.ansa.it/canale_scienza_tecnica/notizie/scienzaetecnica_rss.xml"
+  },
+  {
+   "fonte": "Focus",
+   "categoria": "futuro",
+   "ore_massime": 120,
+   "max": 20,
+   "url": "https://www.focus.it/rss"
+  },
+  {
+   "fonte": "ANSA Economia",
+   "categoria": "lavoro",
+   "ore_massime": 72,
+   "max": 40,
+   "url": "https://www.ansa.it/sito/notizie/economia/economia_rss.xml"
+  },
+  {
+   "fonte": "Agenda Digitale",
+   "categoria": "lavoro",
+   "ore_massime": 168,
+   "max": 10,
+   "url": "https://www.agendadigitale.eu/feed/"
   }
  ]
 }

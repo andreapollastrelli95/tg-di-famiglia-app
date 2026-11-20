@@ -1,9 +1,12 @@
 """Crea app/index.html della versione pubblica partendo dall'app di famiglia."""
 import re
 import sys
+from pathlib import Path
+
+QUI = str(Path(__file__).resolve().parent) + "/"
 
 SRC = "C:/Users/andre/tg-di-famiglia/index.html"
-DST = "C:/Users/andre/tg-di-famiglia-app/app/index.html"
+DST = str(Path(__file__).resolve().parents[2] / "app" / "index.html")
 s = open(SRC, encoding="utf-8").read()
 
 
@@ -125,28 +128,11 @@ taglia('''  <!-- Primo avvio -->''', '''  <!-- Schermata principale -->''', ''' 
 
 ''')
 
-# schede: niente NOVITÀ, TECH, ALTRO
-rep('''      <button id="schedaNovita" type="button">✨ NOVITÀ</button>
-      <button id="schedaTech" type="button">🤖 TECH &amp; AI</button>
-      <button id="schedaAltro" type="button">🌍 ALTRO</button>
-''', '')
 # avvertenza sotto le notizie
 rep('''    <div id="listaNotizie"><p class="segnaposto scheda">Le notizie compariranno qui appena pronte.</p></div>
     </div><!-- /paginaTG -->''', '''    <div id="listaNotizie"><p class="segnaposto scheda">Le notizie compariranno qui appena pronte.</p></div>
     <p class="avvertenza">ℹ️ Le notizie sono riassunti scritti dall'intelligenza artificiale a partire dalle fonti indicate: possono contenere errori. Per i dettagli e per verificare apri sempre l'articolo originale con «Approfondisci».</p>
     </div><!-- /paginaTG -->''')
-# VARIE: solo meteo, stasera in TV, accadde oggi
-taglia('''    <div id="paginaVarie" class="nascosto">''', '''  </section>
-</main>''', '''    <div id="paginaVarie" class="nascosto">
-      <div class="menu-sezioni" id="menuVarie">
-        <button class="btn" data-apri="meteo" id="tastoMeteo" type="button">🌦️ Meteo</button>
-        <button class="btn" data-apri="tv" type="button">📺 Stasera in TV</button>
-        <button class="btn" data-apri="accadde" type="button">📜 Accadde oggi</button>
-      </div>
-      <div id="contenutoVarie"></div>
-    </div>
-''')
-
 # dialoghi: sblocco + impostazioni
 taglia('''<dialog id="impostazioni">''', '''<audio id="audio"''', '''<dialog id="sblocco">
   <h2>Inserisci la tua chiave API per sbloccare gratuitamente tutte le funzionalità dell'app</h2>
@@ -195,7 +181,7 @@ taglia('''<dialog id="impostazioni">''', '''<audio id="audio"''', '''<dialog id=
 ''')
 
 # =========================================================== CONFIG
-rep('''  saluto: 'Buongiorno Famiglia! Queste sono le notizie e i podcast del giorno consigliati. Buon ascolto e buona giornata.',''',
+rep('''  saluto: 'Un saluto a tutta la famiglia e bentrovati. Queste sono le notizie e i podcast del giorno consigliati. Buon ascolto e buona giornata.',''',
     '''  saluto: 'Buongiorno Famiglia! Ecco il TG di oggi. Buon ascolto.', // si adatta a nome e città (vedi salutoPer)''')
 rep('''  righeMassime: { generale: 150, tuscia: 60, sport: 50, calcio: 50, altre: 35 },''',
     '''  righeMassime: { generale: 150, locale: 120, sport: 50, calcio: 50, altre: 35 },''')
@@ -205,8 +191,8 @@ rep('''  sezioni: [
     { categoria: 'sport', quante: 2, etichetta: '⚽ Sport', classe: 'calcio', annuncio: 'Notizie sportive.' },
   ],''', '''  // Scaletta: costruita da applicaImpostazioni() in base alle città e al calcio scelti dall'utente
   sezioni: [{ categoria: 'generale', quante: 10, etichetta: 'Attualità', classe: '' }],''')
-rep('''  versione: '2.7.1',
-};''', '''  versione: '1.0.0',
+rep('''  versione: '2.7.2',
+};''', '''  versione: '1.1.0',
   dati: '../data/',          // dati raccolti ogni mattina da GitHub Actions
   // Fase successiva: con il proxy (cartella proxy/) la chiave sta sul server e gli utenti non devono crearla.
   useProxy: false,
@@ -424,9 +410,6 @@ rep('''  const generali = g.podcast.filter((p) => !p.gruppo); // quelli di squad
   const generali = g.podcast.filter((p) => !p.gruppo && (calcio || !p.calcio));''')
 rep('''  if (!lista.some((p) => p.calcio)) {''', '''  if (calcio && !lista.some((p) => p.calcio)) {''')
 
-# =========================================================== rassegna della domenica: tolta
-taglia('''/* ---------- Rassegna stampa della domenica ---------- */''', '''let stazioni = null;''')
-
 # =========================================================== VARIE: meteo delle città dell'utente, TV, accadde
 taglia('''  // ---- scheda VARIE: meteo, stasera in TV, accadde oggi (la rassegna è fissa nella pagina)''', '''  h += '</section><section data-sezione="tv" class="nascosto"><h2>📺 Stasera in TV</h2>';''', r'''  // ---- scheda VARIE: meteo delle città scelte, stasera in TV, accadde oggi
   const luoghi = g.meteo_luoghi || [];
@@ -443,73 +426,7 @@ taglia('''  // ---- scheda VARIE: meteo, stasera in TV, accadde oggi (la rassegn
       <table class="meteo-giorni"><tbody>${giorni.map((d) => `<tr><td>${esc(giornoNome(d.data))}</td><td>${meteoCodice(d.codice).emoji} ${esc(meteoCodice(d.codice).testo)}</td><td style="white-space:nowrap">${d.tmin}° / ${d.tmax}°</td><td style="white-space:nowrap">💧 ${d.pioggia_prob ?? '–'}%</td></tr>`).join('')}</tbody></table>
     </div>` : '<p class="scheda">Le previsioni non sono disponibili oggi.</p>';
 ''')
-rep('''  $('contenutoVarie').innerHTML = h + '</section><div id="extraVarie"></div>';
-  renderExtra();
-  apriSezione('calcio', sezioneAperta.calcio, false);
-}''', '''  $('contenutoVarie').innerHTML = h + '</section>';
-  apriSezione('calcio', sezioneAperta.calcio, false);
-  apriSezione('varie', sezioneAperta.varie, false);
-}''')
-rep('''    $('contenutoVarie').innerHTML = ['meteo', 'tv', 'accadde'].map((id) => `<section data-sezione="${id}" class="nascosto">${attesa('Arriva tra poco, appena le notizie sono pronte.')}</section>`).join('') + '<div id="extraVarie"></div>';
-    renderExtra();
-    apriSezione('calcio', sezioneAperta.calcio, false);''', '''    $('contenutoVarie').innerHTML = ['meteo', 'tv', 'accadde'].map((id) => `<section data-sezione="${id}" class="nascosto">${attesa('Arriva tra poco, appena le notizie sono pronte.')}</section>`).join('');
-    apriSezione('calcio', sezioneAperta.calcio, false);''')
-rep('''const sezioneAperta = { calcio: null, varie: null, novita: null, tech: null, altro: null };''', '''const sezioneAperta = { calcio: null, varie: null };''')
-rep('''  const pagina = $({ calcio: 'paginaCalcio', varie: 'paginaVarie', novita: 'paginaNovita', tech: 'paginaTech', altro: 'paginaAltro' }[scheda]);''',
-    '''  const pagina = $({ calcio: 'paginaCalcio', varie: 'paginaVarie' }[scheda]);''')
 
-# tutte le sezioni locali e i giochi con l'AI: tolti (resta il registro dei testi da ascoltare)
-taglia('''/* ---------- Sezioni extra: Altri sport''', '''function toccoSchede(e) {''', '''const registroAscolto = {}; // id -> { titolo, testo } dei testi che si possono ascoltare
-
-''')
-# gestione dei tocchi
-taglia('''function toccoSchede(e) {''', '''$('chiediCalcio').onclick = chiediCalcio;''', r'''function toccoSchede(e) {
-  const v = Ed.varie;
-  let b;
-  if ((b = e.target.closest('[data-apri]'))) return apriSezione(b.closest('#paginaCalcio') ? 'calcio' : 'varie', b.dataset.apri);
-  if ((b = e.target.closest('[data-luogo]'))) { ls.set('tg_meteo', b.dataset.luogo); return renderVarie(); }
-  if ((b = e.target.closest('[data-ascolta]')) && registroAscolto[b.dataset.ascolta]) {
-    const r = registroAscolto[b.dataset.ascolta];
-    return ascoltaVaria(b.dataset.ascolta, r.titolo, r.testo);
-  }
-  if ((b = e.target.closest('[data-preferita]'))) return suonaRadioScelta(radioPreferite()[+b.dataset.preferita]);
-  if ((b = e.target.closest('[data-togli]'))) { const l = radioPreferite(); l.splice(+b.dataset.togli, 1); return salvaRadioPreferite(l); }
-  if ((b = e.target.closest('[data-prova]'))) return suonaRadioScelta(risultatiRadio[+b.dataset.prova]);
-  if ((b = e.target.closest('[data-aggiungi]'))) {
-    const r = risultatiRadio[+b.dataset.aggiungi], l = radioPreferite();
-    if (!l.some((x) => x.url === r.url)) { l.push({ nome: r.nome, url: r.url, ...(r.tipo ? { tipo: r.tipo } : {}) }); salvaRadioPreferite(l); }
-    $('statoRadio').textContent = `${r.nome} aggiunta alle preferite.`;
-    return;
-  }
-  if (!v) return;
-  if ((b = e.target.closest('[data-ascolta]'))) {
-    const id = b.dataset.ascolta;
-    if (id === 'tv') ascoltaVaria('tv', 'Stasera in TV', 'Stasera in TV.\n\n' + v.tv);
-    else if (id === 'accadde') ascoltaVaria('accadde', 'Accadde oggi', 'Accadde oggi.\n\n' + Ed.accadde);
-    else if (id.startsWith('squadra-')) {
-      const q = v.squadre[+id.split('-')[1]];
-      ascoltaVaria('squadra-' + q.id, 'Notizie ' + q.nome, `Le notizie: ${q.nome}.\n\n` + q.notizie.map((n) => `${n.titolo}.\n\n${n.testo}`).join('\n\n'));
-    }
-  } else if ((b = e.target.closest('[data-podcast-squadra]'))) {
-    const [i, j] = b.dataset.podcastSquadra.split(':').map(Number);
-    window.evento('podcast');
-    suonaPodcast(v.squadre[i].podcast[j]);
-  } else if ((b = e.target.closest('[data-radio-squadra]'))) {
-    const q = v.squadre[+b.dataset.radioSquadra];
-    suonaDiretta(q.radio.nome, q.radio.url, 'Radio in diretta');
-  }
-}
-$('paginaCalcio').addEventListener('click', toccoSchede);
-$('paginaVarie').addEventListener('click', toccoSchede);
-$('paginaRadio').addEventListener('click', toccoSchede);
-// statistiche anonime: Approfondisci e podcast aperti
-document.addEventListener('click', (e) => {
-  const a = e.target.closest('a[href]');
-  if (a && /Approfondisci/.test(a.textContent)) window.evento('approfondisci');
-  else if (a && a.closest('.podcast')) window.evento('podcast');
-}, true);
-''')
-rep('''['TG', 'Podcast', 'Radio', 'Calcio', 'Varie', 'Novita', 'Tech', 'Altro']''', '''['TG', 'Podcast', 'Radio', 'Calcio', 'Varie']''', 2)
 rep('''  if (b) suonaPodcast(Ed.podcast[+b.dataset.podcast]);''', '''  if (b) { window.evento('podcast'); suonaPodcast(Ed.podcast[+b.dataset.podcast]); }''')
 rep('''  if (!chiave) { out.textContent = 'Per fare domande all\\'AI serve la chiave Gemini: tocca ⚙️ in alto e incollala.'; return; }''',
     '''  if (!sbloccata()) { out.textContent = 'Per fare domande all\\'AI serve la chiave Gemini: tocca ⚙️ in alto e incollala.'; return; }''')
@@ -533,58 +450,21 @@ rep("""    <h2>📰 Le notizie di oggi</h2>""", """    <div class="scheda condiv
     <h2>📰 Le notizie di oggi</h2>""")
 rep("""      <h2>🎧 Podcast consigliati</h2>""", """      <div class="scheda condividi-fine nascosto"><p style="margin-top:0"><b>Ti è piaciuto il TG di oggi?</b></p><div class="riga-btn"><button class="btn whatsapp" data-condividi type="button">💬 Condividi su WhatsApp</button></div></div>
       <h2>🎧 Podcast consigliati</h2>""")
-rep("""  <!-- CONFIGURAZIONE: dopo lo sblocco e dalle impostazioni -->""", """  <!-- PREMIUM: dal 16° giorno, se la prova è finita -->
-  <section id="schermataPremium" class="setup nascosto">
-    <div class="scheda">
-      <h2>Continua con TG di Famiglia Premium</h2>
-      <p>La prova gratuita è finita. Con Premium il tuo TG continua ogni mattina:</p>
-      <ul class="premio">
-        <li>📺 Il TG personale di ogni giorno, con il saluto per la tua famiglia</li>
-        <li>📍 Le notizie e il meteo delle tue città</li>
-        <li>⚽ Le notizie della tua squadra del cuore</li>
-        <li>🎧 Dieci podcast consigliati al giorno, radio e le tue preferite</li>
-        <li>🚫 Nessuna pubblicità</li>
-      </ul>
-      <p class="prezzo" id="prezzoPremium">1,99 €/mese</p>
-      <p class="piccolo" style="margin-top:0">Disdici quando vuoi.</p>
-      <div class="riga-btn"><button class="btn rosso" id="abbonati" type="button">⭐ Abbonati</button></div>
-      <p class="piccolo">Il pagamento avviene su Ko-fi; dopo l'abbonamento ricevi un codice personale da inserire qui sotto.</p>
-      <div id="bloccoCodice">
-        <label for="campoCodice"><b>Hai già un codice Premium?</b></label>
-        <input id="campoCodice" class="campo" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="TGF-XXXX-XXXX-XXXX">
-        <div class="riga-btn"><button class="btn pieno" id="attivaCodice" type="button">Attiva</button></div>
-      </div>
-      <p class="stato" id="statoPremium" role="status" aria-live="polite"></p>
-      <p style="margin-top:18px">Restano sempre gratis:</p>
-      <div class="riga-btn">
-        <button class="btn" id="premiumDemo" type="button">🎬 La demo</button>
-        <a class="btn" href="../regalo.html">🎁 Biglietto regalo</a>
-        <button class="btn whatsapp" data-condividi type="button">💬 Condividi</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONFIGURAZIONE: dopo lo sblocco e dalle impostazioni -->""")
-rep("""<dialog id="impostazioni">""", """<dialog id="donazione">
-  <h2>Ti sta piacendo TG di Famiglia? ☕</h2>
-  <p>È fatto da una piccola squadra, senza pubblicità. Se vuoi, offrici un caffè (2 €).</p>
-  <div class="riga-btn"><button class="btn rosso" id="offriCaffe" type="button">☕ Offri un caffè</button><button class="btn" id="altraVolta" type="button">Magari un'altra volta</button></div>
-</dialog>
-
-<dialog id="impostazioni">""")
 rep("""  <div class="riga-btn"><button class="btn pieno" id="modificaPreferenze" type="button">✏️ Nome, città e calcio</button></div>""",
     """  <div class="riga-btn"><button class="btn pieno" id="modificaPreferenze" type="button">✏️ Nome, città e calcio</button></div>
   <p class="piccolo" id="statoProva"></p>
-  <div class="riga-btn"><button class="btn whatsapp" data-condividi type="button">💬 Condividi su WhatsApp</button><a class="btn" href="../regalo.html">🎁 Regala un biglietto</a></div>
-  <div id="sostieni"><h3>☕ Sostieni TG di Famiglia</h3><p class="piccolo">Nessuna pubblicità: se ti piace, puoi offrirci un caffè.</p>
-    <div class="riga-btn"><button class="btn" id="caffeImpostazioni" type="button">☕ Offri un caffè</button></div></div>""")
+  <div class="riga-btn"><button class="btn rosso" id="apriSbloccaTutto" type="button">🔓 Sblocca tutto</button></div>
+  <div class="riga-btn" style="margin-top:10px"><button class="btn whatsapp" data-condividi type="button">💬 Condividi su WhatsApp</button><a class="btn" href="../regalo.html">🎁 Regala un biglietto</a></div>
+  <div id="sceltaVoce"></div>
+  <div id="sostieni"><h3>☕ Sostieni TG di Famiglia</h3><p class="piccolo">Se vuoi solo sostenere il progetto, senza sbloccare niente, puoi offrirci un caffè.</p>
+    <div class="riga-btn"><button class="btn" id="caffeImpostazioni" type="button">☕ Offrici un caffè</button></div></div>""")
 rep("""  <p class="piccolo" style="margin-top:16px"><a href="../privacy.html" target="_blank" rel="noopener">Privacy</a> · <a href="../" target="_blank" rel="noopener">Informazioni sull'app</a><span id="caffe"></span></p>""",
     """  <p class="piccolo" style="margin-top:16px"><a href="../privacy.html" target="_blank" rel="noopener">Privacy</a> · <a href="../" target="_blank" rel="noopener">Informazioni sull'app</a> · <a href="https://pinterest.com/tgdifamiglia" target="_blank" rel="noopener">Contatti</a></p>""")
 rep("""  kofi: 'https://ko-fi.com/TUO-NOME', // tasto donazione: resta nascosto finché c'è il segnaposto
 """, "")
 rep("""async function avviaTG() {
   window.speechSynthesis?.cancel();""", """async function avviaTG() {
-  if (bloccato()) { mostraPremium(); return false; } // prova finita e niente Premium
+  if (bloccato()) { mostraSblocca('tg', true); return false; } // prova finita: serve lo sblocco
   window.speechSynthesis?.cancel();""")
 rep("""  if (!Ed.grezzo && Ed.finito) prepara(true); else { prepara(); controllaEdizione(); }
   return vaiA({ t: 'sigla' });""", """  if (!Ed.grezzo && Ed.finito) prepara(true); else { prepara(); controllaEdizione(); }
@@ -597,7 +477,7 @@ rep("""  $('comandiTG').classList.add('nascosto');
   aggiornaTastoPlay();
   if (daSolo) dopoTG();
   if (daSolo""")
-s = s.replace("/* ---------- Avvio ---------- */", open("C:/Users/andre/AppData/Local/Temp/claude/3465bcb2245e1ee7/d465ab2b-79d1-4121-8b9e-51fe9f9fe4d0/scratchpad/pub_premium.js", encoding="utf-8").read() + "\n/* ---------- Avvio ---------- */", 1)
+s = s.replace("/* ---------- Avvio ---------- */", open(QUI + "pub_livelli.js", encoding="utf-8").read() + "\n/* ---------- Avvio ---------- */", 1)
 
 
 # =========================================================== installazione (niente store)
@@ -608,9 +488,9 @@ rep("""        <button class="btn pieno" id="apriSblocco" type="button">🔑 Sbl
 rep("""      <div class="riga-btn" style="margin-top:12px"><button class="btn whatsapp" data-condividi type="button">💬 Condividi su WhatsApp</button></div>
       <div class="comandi nascosto" id="comandiTG">""", """      <div class="riga-btn" style="margin-top:12px"><button class="btn whatsapp" data-condividi type="button">💬 Condividi su WhatsApp</button><button class="btn nascosto" data-installa type="button">📲 Installa l'app</button></div>
       <div class="comandi nascosto" id="comandiTG">""")
-rep("""  <p class="piccolo" id="statoProva"></p>""", """  <p class="piccolo" id="statoProva"></p>
+rep("""  <div class="riga-btn"><button class="btn rosso" id="apriSbloccaTutto" type="button">🔓 Sblocca tutto</button></div>""", """  <div class="riga-btn"><button class="btn rosso" id="apriSbloccaTutto" type="button">🔓 Sblocca tutto</button></div>
   <div class="riga-btn" style="margin-bottom:10px"><button class="btn nascosto" data-installa type="button">📲 Installa l'app sul telefono</button></div>""")
-rep("""<dialog id="donazione">""", """<dialog id="guidaInstalla">
+rep("""<dialog id="impostazioni">""", """<dialog id="guidaInstalla">
   <h2>📲 Installa TG di Famiglia</h2>
   <p>Non serve nessuno store: l'app si mette sulla schermata Home come le altre.</p>
   <h3>🍏 iPhone e iPad (Safari)</h3>
@@ -628,16 +508,18 @@ rep("""<dialog id="donazione">""", """<dialog id="guidaInstalla">
   <div class="riga-btn"><button class="btn pieno" id="chiudiGuidaInstalla" type="button">Ho capito</button></div>
 </dialog>
 
-<dialog id="donazione">""")
+<dialog id="impostazioni">""")
 
 # =========================================================== SCHERMATE, DEMO, SBLOCCO, CONFIGURAZIONE, AVVIO
-taglia('''/* ---------- Schermate ---------- */''', '''$('tastoPlay').onclick =''', open("C:/Users/andre/AppData/Local/Temp/claude/3465bcb2245e1ee7/d465ab2b-79d1-4121-8b9e-51fe9f9fe4d0/scratchpad/pub_schermate.js", encoding="utf-8").read())
+taglia('''/* ---------- Schermate ---------- */''', '''$('tastoPlay').onclick =''', open(QUI + "pub_schermate.js", encoding="utf-8").read())
 rep('''$('tastoPlay').onclick = () => { if (P.modo === 'tg') pausaOContinua(); else avviaTG(); };''',
     '''$('tastoPlay').onclick = () => { if (P.modo === 'tg') pausaOContinua(); else { window.evento('play'); avviaTG(); } };''')
-taglia('''/* ---------- Avvio ---------- */''', '''</script>''', open("C:/Users/andre/AppData/Local/Temp/claude/3465bcb2245e1ee7/d465ab2b-79d1-4121-8b9e-51fe9f9fe4d0/scratchpad/pub_avvio.js", encoding="utf-8").read())
+taglia('''/* ---------- Avvio ---------- */''', '''</script>''', open(QUI + "pub_avvio.js", encoding="utf-8").read())
 
 rep("""    <!-- Scheda CALCIO: quattro tasti che aprono Juve, Inter, calcio generale e le domande all'AI -->""", """    <!-- Scheda CALCIO (solo se il calcio è attivo): squadra del cuore, calcio in generale e le domande all'AI -->""")
 rep("""placeholder="Es. Chi sono gli infortunati della Juve? Quando gioca l'Inter?\"""", """placeholder="Es. Chi è in testa alla Serie A? Quando gioca la Nazionale?\"""")
 rep("""    if (/^(edizione|audio|varia|titoli|rassegna|dialetto):/.test(k)""", """    if (/^(edizione|audio|varia|titoli):/.test(k)""")
+for _f in ("pub_completo.py",):
+    exec(open(QUI + _f, encoding="utf-8").read())
 open(DST, "w", encoding="utf-8", newline="\n").write(s)
 print("ok", len(s))

@@ -1,0 +1,407 @@
+{
+  "_nota": "Scheda TECH & AI. youtube: canali da cui prendere i video recenti (si leggono senza chiave dai feed RSS di YouTube). radio: le dieci radio scelte per la sezione Radio AI ('feed' = si ascolta l'ultima puntata di un podcast; url vuoto = indirizzo da trovare). libri: vetrina da cui ogni settimana l'app ne propone 10. concetti: le due liste da cui 'La scintilla della serendipità' pesca a caso.",
+  "youtube": [
+    {
+      "nome": "Andrea Galeazzi",
+      "canale": "UC5yXB_ThsufRJYMRlzIGoeQ"
+    },
+    {
+      "nome": "TuttoTech",
+      "canale": "UC2o0IQ82qB7vE526Jq_LsYg"
+    },
+    {
+      "nome": "HDblog",
+      "canale": "UCdufkvMrmyR1TMhDG8PhsJw"
+    },
+    {
+      "nome": "Il signor Franz",
+      "canale": "UCLpGbBGYr9yCGbSwDEFvrMQ"
+    },
+    {
+      "nome": "Raffaele Gaito",
+      "canale": "UCrebGs3b-Z7JLKQM2YOpUKA"
+    },
+    {
+      "nome": "Marco Montemagno",
+      "canale": "UCNg4RDHGls-HpbV10kWPlsw"
+    },
+    {
+      "nome": "Tom's Hardware Italia",
+      "canale": "UCea_PWIxJc-NyDMdtDsN29A"
+    },
+    {
+      "nome": "SmartWorld",
+      "canale": "UCohqjDGw0sKlUha-eV1J0hQ"
+    },
+    {
+      "nome": "Techprincess",
+      "canale": "UCs_ouz-Hdk1vQRofWi3JkDg"
+    },
+    {
+      "nome": "Datapizza",
+      "canale": "UCKssZEARhK7TT_5DEZmtMpw"
+    },
+    {
+      "nome": "Marcello Ascani",
+      "canale": "UCS5PaGnSnFUnrjSc80XRnqw"
+    },
+    {
+      "nome": "Geopop",
+      "canale": "UCx7EWheHmjCW3vX8K2d09vg"
+    }
+  ],
+  "youtube_giorni": 10,
+  "radio": [
+    {
+      "nome": "Radio 24",
+      "url": "https://ilsole24ore-radio.akamaized.net/hls/live/2035301/radio24/playlist.m3u8",
+      "tipo": "hls",
+      "perche": "La radio del Sole 24 Ore: economia, innovazione, mobilità del futuro e mondo digitale."
+    },
+    {
+      "nome": "Rai Radio 1",
+      "url": "https://icestreaming.rai.it/1.mp3",
+      "perche": "Informazione e approfondimento, con programmi su tecnologia e innovazione."
+    },
+    {
+      "nome": "Giornale Radio",
+      "url": "https://gr.fluidstream.eu/gr1.mp3",
+      "perche": "Radio di sola informazione: notizie, economia, scienza e tecnologia tutto il giorno."
+    },
+    {
+      "nome": "Radio Activa Plus",
+      "feed": "https://feeds.soundcloud.com/users/soundcloud:users:615333465/sounds.rss",
+      "perche": "Testata dedicata a cultura digitale e innovazione: intelligenza artificiale, blockchain, realtà virtuale. Non trasmette in diretta: si ascolta l'ultima puntata."
+    },
+    {
+      "nome": "Radio Radicale",
+      "url": "https://live.radioradicale.it/live.mp3",
+      "perche": "Attualità e politica senza filtri: dirette dal Parlamento, convegni, processi e rassegne stampa, anche su tecnologia e regole dell'intelligenza artificiale."
+    },
+    {
+      "nome": "Radio Popolare",
+      "url": "https://livex.radiopopolare.it/radiopop",
+      "perche": "Informazione e attualità da Milano: notiziari, approfondimenti e spazi su società, diritti e mondo digitale."
+    },
+    {
+      "nome": "Rai Radio 3",
+      "url": "https://icestreaming.rai.it/3.mp3",
+      "perche": "Cultura e scienza: divulgazione e dibattiti sulle idee che cambiano la società."
+    },
+    {
+      "nome": "RTL 102.5",
+      "url": "https://dd782ed59e2a4e86aabf6fc508674b59.msvdn.net/live/S97044836/tbbP8T1ZRPBL/playlist_audio.m3u8",
+      "tipo": "hls",
+      "perche": "Musica e informazione, con rubriche su tecnologia e novità digitali."
+    },
+    {
+      "nome": "Radio 105",
+      "url": "https://icecast.unitedradio.it/Radio105.mp3",
+      "perche": "Musica e intrattenimento, con spazi su tendenze e mondo digitale."
+    },
+    {
+      "nome": "Radio Capital",
+      "url": "https://4c4b867c89244861ac216426883d1ad0.msvdn.net/radiocapital/radiocapital/master_ma.m3u8",
+      "tipo": "hls",
+      "perche": "Musica e informazione dal gruppo GEDI, con approfondimenti su attualità e innovazione."
+    }
+  ],
+  "libri": [
+    {
+      "titolo": "Nexus. Breve storia delle reti di informazione dall'età della pietra all'IA",
+      "autore": "Yuval Noah Harari",
+      "anno": 2024,
+      "tema": "filosofia",
+      "perche": "Come le reti di informazione hanno plasmato la storia e che cosa cambia ora che l'intelligenza artificiale prende decisioni."
+    },
+    {
+      "titolo": "Homo Deus. Breve storia del futuro",
+      "autore": "Yuval Noah Harari",
+      "anno": 2015,
+      "tema": "filosofia",
+      "perche": "Che cosa potrebbe diventare l'umanità quando tecnologia e dati promettono salute, felicità e potere."
+    },
+    {
+      "titolo": "21 lezioni per il XXI secolo",
+      "autore": "Yuval Noah Harari",
+      "anno": 2018,
+      "tema": "società",
+      "perche": "Le grandi domande del presente, dal lavoro alla libertà, nell'epoca degli algoritmi."
+    },
+    {
+      "titolo": "Vita 3.0. Essere umani nell'era dell'intelligenza artificiale",
+      "autore": "Max Tegmark",
+      "anno": 2017,
+      "tema": "filosofia",
+      "perche": "Un fisico immagina gli scenari possibili di un mondo con macchine sempre più capaci e chiede quale futuro vogliamo."
+    },
+    {
+      "titolo": "Superintelligenza. Tendenze, pericoli, strategie",
+      "autore": "Nick Bostrom",
+      "anno": 2014,
+      "tema": "filosofia",
+      "perche": "Il libro che ha portato nel dibattito pubblico il tema dei rischi di un'intelligenza artificiale superiore a quella umana."
+    },
+    {
+      "titolo": "Human Compatible",
+      "autore": "Stuart Russell",
+      "anno": 2019,
+      "tema": "filosofia",
+      "perche": "Uno dei padri dell'IA moderna propone come costruire macchine che restino al servizio delle persone."
+    },
+    {
+      "titolo": "La quarta rivoluzione. Come l'infosfera sta trasformando il mondo",
+      "autore": "Luciano Floridi",
+      "anno": 2014,
+      "tema": "filosofia",
+      "perche": "Dopo Copernico, Darwin e Freud, il digitale cambia di nuovo il modo in cui capiamo noi stessi."
+    },
+    {
+      "titolo": "Etica dell'intelligenza artificiale",
+      "autore": "Luciano Floridi",
+      "anno": 2022,
+      "tema": "filosofia",
+      "perche": "Principi chiari per un'IA buona per la società, da uno dei filosofi più ascoltati sul tema."
+    },
+    {
+      "titolo": "Il capitalismo della sorveglianza",
+      "autore": "Shoshana Zuboff",
+      "anno": 2019,
+      "tema": "società",
+      "perche": "Come i dati sui nostri comportamenti sono diventati la materia prima dell'economia digitale."
+    },
+    {
+      "titolo": "Armi di distruzione matematica",
+      "autore": "Cathy O'Neil",
+      "anno": 2016,
+      "tema": "società",
+      "perche": "Una matematica racconta come algoritmi opachi possano rafforzare ingiustizie in lavoro, credito e giustizia."
+    },
+    {
+      "titolo": "Né intelligente né artificiale. Il lato oscuro dell'IA",
+      "autore": "Kate Crawford",
+      "anno": 2021,
+      "tema": "società",
+      "perche": "Le risorse, il lavoro umano e i dati che stanno dietro all'intelligenza artificiale."
+    },
+    {
+      "titolo": "La nuova rivoluzione delle macchine",
+      "autore": "Erik Brynjolfsson e Andrew McAfee",
+      "anno": 2014,
+      "tema": "economia",
+      "perche": "Come la tecnologia digitale cambia lavoro, produttività e ricchezza, e che cosa possiamo fare."
+    },
+    {
+      "titolo": "L'onda che verrà (The Coming Wave)",
+      "autore": "Mustafa Suleyman",
+      "anno": 2023,
+      "tema": "società",
+      "perche": "Uno dei fondatori di DeepMind spiega perché IA e biotecnologie andranno governate con cura."
+    },
+    {
+      "titolo": "Co-Intelligence",
+      "autore": "Ethan Mollick",
+      "anno": 2024,
+      "tema": "economia",
+      "perche": "Una guida pratica per lavorare insieme all'intelligenza artificiale, a scuola e in ufficio."
+    },
+    {
+      "titolo": "Potere e progresso",
+      "autore": "Daron Acemoglu e Simon Johnson",
+      "anno": 2023,
+      "tema": "economia",
+      "perche": "Due economisti, uno premio Nobel, mostrano che il progresso tecnologico non porta benessere a tutti da solo."
+    },
+    {
+      "titolo": "L'intelligenza artificiale. Una guida per esseri umani pensanti",
+      "autore": "Melanie Mitchell",
+      "anno": 2019,
+      "tema": "mente",
+      "perche": "Che cosa sanno fare davvero le macchine e dove sono ancora lontane dalla mente umana, spiegato con chiarezza."
+    },
+    {
+      "titolo": "La scorciatoia",
+      "autore": "Nello Cristianini",
+      "anno": 2023,
+      "tema": "mente",
+      "perche": "Come le macchine sono diventate intelligenti senza pensare come noi, raccontato da un informatico italiano."
+    },
+    {
+      "titolo": "Macchina sapiens",
+      "autore": "Nello Cristianini",
+      "anno": 2024,
+      "tema": "mente",
+      "perche": "Le macchine capiscono davvero? Un viaggio nei limiti e nelle sorprese dei grandi modelli linguistici."
+    },
+    {
+      "titolo": "Human in the loop. Decisioni umane e intelligenze artificiali",
+      "autore": "Paolo Benanti",
+      "anno": 2022,
+      "tema": "filosofia",
+      "perche": "Un teologo esperto di tecnologia riflette su come mantenere l'uomo al centro delle decisioni."
+    },
+    {
+      "titolo": "La generazione ansiosa",
+      "autore": "Jonathan Haidt",
+      "anno": 2024,
+      "tema": "mente",
+      "perche": "Come smartphone e social hanno cambiato l'infanzia e la salute mentale dei ragazzi."
+    },
+    {
+      "titolo": "Internet ci rende stupidi?",
+      "autore": "Nicholas Carr",
+      "anno": 2010,
+      "tema": "mente",
+      "perche": "Che cosa succede alla nostra attenzione e alla memoria quando leggiamo soprattutto sugli schermi."
+    },
+    {
+      "titolo": "Infocrazia",
+      "autore": "Byung-Chul Han",
+      "anno": 2021,
+      "tema": "società",
+      "perche": "Un filosofo racconta come il flusso continuo di informazioni cambia la democrazia."
+    },
+    {
+      "titolo": "Il dilemma dell'innovatore",
+      "autore": "Clayton M. Christensen",
+      "anno": 1997,
+      "tema": "economia",
+      "perche": "Perché le grandi aziende vengono spesso superate dalle innovazioni che non prendono sul serio."
+    },
+    {
+      "titolo": "Da zero a uno",
+      "autore": "Peter Thiel e Blake Masters",
+      "anno": 2014,
+      "tema": "economia",
+      "perche": "Come nascono le idee davvero nuove e le aziende che creano qualcosa che prima non c'era."
+    },
+    {
+      "titolo": "Prediction Machines",
+      "autore": "Ajay Agrawal, Joshua Gans e Avi Goldfarb",
+      "anno": 2018,
+      "tema": "economia",
+      "perche": "L'IA come tecnologia che rende le previsioni economiche: che cosa cambia per imprese e decisioni."
+    },
+    {
+      "titolo": "The Age of AI",
+      "autore": "Henry Kissinger, Eric Schmidt e Daniel Huttenlocher",
+      "anno": 2021,
+      "tema": "società",
+      "perche": "Uno statista, un manager e uno scienziato si chiedono come l'IA cambierà conoscenza, politica e sicurezza."
+    },
+    {
+      "titolo": "Pensieri lenti e veloci",
+      "autore": "Daniel Kahneman",
+      "anno": 2011,
+      "tema": "mente",
+      "perche": "I due modi in cui pensiamo e decidiamo: utile per capire anche i nostri rapporti con le macchine."
+    },
+    {
+      "titolo": "Antifragile",
+      "autore": "Nassim Nicholas Taleb",
+      "anno": 2012,
+      "tema": "economia",
+      "perche": "Come persone e imprese possono diventare più forti proprio grazie a cambiamenti e imprevisti."
+    },
+    {
+      "titolo": "The Singularity Is Nearer",
+      "autore": "Ray Kurzweil",
+      "anno": 2024,
+      "tema": "filosofia",
+      "perche": "La visione più ottimista sul futuro della tecnologia, dal profeta della singolarità."
+    },
+    {
+      "titolo": "Genesis",
+      "autore": "Henry Kissinger, Eric Schmidt e Craig Mundie",
+      "anno": 2024,
+      "tema": "società",
+      "perche": "Riflessioni su come l'umanità può prepararsi all'era delle intelligenze artificiali."
+    }
+  ],
+  "concetti": {
+    "vicini": [
+      "apicoltura",
+      "vendemmia",
+      "ceramica artigianale",
+      "tombe etrusche",
+      "mercato rionale",
+      "sartoria",
+      "gioco delle bocce",
+      "panificazione",
+      "orto di casa",
+      "terme",
+      "presepe",
+      "fontane storiche",
+      "biblioteca di paese",
+      "transumanza",
+      "liuteria",
+      "ricamo",
+      "ricette della nonna",
+      "ferrovia storica",
+      "mappe antiche",
+      "banda musicale",
+      "olio d'oliva",
+      "raccolta delle castagne",
+      "funghi",
+      "osteria",
+      "palio",
+      "processione",
+      "bottega del falegname",
+      "pesca nel lago",
+      "falconeria",
+      "canto a braccio",
+      "cantina",
+      "maglia ai ferri",
+      "erbe officinali",
+      "orologeria",
+      "tipografia",
+      "barbiere",
+      "edicola",
+      "lavatoio",
+      "carnevale",
+      "stalla"
+    ],
+    "lontani": [
+      "realtà aumentata",
+      "blockchain",
+      "droni",
+      "stampa 3D",
+      "sensori connessi",
+      "visione artificiale",
+      "modelli linguistici",
+      "robot collaborativi",
+      "gemelli digitali",
+      "energia solare",
+      "biotecnologie",
+      "satelliti",
+      "guida autonoma",
+      "riconoscimento vocale",
+      "calcolo quantistico",
+      "esoscheletri",
+      "videogiochi",
+      "previsioni con i dati",
+      "traduzione automatica",
+      "agenti AI",
+      "batterie al sodio",
+      "bioplastiche",
+      "agricoltura di precisione",
+      "telemedicina",
+      "occhiali intelligenti",
+      "economia circolare",
+      "orologi intelligenti",
+      "piattaforme di condivisione",
+      "metaverso",
+      "cybersicurezza",
+      "domotica",
+      "intelligenza artificiale generativa",
+      "microchip",
+      "fibra ottica",
+      "sensori di qualità dell'aria",
+      "abbonamenti digitali",
+      "crowdfunding",
+      "lavoro da remoto",
+      "musica generata dall'IA",
+      "robot aspirapolvere"
+    ]
+  }
+}

@@ -92,7 +92,7 @@ function bacheca() {
   const n = qr.getModuleCount(), m = 50, cella = (lato - 2 * m) / n; c.fillStyle = '#0b2a55';
   for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (qr.isDark(y, x)) c.fillRect(Math.floor(qx + m + x * cella), Math.floor(qy + m + y * cella), Math.ceil(cella), Math.ceil(cella));
   c.textAlign = 'center'; c.fillStyle = '#0b2a55'; c.font = `800 80px ${SANS}`; c.fillText('Inquadra il QR con la fotocamera', W / 2, 2620);
-  c.font = `60px ${SANS}`; c.fillStyle = '#3d4450'; c.fillText('Gratis i primi 15 giorni · Android e iPhone · senza registrazione', W / 2, 2720);
+  c.font = `60px ${SANS}`; c.fillStyle = '#3d4450'; c.fillText('Base gratis · Completo con un contributo · Android e iPhone · senza registrazione', W / 2, 2720);
   // biglietti a strappo
   const top = 2860, n2 = 8, lw = W / n2;
   c.strokeStyle = '#6b7280'; c.lineWidth = 6; c.setLineDash([26, 18]);

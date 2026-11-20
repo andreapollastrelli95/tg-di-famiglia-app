@@ -5,4 +5,6 @@ _site/
 _foto_*.png
 node_modules/
 .wrangler/
-codici-premium-PRIVATI.txt
+codici-sblocco-PRIVATI.txt
+_v_*.png
+*.bak

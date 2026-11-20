@@ -1,4 +1,0 @@
-{
- "_nota": "Impronte SHA-256 dei codici Premium (mai i codici in chiaro). Si aggiorna con: python tools/genera_codici.py 20",
- "hash": []
-}

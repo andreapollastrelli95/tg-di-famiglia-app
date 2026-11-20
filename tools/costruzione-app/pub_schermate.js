@@ -1,6 +1,6 @@
 /* ---------- Schermate ---------- */
 function mostra(schermata) {
-  for (const [id, nome] of [['schermataDemo', 'demo'], ['schermataConfig', 'config'], ['schermataTG', 'tg'], ['schermataPremium', 'premium']]) $(id).classList.toggle('nascosto', schermata !== nome);
+  for (const [id, nome] of [['schermataDemo', 'demo'], ['schermataConfig', 'config'], ['schermataTG', 'tg'], ['schermataSblocca', 'sblocca']]) $(id).classList.toggle('nascosto', schermata !== nome);
   $('apriImpostazioni').classList.toggle('nascosto', schermata !== 'tg');
   window.scrollTo({ top: 0 });
 }
@@ -38,13 +38,19 @@ function renderDemo(attiva = -1) {
     <article class="scheda podcast"><div class="testa"><div><div class="nome">${esc(p.nome)}</div><div class="episodio">${esc(p.episodio)}</div></div></div>
       <p>${esc(p.spiegazione)}</p><div class="azioni"><button class="btn" data-bloccato type="button">▶️ Ascolta <span class="lucchetto">🔒</span></button></div></article>`).join('');
 }
+function renderFunzioniDemo() {
+  const base = PUBBLICO.FUNZIONI_BASE, comp = PUBBLICO.FUNZIONI_COMPLETO;
+  $('demoFunzioni').innerHTML = `<p class="piccolo" style="margin-top:0">${esc(testoOfferta())}</p>`
+    + base.map((f) => `<div class="funzione"><span>✅</span><span>${esc(NOMI_FUNZIONI[f] || f)}</span><span class="badge">Gratis</span></div>`).join('')
+    + comp.map((f) => `<button class="funzione bloccata" data-funzione="${esc(f)}" type="button"><span>🔒</span><span>${esc(NOMI_FUNZIONI[f] || f)}</span><span class="badge">Sblocca con ${esc(PUBBLICO.SBLOCCO['3M'].prezzo)}</span></button>`).join('');
+}
 function etichettaDemo(testo) {
   $('etichettaDemo').textContent = testo;
   $('iconaDemo').innerHTML = /Pausa/.test(testo) ? '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>' : '<path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/>';
 }
 function mostraDemo() {
   mostra('demo');
-  renderDemo();
+  renderDemo(); renderFunzioniDemo();
   avviaDemo(false); // prova a partire da sola; se il browser blocca l'audio resta il grande tasto
 }
 function avviaTimerDemo() {
@@ -105,11 +111,16 @@ async function avviaDemo(daTocco) {
 $('tastoDemo').onclick = () => avviaDemo(true);
 $('tgOggiBloccato').onclick = () => { pausaDemo(); apriSblocco('lucchetto'); };
 $('apriSblocco').onclick = () => { pausaDemo(); apriSblocco('tasto'); };
-$('schermataDemo').addEventListener('click', (e) => { if (e.target.closest('[data-bloccato]')) { pausaDemo(); apriSblocco('lucchetto'); } });
+$('schermataDemo').addEventListener('click', (e) => {
+  const f = e.target.closest('[data-funzione]');
+  if (f) { pausaDemo(); return mostraSblocca(f.dataset.funzione); }
+  if (e.target.closest('[data-bloccato]')) { pausaDemo(); apriSblocco('lucchetto'); }
+});
 
 /* ---------- Riquadro di sblocco con la chiave Gemini ---------- */
 function apriSblocco() {
   D.riquadroVisto = true;
+  $('rigaOfferta').textContent = '🎁 La chiave è gratuita. ' + (regaloNatale() || !nuoveRegole() ? `TG di Famiglia è gratis fino al ${PUBBLICO.REGALO_NATALE_FINO_AL.split('-').reverse().join('/')}.` : `Hai ${PUBBLICO.GIORNI_PROVA} giorni gratis con tutte le funzioni.`);
   if (!$('sblocco').open) { $('statoChiave').textContent = ''; $('statoChiave').classList.remove('errore'); $('sblocco').showModal(); }
   window.evento('riquadro-chiave');
 }
@@ -175,6 +186,8 @@ async function mostraConfig(prima) {
   const squadre = await caricaSquadre();
   $('campoSquadra').innerHTML = '<option value="">Nessuna in particolare</option>' + squadre.map((q) => `<option value="${esc(q.id)}">${esc(q.nome)}</option>`).join('');
   $('campoSquadra').value = squadre.some((q) => q.id === bozza.squadra) ? bozza.squadra : '';
+  $('campoSquadra').disabled = !ha('squadra');
+  $('notaSquadra').classList.toggle('nascosto', ha('squadra'));
 }
 function aggiornaSaluto() {
   bozza.nome = pulisciNome($('campoNome').value).slice(0, 40);
@@ -214,6 +227,7 @@ async function coordinate(c) {
 const attese = new Set(); // città di cui si stanno cercando le coordinate
 function aggiungiCitta(c) {
   $('statoCitta').classList.remove('errore');
+  if (bozza.citta.length >= 1 && !ha('citta5')) { $('statoCitta').textContent = `🔒 Con la versione gratuita c'è 1 città. Fino a 5 città con TG di Famiglia Completo.`; return mostraSblocca('citta5'); }
   if (bozza.citta.length >= 5) { $('statoCitta').textContent = 'Puoi scegliere al massimo 5 città.'; return; }
   if (bozza.citta.some((x) => x.nome === c.nome && x.sigla === c.sigla)) { $('statoCitta').textContent = `${c.nome} c'è già.`; return; }
   const nuova = { nome: c.nome, sigla: c.sigla };
@@ -269,10 +283,8 @@ $('apriImpostazioni').onclick = () => {
   $('riassuntoPreferenze').innerHTML = `<b>Famiglia:</b> ${esc(imp.nome || '—')}<br><b>Città:</b> ${esc(imp.citta.map((c) => c.nome).join(', ') || 'nessuna')}<br><b>Calcio:</b> ${imp.calcio ? 'sì' + (sq ? ` (${esc(sq)})` : '') : 'no'}`;
   $('chiaveMascherata').textContent = chiave ? chiave.slice(0, 6) + '…' + chiave.slice(-4) : '(nessuna)';
   $('statoImpostazioni').textContent = '';
-  $('statoProva').textContent = !PUBBLICO.PREMIUM_ENABLED ? '' : premiumAttivo() ? '⭐ TG di Famiglia Premium attivo. Grazie!'
-    : !giornoProva() ? `Prova gratuita di ${PUBBLICO.giorni_prova} giorni: parte dal primo TG ascoltato.`
-    : giorniRimasti() > 0 ? `Prova gratuita: mancano ${giorniRimasti()} ${giorniRimasti() === 1 ? 'giorno' : 'giorni'}.`
-    : giornoProva() <= PUBBLICO.giorni_prova ? "Prova gratuita: oggi è l'ultimo giorno." : 'La prova gratuita è finita.';
+  $('statoProva').textContent = statoLivello();
+  renderSceltaVoce();
   $('infoVersione').textContent = `Versione ${CONFIG.versione} · suoni di oggi: ${PACCHETTO.nome} · voce: ${ls.get('tg_modello_voce') || '—'} · testo: ${ls.get('tg_modello_testo') || '—'}` + (Ed.grezzo ? ` · dati del ${new Date(Ed.grezzo.generato).toLocaleString('it-IT')}` : '');
   $('impostazioni').showModal();
 };

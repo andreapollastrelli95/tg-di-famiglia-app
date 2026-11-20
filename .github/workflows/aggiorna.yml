@@ -5,7 +5,8 @@ name: Aggiornamento quotidiano (Cloudflare Pages)
 # le notizie del giorno. Il segreto CF_DEPLOY_HOOK si crea seguendo PUBBLICAZIONE.md.
 on:
   schedule:
-    - cron: "30 4 * * *"   # 04:30 UTC (05:30 ora solare, 06:30 ora legale)
+    - cron: "30 4 * * *"    # edizione del mattino: 04:30 UTC (05:30 ora solare, 06:30 ora legale)
+    - cron: "30 16 * * *"   # edizione della sera: 16:30 UTC (17:30 ora solare, 18:30 ora legale)
   workflow_dispatch:
 
 permissions:

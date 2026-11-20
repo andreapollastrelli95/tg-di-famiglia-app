@@ -32,23 +32,37 @@ Claude Code la inserisce in `index.html`, `privacy.html`, `stampa/index.html`, `
 2. ✅ Codice `tgdifamiglia` già inserito nell'app e nel sito (statistiche su https://tgdifamiglia.goatcounter.com).
 3. In GoatCounter → Settings: attiva *"Don't track IPs"* (o lascia il default anonimo).
 
-### Ko-fi (donazioni e Premium, gratis)
-1. [ko-fi.com](https://ko-fi.com/) → *Start a page* con l'email del brand. Link: **`ko-fi.com/tgdifamiglia`**.
-2. Nome pagina: **TG di Famiglia** · Immagine: `icona-512.png` · Copertina: `og-image.png`.
-3. **Descrizione** (About):
-   > TG di Famiglia è un telegiornale personale gratuito: ogni mattina le notizie del giorno lette come al
-   > TG, con il saluto per la famiglia e le notizie della propria città. Nessuna pubblicità. Con un caffè
-   > ci aiuti a tenerlo vivo e a costruire le prossime funzioni. Grazie! ☕ https://tg-di-famiglia.pages.dev
-4. **Obiettivo** (Goal): *"50 caffè per le prossime funzioni"* · importo: 50 × prezzo del caffè.
-   Prezzo del caffè: **2 €** (Settings → Payments → Coffee price).
-5. **Membership**: *Memberships → Enable* → livello **"Premium"** a **1,99 €/mese**. Descrizione:
-   > Il tuo TG di Famiglia ogni mattina, senza limiti: notizie, città, squadra del cuore, podcast. Dopo
-   > l'iscrizione ricevi un codice personale da inserire nell'app (⚙️ → Premium). Disdici quando vuoi.
-   Messaggio di benvenuto (da completare a mano con un codice di `codici-premium-PRIVATI.txt`):
-   > Grazie per aver scelto TG di Famiglia Premium! Il tuo codice è: TGF-XXXX-XXXX-XXXX. Aprilo
-   > nell'app, inseriscilo nella schermata Premium e premi «Attiva».
+### Ko-fi (sblocco e sostegno, gratis)
+1. La pagina è già `ko-fi.com/tgdifamiglia`. Nome pagina: **TG di Famiglia** · immagine `icona-512.png`.
+2. **Descrizione** (About):
+   > TG di Famiglia è un telegiornale personale: ogni mattina le notizie del giorno lette come al TG, con il
+   > saluto per la famiglia e le notizie della propria città. Nessuna pubblicità. Con un contributo sblocchi
+   > TG di Famiglia Completo e ci aiuti a costruire le prossime funzioni. Grazie! https://tg-di-famiglia.pages.dev
+3. **Obiettivo** (Goal): *"50 caffè per le prossime funzioni"*. Prezzo del caffè: **2 €**.
+4. **Articolo dello Shop** (contributo da 5 €): *Shop → Add item* → tipo **Digital product / Commission-free item**
+   - Nome: **TG di Famiglia Completo – 3 mesi**
+   - Prezzo: **5 €**
+   - Descrizione:
+     > Sblocca TG di Famiglia Completo per 3 mesi: fino a 5 città, squadra del cuore, podcast, sigla e musica,
+     > meteo, radio, edizione serale, scelta della voce e tutte le altre schede. Dopo l'acquisto ricevi un
+     > codice personale (TGF-3M-…) da inserire nell'app: ⚙️ Impostazioni → Sblocca tutto.
+   - Messaggio dopo l'acquisto (testo da mandare a mano con il codice):
+     > Grazie! Il tuo codice è: TGF-3M-XXXX-XXXX. Apri TG di Famiglia, tocca ⚙️ → Sblocca tutto, scrivi il
+     > codice e premi «Sblocca». Resta valido 3 mesi dal giorno in cui lo attivi.
+   - Link usato nell'app (`config.json` → `SBLOCCO.3M.link`): `https://ko-fi.com/tgdifamiglia/shop`
+     (se Ko-fi ti dà l'indirizzo diretto dell'articolo, sostituiscilo).
+5. **Membership** (mensile): rinomina il livello esistente "TG di Famiglia Premium" in
+   **"TG di Famiglia Completo – mensile"**, **1,99 €/mese**. Descrizione:
+   > Il tuo TG di Famiglia Completo ogni mese: tutte le funzioni, senza limiti. Ricevi un codice personale
+   > (TGF-1M-…) da inserire nell'app (⚙️ → Sblocca tutto). A ogni rinnovo mensile ricevi un codice nuovo.
+   > Disdici quando vuoi.
+   Messaggio di benvenuto (da completare con un codice `1M`):
+   > Grazie per l'iscrizione! Il tuo codice è: TGF-1M-XXXX-XXXX. Apri TG di Famiglia, ⚙️ → Sblocca tutto,
+   > scrivi il codice e premi «Sblocca». Ogni mese ti mando un codice nuovo.
 6. **Pagamenti**: collega **Stripe** (preferito: mostra il nome del brand a chi paga) – dati bancari e
    d'identità li inserisci tu. Su Stripe imposta *Public business name* = "TG di Famiglia".
+7. **Come mandi i codici**: `python tools/genera_codici.py 3M 10` (o `1M 5`), poi commit e push di
+   `codici-sblocco.json`, poi copi un codice dal file `codici-sblocco-PRIVATI.txt` nel messaggio.
 
 ## 3. Reddit
 
@@ -85,12 +99,12 @@ copiato ovunque.
 > Dettagli tecnici: niente backend (raccolta dati in una build statica ogni mattina), ogni utente usa la
 > propria chiave Gemini gratuita che resta sul telefono, voce di Gemini con quella del telefono come
 > riserva, scelta di città tra i 7.896 comuni ISTAT, statistiche anonime senza cookie.
-> I primi 15 giorni sono gratis, poi c'è un Premium da 1,99 €/mese (demo e biglietto regalo restano gratis).
+> Fino al 31 dicembre 2026 la versione Base è gratis; con 5 € si sbloccano tutte le funzioni per 3 mesi (dal 2027: 15 giorni gratis, poi 5 € per 3 mesi o 1,99 €/mese). Demo e biglietto regalo restano gratis.
 > Cerco pareri e critiche, soprattutto su: facilità per chi non è pratico, qualità dei riassunti,
 > privacy. Link: https://tg-di-famiglia.pages.dev
 
 **r/italy / r/Italia** (solo nel thread consentito) – titolo: *Un TG personale da regalare ai genitori/nonni: ve lo faccio provare*
-> Ho creato TG di Famiglia, una web app gratuita (15 giorni, poi 1,99 €/mese) nata per mio papà: si
+> Ho creato TG di Famiglia, una web app gratuita nella versione Base (con 5 € si sbloccano tutte le funzioni) nata per mio papà: si
 > preme play e si ascoltano le notizie del giorno lette come al telegiornale, con il saluto per la
 > famiglia e le notizie della propria città. Si può stampare un biglietto regalo con il QR. Sono
 > l'autore: accetto volentieri critiche e suggerimenti. https://tg-di-famiglia.pages.dev
@@ -156,7 +170,7 @@ di Chrome, su iPhone mostra i 3 passaggi) e lo stesso tasto c'è nell'app (demo,
 |---|---|---|
 | Gmail del brand | da creare | registrazione (tu), 2 passaggi, firma, foto |
 | GoatCounter | da creare | codice `tgdifamiglia` → Claude Code lo inserisce |
-| Ko-fi | da creare | pagina, obiettivo, membership 1,99 €, Stripe (tu) |
+| Ko-fi | pagina creata | articolo Shop da 5 €, membership "Completo – mensile" da 1,99 €, Stripe (tu) |
 | Reddit | da creare | profilo; regole dei subreddit da verificare; post dopo 1-2 settimane |
 | Pinterest | da creare | account business, meta di verifica → Claude Code, 3 bacheche, 10 pin |
 | Cloudflare Pages | da creare | vedi `PUBBLICAZIONE.md` (serve prima di Pinterest e Reddit) |

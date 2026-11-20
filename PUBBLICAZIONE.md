@@ -68,29 +68,34 @@ Il workflow `keepalive.yml` fa un piccolo commit al mese, perché GitHub non sos
 Le intestazioni HTTP (service worker sempre aggiornato, manifest, dati non in cache) sono nel file
 `_headers`, che Cloudflare applica da solo.
 
-## 5. Statistiche, donazioni, contatti (segnaposto da sostituire)
+## 5. Statistiche, pagamenti, contatti
 
 | Segnaposto | Dove | Cosa fare |
 |---|---|---|
 | GoatCounter: `tgdifamiglia` (già inserito) | `statistiche.js`, `app/index.html` (riga `GOATCOUNTER_CODICE`) | statistiche su https://tgdifamiglia.goatcounter.com |
-| `https://ko-fi.com/tgdifamiglia` | `config.json` (`kofi_caffe`, `kofi_abbonamento`) | crea la pagina Ko-fi con quel nome e il livello di membership "Premium" a 1,99 €/mese |
+| Ko-fi | `config.json` (`kofi_caffe`, `SBLOCCO.*.link`) | articolo dello Shop da 5 € e membership mensile da 1,99 € (testi in `LANCIO.md`) |
 
 Dopo ogni modifica: commit e push su `main` → Cloudflare ripubblica da solo.
 
-## 6. Codici Premium (abbonati Ko-fi)
+## 6. Codici di sblocco
 
 ```bash
-python tools/genera_codici.py 20
+python tools/genera_codici.py 3M 10     # 10 codici da 3 mesi (contributo di 5 €)
+python tools/genera_codici.py 1M 5      # 5 codici mensili (1,99 €/mese)
 ```
-Stampa 20 codici (e li salva in `codici-premium-PRIVATI.txt`, che **non** va nel repository) e aggiunge le
-loro impronte a `premium-codes.json`. Fai commit e push di `premium-codes.json`. A ogni nuovo abbonato
-Ko-fi invia un codice (Ko-fi permette un messaggio automatico di ringraziamento per i membri: puoi
-inviarli a mano dalla sezione *Supporters*). Per revocarne uno:
-`python tools/genera_codici.py --revoca TGF-XXXX-XXXX-XXXX`.
+Stampa i codici (e li salva in `codici-sblocco-PRIVATI.txt`, che **non** va nel repository) e aggiunge le loro
+impronte a `codici-sblocco.json`: fai commit e push di quel file prima di mandare i codici. Dopo ogni
+pagamento su Ko-fi mandi **un codice del tipo giusto** (`TGF-3M-…` per i 5 €, `TGF-1M-…` per il mensile; per il
+mensile uno nuovo a ogni rinnovo). Ogni codice si usa una volta per telefono. Per revocarne uno:
+`python tools/genera_codici.py --revoca TGF-3M-XXXX-XXXX`.
 
-Nota: la prova gratuita e lo stato Premium sono salvati sul telefono; sul web una persona esperta può
-aggirarli (per esempio cancellando i dati del sito). Per un controllo vero serve un server (fase
-successiva, vedi `proxy/`).
+Nota: lo sblocco e la prova sono salvati sul telefono; sul web una persona esperta può aggirarli (per
+esempio cancellando i dati del sito). Per un controllo vero serve un server (fase successiva, `proxy/`).
+
+## Come funziona la data
+
+Le regole nel tempo sono in `config.json` e usano la data italiana. Per provarle in locale
+(`python -m http.server 8770` dalla cartella del sito costruita) apri `http://localhost:8770/app/?oggi=2027-01-20`.
 
 ## Se il nome cambia
 

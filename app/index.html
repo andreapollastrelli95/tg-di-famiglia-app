@@ -197,6 +197,18 @@ dialog h2{margin-top:0}
 .piccolo{font-size:16px;color:var(--tenue)}
 .nascosto{display:none !important}
 .sottotitolo{font-size:16px;opacity:.9}
+.funzione{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--carta);border:1px solid var(--bordo);border-radius:14px;padding:12px 14px;margin:0 0 8px;font-size:18px;color:var(--testo)}
+.funzione span:nth-child(2){flex:1}
+.funzione.bloccata{border:2px dashed var(--blu);cursor:pointer}
+.funzione .badge{margin:0;white-space:nowrap}
+.tabella-sblocca{width:100%;border-collapse:collapse;font-size:16px;margin:10px 0 16px}
+.tabella-sblocca th,.tabella-sblocca td{padding:8px 6px;border-top:1px solid var(--bordo);text-align:center}
+.tabella-sblocca td:first-child,.tabella-sblocca th:first-child{text-align:left}
+.opzioni{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.opzione{display:flex;flex-direction:column;gap:6px;border:2px solid var(--blu);border-radius:16px;padding:14px;background:var(--carta)}
+.opzione .prezzo{font-size:28px}
+.offerta{background:var(--giallo);border:2px solid #e2c23d;border-radius:14px;padding:12px 14px;font-size:18px;margin:0 0 14px}
+@media (max-width:520px){.opzioni{grid-template-columns:1fr}}
 @media (max-width:420px){
   .tasto-play{width:170px;height:170px}
   .testata h1{font-size:23px}
@@ -232,39 +244,35 @@ dialog h2{margin-top:0}
       </div>
       <div class="riga-btn" style="margin-top:10px"><button class="btn rosso nascosto" data-installa type="button">📲 Installa l'app sul telefono</button></div>
     </div>
+    <h2>✨ Cosa c'è nel TG di Famiglia</h2>
+    <div id="demoFunzioni"></div>
     <h2>📰 Le notizie di esempio</h2>
     <div id="demoNotizie"></div>
     <h2>🎧 Podcast di esempio</h2>
     <div id="demoPodcast"></div>
   </section>
 
-  <!-- PREMIUM: dal 16° giorno, se la prova è finita -->
-  <section id="schermataPremium" class="setup nascosto">
+  <!-- SBLOCCA TUTTO: confronto Base / Completo, opzioni e codice -->
+  <section id="schermataSblocca" class="setup nascosto">
     <div class="scheda">
-      <h2>Continua con TG di Famiglia Premium</h2>
-      <p>La prova gratuita è finita. Con Premium il tuo TG continua ogni mattina:</p>
-      <ul class="premio">
-        <li>📺 Il TG personale di ogni giorno, con il saluto per la tua famiglia</li>
-        <li>📍 Le notizie e il meteo delle tue città</li>
-        <li>⚽ Le notizie della tua squadra del cuore</li>
-        <li>🎧 Dieci podcast consigliati al giorno, radio e le tue preferite</li>
-        <li>🚫 Nessuna pubblicità</li>
-      </ul>
-      <p class="prezzo" id="prezzoPremium">1,99 €/mese</p>
-      <p class="piccolo" style="margin-top:0">Disdici quando vuoi.</p>
-      <div class="riga-btn"><button class="btn rosso" id="abbonati" type="button">⭐ Abbonati</button></div>
-      <p class="piccolo">Il pagamento avviene su Ko-fi; dopo l'abbonamento ricevi un codice personale da inserire qui sotto.</p>
-      <div id="bloccoCodice">
-        <label for="campoCodice"><b>Hai già un codice Premium?</b></label>
-        <input id="campoCodice" class="campo" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="TGF-XXXX-XXXX-XXXX">
-        <div class="riga-btn"><button class="btn pieno" id="attivaCodice" type="button">Attiva</button></div>
+      <h2>🔓 Sblocca tutto: TG di Famiglia Completo</h2>
+      <p class="offerta" id="sbloccaSituazione"></p>
+      <table class="tabella-sblocca" id="sbloccaTabella"></table>
+      <h3>Scegli come sbloccare</h3>
+      <div class="opzioni">
+        <div class="opzione"><div id="opzioni3M"></div><button class="btn rosso" id="scegli3M" type="button">Scegli</button></div>
+        <div class="opzione"><div id="opzioni1M"></div><button class="btn pieno" id="scegli1M" type="button">Scegli</button></div>
       </div>
-      <p class="stato" id="statoPremium" role="status" aria-live="polite"></p>
-      <p style="margin-top:18px">Restano sempre gratis:</p>
+      <p class="piccolo">Il pagamento avviene su Ko-fi. Dopo il contributo ricevi un <b>codice personale</b>: inseriscilo qui sotto. Il mensile si disdice quando vuoi.</p>
+      <label for="campoCodice"><b>Hai un codice?</b></label>
+      <input id="campoCodice" class="campo" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="TGF-3M-XXXX-XXXX">
+      <div class="riga-btn"><button class="btn pieno" id="attivaCodice" type="button">🔓 Sblocca</button></div>
+      <p class="stato" id="statoSblocca" role="status" aria-live="polite"></p>
+      <p style="margin-top:18px">Restano sempre gratis: la demo, il biglietto regalo e la condivisione.</p>
       <div class="riga-btn">
-        <button class="btn" id="premiumDemo" type="button">🎬 La demo</button>
         <a class="btn" href="../regalo.html">🎁 Biglietto regalo</a>
         <button class="btn whatsapp" data-condividi type="button">💬 Condividi</button>
+        <button class="btn" id="sbloccaIndietro" type="button">← Indietro</button>
       </div>
     </div>
   </section>
@@ -277,7 +285,7 @@ dialog h2{margin-top:0}
       <label for="campoNome"><b>1. Il nome della famiglia</b> <span class="piccolo">(facoltativo)</span></label>
       <input id="campoNome" class="campo" type="text" autocomplete="off" maxlength="40" placeholder="Es. Rossi">
       <p class="piccolo" id="anteprimaSaluto" style="margin-top:-6px"></p>
-      <label for="campoCitta"><b>2. Le tue città</b> <span class="piccolo">(da 0 a 5)</span></label>
+      <label for="campoCitta"><b>2. Le tue città</b> <span class="piccolo">(1 gratis, fino a 5 con il Completo)</span></label>
       <div id="chipCitta"></div>
       <input id="campoCitta" class="campo" type="text" autocomplete="off" placeholder="Scrivi il nome del comune">
       <ul class="suggerimenti" id="suggerimentiCitta"></ul>
@@ -291,6 +299,7 @@ dialog h2{margin-top:0}
       <div id="bloccoSquadra">
         <label for="campoSquadra"><b>Squadra del cuore</b> <span class="piccolo">(facoltativa)</span></label>
         <select id="campoSquadra" class="campo"><option value="">Nessuna in particolare</option></select>
+        <p class="piccolo nascosto" id="notaSquadra" style="margin-top:-6px">🔒 La squadra del cuore fa parte di TG di Famiglia Completo.</p>
       </div>
       <div class="riga-btn" style="margin-top:8px"><button class="btn rosso" id="salvaConfig" type="button">▶ Inizia il mio TG</button></div>
       <p class="stato" id="statoConfig" role="status" aria-live="polite"></p>
@@ -306,6 +315,9 @@ dialog h2{margin-top:0}
       <button id="schedaRadio" type="button">📻 RADIO</button>
       <button id="schedaCalcio" type="button">⚽ CALCIO</button>
       <button id="schedaVarie" type="button">🧩 VARIE</button>
+      <button id="schedaNovita" type="button">✨ NOVITÀ</button>
+      <button id="schedaTech" type="button">🤖 TECH &amp; AI</button>
+      <button id="schedaAltro" type="button">🌍 ALTRO</button>
     </div>
 
     <!-- Scheda TG: solo il notiziario -->
@@ -353,6 +365,8 @@ dialog h2{margin-top:0}
         </div>
         <p class="radio-nome" id="radioNome"></p>
       </div>
+      <h2>📍 Radio della tua zona</h2>
+      <div class="scheda" id="radioZona"><p class="piccolo">Apri la scheda per cercare le radio delle tue città.</p></div>
       <h2>⭐ Radio preferite</h2>
       <div class="scheda">
         <div id="radioPreferite"></div>
@@ -386,8 +400,155 @@ dialog h2{margin-top:0}
         <button class="btn" data-apri="meteo" id="tastoMeteo" type="button">🌦️ Meteo</button>
         <button class="btn" data-apri="tv" type="button">📺 Stasera in TV</button>
         <button class="btn" data-apri="accadde" type="button">📜 Accadde oggi</button>
+        <button class="btn" data-apri="rassegna" type="button">🗞️ Rassegna stampa della domenica</button>
+        <button class="btn" data-apri="sport" type="button">🎾 Altri sport</button>
+        <button class="btn" data-apri="partite" type="button">⚽ Partite di oggi</button>
+        <button class="btn" data-apri="cultura" type="button">🎭 Concerti, teatro e mostre</button>
+        <button class="btn" data-apri="sentieri" type="button">🥾 I sentieri della salute</button>
+        <button class="btn" data-apri="ricettario" type="button">🍝 Ricettario di famiglia</button>
+        <button class="btn" data-apri="faidate" type="button">🔨 Angolo del fai da te</button>
       </div>
       <div id="contenutoVarie"></div>
+      <section data-sezione="sentieri" class="nascosto">
+        <h2>🥾 I sentieri della salute</h2>
+        <p class="spiega">Idee per una camminata, un trekking leggero o un percorso nella natura vicino alle tue città, con il meteo previsto per domenica e il tasto per arrivarci. I percorsi li propone l'intelligenza artificiale: verifica sempre accessi e condizioni prima di partire.</p>
+        <div id="sentieriContenuto"></div>
+      </section>
+      <section data-sezione="ricettario" class="nascosto">
+        <h2>🍝 Ricettario di famiglia</h2>
+        <p class="spiega">Le ricette della tradizione delle tue zone. Ogni giorno ce n'è una nuova, con ingredienti e passaggi; con il tasto qui sotto ne peschi un'altra.</p>
+        <div id="ricettaOggi"></div>
+        <div class="riga-btn"><button class="btn pieno" id="altraRicetta" type="button">🎲 Un'altra ricetta a caso</button></div>
+        <p class="stato" id="statoRicetta" role="status" aria-live="polite"></p>
+        <div id="ricettaNuova"></div>
+      </section>
+      <section data-sezione="faidate" class="nascosto">
+        <h2>🔨 Angolo del fai da te</h2>
+        <p class="spiega">Cinque idee al giorno per il tempo libero: piccoli lavori di hobbistica e di giardinaggio adatti alla stagione, con che cosa serve e come si fa. Con il tasto qui sotto ne arrivano altre cinque a caso.</p>
+        <div id="faidateOggi"></div>
+        <div class="riga-btn"><button class="btn pieno" id="altreIdee" type="button">🎲 Altre 5 idee</button></div>
+        <p class="stato" id="statoFaidate" role="status" aria-live="polite"></p>
+        <div id="faidateNuove"></div>
+      </section>
+      <section data-sezione="rassegna" class="nascosto">
+        <h2>🗞️ Rassegna stampa della domenica</h2>
+        <div class="scheda">
+          <p style="margin-top:0">Il riassunto della settimana, da ascoltare. Scegli cosa vuoi sentire:</p>
+          <div class="radio-scelte">
+            <button class="btn rosso" data-rassegna="generale" type="button">🗞️ Notizie della settimana (5 minuti)</button>
+            <button class="btn rosso" data-rassegna="sport" type="button">⚽ Le 5 notizie sportive della settimana</button>
+          </div>
+          <p class="piccolo" id="rassegnaInfo" role="status" aria-live="polite"></p>
+          <div id="rassegnaTesto"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scheda NOVITÀ: eventi nelle città dell'utente, detto del giorno e i giochi con l'intelligenza artificiale -->
+    <div id="paginaNovita" class="nascosto">
+      <div class="menu-sezioni" id="menuNovita">
+        <button class="btn" data-apri="eventi" type="button">🎪 Eventi e sagre nelle tue città</button>
+        <button class="btn" data-apri="detto" type="button">💬 Il detto del giorno</button>
+        <button class="btn" data-apri="podcastfai" type="button">🎙️ Podcast fai da te</button>
+        <button class="btn" data-apri="consiglio" type="button">🧠 Gran consiglio dell'IA</button>
+        <button class="btn" data-apri="cappelli" type="button">🎩 6 cappelli per pensare</button>
+        <button class="btn" data-apri="dialetto" type="button">🗣️ TG in dialetto</button>
+      </div>
+      <div id="contenutoNovita"></div>
+      <section data-sezione="podcastfai" class="nascosto">
+        <h2>🎙️ Podcast fai da te</h2>
+        <div class="scheda">
+          <p class="spiega">Scrivi un argomento: due voci, Marco e Giulia, ne discutono per circa 10 minuti, ognuno con le sue ragioni, e alla fine provano ad arrivare a una conclusione comune.</p>
+          <label for="argomentoPodcast"><b>Di cosa vuoi sentir parlare?</b></label>
+          <textarea id="argomentoPodcast" class="campo" rows="3" placeholder="Es. Meglio vivere in città o in campagna?"></textarea>
+          <div class="riga-btn"><button class="btn pieno" id="creaPodcast" type="button">🎙️ Crea il podcast</button></div>
+          <p class="stato" id="statoPodcast" role="status" aria-live="polite"></p>
+          <div id="testoPodcast"></div>
+        </div>
+      </section>
+      <section data-sezione="consiglio" class="nascosto">
+        <h2>🧠 Gran consiglio dell'IA</h2>
+        <div class="scheda">
+          <p class="spiega">Racconta un problema o una decisione da prendere. Tre consiglieri ne parlano per circa 10 minuti: <b>Leo il creativo</b> propone idee, <b>Sara la realista</b> spiega i rischi e corregge il tiro, <b>Bruno il pragmatico</b> tira le somme e propone cosa fare.</p>
+          <label for="problemaConsiglio"><b>Qual è il problema?</b></label>
+          <textarea id="problemaConsiglio" class="campo" rows="4" placeholder="Es. Devo cambiare la macchina: meglio usata, nuova o a noleggio?"></textarea>
+          <div class="riga-btn"><button class="btn pieno" id="creaConsiglio" type="button">🧠 Riunisci il consiglio</button></div>
+          <p class="stato" id="statoConsiglio" role="status" aria-live="polite"></p>
+          <div id="testoConsiglio"></div>
+        </div>
+      </section>
+      <section data-sezione="cappelli" class="nascosto">
+        <h2>🎩 6 cappelli per pensare</h2>
+        <div class="scheda">
+          <p class="spiega">Fai una domanda o racconta un problema. Sei voci lo guardano ognuna dal suo punto di vista, secondo il metodo dei "Sei cappelli per pensare" di Edward de Bono, e dicono come lo risolverebbero. Alla fine una settima voce riassume e propone una conclusione sensata.</p>
+          <p class="piccolo">⚪ Bianco: fatti e dati · 🔴 Rosso: emozioni e intuito · ⚫ Nero: rischi e prudenza · 🟡 Giallo: vantaggi e ottimismo · 🟢 Verde: idee nuove · 🔵 Blu: metodo e organizzazione</p>
+          <label for="domandaCappelli"><b>Qual è la domanda?</b></label>
+          <textarea id="domandaCappelli" class="campo" rows="4" placeholder="Es. Conviene vendere la casa dei nonni o ristrutturarla per affittarla?"></textarea>
+          <div class="riga-btn"><button class="btn pieno" id="creaCappelli" type="button">🎩 Indossa i sei cappelli</button></div>
+          <p class="stato" id="statoCappelli" role="status" aria-live="polite"></p>
+          <div id="testoCappelli"></div>
+        </div>
+      </section>
+      <section data-sezione="dialetto" class="nascosto">
+        <h2>🗣️ TG in dialetto</h2>
+        <div class="scheda">
+          <p class="spiega">Le notizie di oggi raccontate in dialetto, in breve. Scegli quale:</p>
+          <div class="scelte" id="sceltaDialetti"></div>
+          <p class="stato" id="statoDialetto" role="status" aria-live="polite"></p>
+          <div id="testoDialetto"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scheda TECH & AI -->
+    <div id="paginaTech" class="nascosto">
+      <div class="menu-sezioni" id="menuTech">
+        <button class="btn" data-apri="tnotizie" type="button">📰 Notizie AI</button>
+        <button class="btn" data-apri="tpodcast" type="button">🎧 Podcast AI</button>
+        <button class="btn" data-apri="tradio" type="button">📻 Radio AI</button>
+        <button class="btn" data-apri="tidee" type="button">💡 Idee AI</button>
+        <button class="btn" data-apri="tfuturo" type="button">🔭 Futuro AI</button>
+        <button class="btn" data-apri="tyoutube" type="button">▶️ YouTube link</button>
+        <button class="btn" data-apri="tscintilla" type="button">✨ La scintilla della serendipità</button>
+        <button class="btn" data-apri="tlibri" type="button">📚 Consigli sul futuro</button>
+        <button class="btn" data-apri="tdibattito" type="button">🤖 Dibattito tra AI sulla AI</button>
+      </div>
+      <div id="contenutoTech"></div>
+      <section data-sezione="tscintilla" class="nascosto">
+        <h2>✨ La scintilla della serendipità</h2>
+        <p class="spiega">Prende due cose lontanissime tra loro, una della vita di tutti i giorni e una della tecnologia, e le fa incontrare: ne nasce un'idea di business e un'intuizione creativa che non ti aspetti. Ogni giorno ce n'è una nuova; puoi accenderne altre a caso o scegliere tu i due concetti.</p>
+        <div id="scintillaOggi"></div>
+        <div class="scheda">
+          <p style="margin-top:0"><b>Accendi un'altra scintilla</b> (lascia vuoto per due concetti a caso):</p>
+          <input id="concettoA" class="campo" type="text" placeholder="Primo concetto, es. vendemmia" autocomplete="off">
+          <input id="concettoB" class="campo" type="text" placeholder="Secondo concetto, es. droni" autocomplete="off">
+          <div class="riga-btn"><button class="btn pieno" id="accendiScintilla" type="button">✨ Accendi la scintilla</button></div>
+          <p class="stato" id="statoScintilla" role="status" aria-live="polite"></p>
+          <div id="scintillaNuova"></div>
+        </div>
+      </section>
+      <section data-sezione="tdibattito" class="nascosto">
+        <h2>🤖 Dibattito tra AI sulla AI</h2>
+        <p class="spiega">Due intelligenze artificiali parlano di intelligenza artificiale partendo dalle notizie di oggi: Ada, curiosa e ottimista, e Alan, riflessivo e un po' scettico. Discutono per circa 9 minuti e arrivano a una conclusione comune. Tocca ▶️ e ascolta.</p>
+        <div class="scheda" style="text-align:center">
+          <button class="tasto-play" id="playDibattito" aria-label="Ascolta il dibattito" style="width:150px;height:150px">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width:72px;height:72px"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+          </button>
+          <p class="stato" id="statoDibattito" role="status" aria-live="polite"></p>
+        </div>
+        <input type="hidden" id="argomentoDibattito" value="le notizie di oggi sull'intelligenza artificiale">
+        <div id="testoDibattito"></div>
+      </section>
+    </div>
+
+    <!-- Scheda ALTRO: futuro del lavoro, ricerca e scienza, economia circolare -->
+    <div id="paginaAltro" class="nascosto">
+      <div class="menu-sezioni" id="menuAltro">
+        <button class="btn" data-apri="alavoro" type="button">💼 Futuro del lavoro</button>
+        <button class="btn" data-apri="aricerca" type="button">🔬 News ricerca</button>
+        <button class="btn" data-apri="acircolare" type="button">♻️ News economia circolare</button>
+      </div>
+      <div id="contenutoAltro"></div>
     </div>
   </section>
 </main>
@@ -413,6 +574,7 @@ dialog h2{margin-top:0}
   </ol>
   <p><a class="btn pieno" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener" style="width:100%">🔑 Apri Google AI Studio</a></p>
   <p class="piccolo">✅ È gratuita, non serve la carta di credito, la chiave resta solo sul tuo telefono.</p>
+  <p class="piccolo" id="rigaOfferta">🎄 La chiave è gratuita. TG di Famiglia è gratis fino al 31/12/2026.</p>
   <details class="perche"><summary>Perché serve?</summary>
     <p class="piccolo">Ogni giorno l'intelligenza artificiale di Google (Gemini) sceglie le notizie e scrive il tuo TG su misura, con la tua città e la tua squadra. La chiave è il tuo accesso personale e gratuito a Gemini: viene usata solo dal tuo telefono per parlare con Google e non passa da nessun altro server.</p>
   </details>
@@ -444,21 +606,17 @@ dialog h2{margin-top:0}
   <div class="riga-btn"><button class="btn pieno" id="chiudiGuidaInstalla" type="button">Ho capito</button></div>
 </dialog>
 
-<dialog id="donazione">
-  <h2>Ti sta piacendo TG di Famiglia? ☕</h2>
-  <p>È fatto da una piccola squadra, senza pubblicità. Se vuoi, offrici un caffè (2 €).</p>
-  <div class="riga-btn"><button class="btn rosso" id="offriCaffe" type="button">☕ Offri un caffè</button><button class="btn" id="altraVolta" type="button">Magari un'altra volta</button></div>
-</dialog>
-
 <dialog id="impostazioni">
   <h2>⚙️ Impostazioni</h2>
   <p id="riassuntoPreferenze"></p>
   <div class="riga-btn"><button class="btn pieno" id="modificaPreferenze" type="button">✏️ Nome, città e calcio</button></div>
   <p class="piccolo" id="statoProva"></p>
+  <div class="riga-btn"><button class="btn rosso" id="apriSbloccaTutto" type="button">🔓 Sblocca tutto</button></div>
   <div class="riga-btn" style="margin-bottom:10px"><button class="btn nascosto" data-installa type="button">📲 Installa l'app sul telefono</button></div>
-  <div class="riga-btn"><button class="btn whatsapp" data-condividi type="button">💬 Condividi su WhatsApp</button><a class="btn" href="../regalo.html">🎁 Regala un biglietto</a></div>
-  <div id="sostieni"><h3>☕ Sostieni TG di Famiglia</h3><p class="piccolo">Nessuna pubblicità: se ti piace, puoi offrirci un caffè.</p>
-    <div class="riga-btn"><button class="btn" id="caffeImpostazioni" type="button">☕ Offri un caffè</button></div></div>
+  <div class="riga-btn" style="margin-top:10px"><button class="btn whatsapp" data-condividi type="button">💬 Condividi su WhatsApp</button><a class="btn" href="../regalo.html">🎁 Regala un biglietto</a></div>
+  <div id="sceltaVoce"></div>
+  <div id="sostieni"><h3>☕ Sostieni TG di Famiglia</h3><p class="piccolo">Se vuoi solo sostenere il progetto, senza sbloccare niente, puoi offrirci un caffè.</p>
+    <div class="riga-btn"><button class="btn" id="caffeImpostazioni" type="button">☕ Offrici un caffè</button></div></div>
   <h3>🔑 Chiave Gemini</h3>
   <p>Chiave salvata: <b id="chiaveMascherata"></b></p>
   <label for="nuovaChiave"><b>Cambia chiave</b></label>
@@ -509,7 +667,7 @@ const CONFIG = {
   podcast: 10,
   notizieSquadra: 3,   // scheda VARIE: notizie per ogni squadra
   podcastSquadra: 2,   // scheda VARIE: podcast per ogni squadra
-  versione: '1.0.0',
+  versione: '1.1.0',
   dati: '../data/',          // dati raccolti ogni mattina da GitHub Actions
   // Fase successiva: con il proxy (cartella proxy/) la chiave sta sul server e gli utenti non devono crearla.
   useProxy: false,
@@ -814,7 +972,7 @@ function meteoDaDomani(meteo) {
 
 const quanteNotizie = (q) => (typeof q.notizie === 'number' ? q.notizie : CONFIG.notizieSquadra);
 function promptRedazione(grezzo) {
-  const imp = impostazioni();
+  const imp = impostazioniAttive();
   const giorno = new Date(grezzo.generato).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   const giornoMese = new Date(grezzo.generato).toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
   const riga = (n) => `${n.id} | ${n.fonte} | ${(n.data || '').slice(5, 16).replace('T', ' ')} | ${n.titolo}${n.sommario ? ' — ' + n.sommario.slice(0, 160) : ''}`;
@@ -1126,6 +1284,11 @@ function impostazioni() {
   return { nome: '', citta: [], calcio: true, squadra: '', fatto: false, ...v, citta: Array.isArray(v.citta) ? v.citta.slice(0, 5) : [] };
 }
 function salvaImpostazioni(v) { ls.set('tg_impostazioni', JSON.stringify(v)); }
+/** Le preferenze che valgono oggi: con la Base 1 città e niente squadra del cuore. */
+function impostazioniAttive() {
+  const imp = impostazioni();
+  return { ...imp, citta: imp.citta.slice(0, ha('citta5') ? 5 : 1), squadra: ha('squadra') ? imp.squadra : '' };
+}
 const elencoNomi = (l) => (l.length <= 1 ? (l[0] || '') : l.slice(0, -1).join(', ') + ' e ' + l[l.length - 1]);
 function salutoPer(imp) {
   const nomi = imp.citta.map((c) => c.nome);
@@ -1133,7 +1296,7 @@ function salutoPer(imp) {
 }
 /** Scaletta del giorno: 10 notizie; le locali in proporzione alle città, 2 di calcio se il calcio è attivo. */
 function applicaImpostazioni(g) {
-  const imp = impostazioni();
+  const imp = impostazioniAttive();
   const nc = imp.citta.length;
   const disponibili = g ? g.notizie.filter((n) => n.categoria === 'locale').length : nc;
   let locali = !nc ? 0 : nc === 1 ? 2 : nc === 2 ? 3 : 4;
@@ -1152,7 +1315,7 @@ const nomina = (testo, nome) => new RegExp(`(^|[^a-z])${senzaAccenti(nome).repla
 /** Aggiunge ai dati del mattino quelli che dipendono dall'utente: notizie e podcast delle sue province,
  *  notizie della squadra del cuore, meteo delle sue città. Se qualcosa manca si va avanti senza. */
 async function arricchisci(g) {
-  const imp = impostazioni();
+  const imp = impostazioniAttive();
   const json = (u) => fetch(u, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
   const sigle = [...new Set(imp.citta.map((c) => c.sigla).filter(Boolean))];
   const nota = (g.squadre_disponibili || []).find((q) => q.id === imp.squadra);
@@ -1577,13 +1740,13 @@ function impostaSorgente(url, loop = false) {
    suono (5 s) → notizia 1 → suono → notizia 2 → … → suono → "Accadde oggi" e chiusura → primo podcast. */
 function scaletta() {
   const n = Ed.finito ? Ed.notizie.length : Math.max(TOTALE_NOTIZIE, Ed.notizie.length);
-  const s = [{ t: 'sigla' }, { t: 'saluto' }];
+  const s = ha('sigla') ? [{ t: 'sigla' }, { t: 'saluto' }] : [{ t: 'saluto' }];
   if (n) {
     s.push({ t: 'suono', k: 'titoli', lungo: true }, { t: 'titolo', k: 0 });
     for (let j = 1; j <= n; j++) { if (j > 1) s.push({ t: 'suono', k: 'titolo' + j, titolo: j }); s.push({ t: 'titolo', k: j }); }
   }
   for (let k = 0; k <= n; k++) s.push({ t: 'suono', k: 'voce' + k, blocco: k, lungo: k === 0 }, { t: 'voce', k });
-  return s;
+  return ha('sigla') ? s : s.filter((p) => p.t !== 'suono'); // versione Base: solo la voce
 }
 const stessoPasso = (a, b) => !!a && !!b && a.t === b.t && a.k === b.k;
 /** Passo a distanza 'delta' da quello corrente (soloVoce: salta i suoni). null = oltre la fine. */
@@ -1598,7 +1761,7 @@ const prossimoPasso = () => passoVicino(1, false);
 
 /** Avvia il TG dalla sigla. Restituisce false se il browser ha bloccato la partenza dell'audio. */
 async function avviaTG() {
-  if (bloccato()) { mostraPremium(); return false; } // prova finita e niente Premium
+  if (bloccato()) { mostraSblocca('tg', true); return false; } // prova finita: serve lo sblocco
   window.speechSynthesis?.cancel();
   P.modo = 'tg'; nascondiMini();
   $('comandiTG').classList.remove('nascosto');
@@ -1694,7 +1857,7 @@ function sottofondoDopo(mio, messaggio) {
   return setTimeout(() => {
     if (P.inAttesa || mio !== P.token) return;
     P.inAttesa = true;
-    impostaSorgente(URL_TAPPETO, true);
+    impostaSorgente(ha('sigla') ? URL_TAPPETO : URL_SILENZIO, true);
     if (messaggio) stato(messaggio);
   }, 300);
 }
@@ -1741,7 +1904,7 @@ function fineTG(daSolo = false) {
   $('comandiTG').classList.add('nascosto');
   aggiornaTastoPlay();
   if (daSolo) dopoTG();
-  if (daSolo && CONFIG.podcastAFineTG && Ed.podcast?.length) {
+  if (daSolo && CONFIG.podcastAFineTG && ha('podcast') && Ed.podcast?.length) {
     suonaPodcast(Ed.podcast[0]); // finito il TG parte da solo il primo podcast
     stato('Fine del notiziario. Ora il primo podcast consigliato.');
     mostraScheda('podcast');
@@ -2031,6 +2194,50 @@ async function cercaRadio() {
   $('statoRadio').textContent = 'La ricerca non risponde ora. Riprova più tardi.';
 }
 
+/* ---------- Rassegna stampa della domenica ---------- */
+const RASSEGNE = {
+  generale: { titolo: 'Notizie della settimana', compito: (g) => `Scrivi la rassegna stampa della settimana: un racconto discorsivo dei fatti principali in Italia e nel mondo negli ultimi ${g} giorni. Lunghezza: tra 650 e 700 parole (circa 5 minuti di lettura ad alta voce), in 6 o 7 paragrafi separati da una riga vuota, un tema per paragrafo (politica, economia, esteri, cronaca, scienza e società). Comincia con "Rassegna stampa della settimana."` },
+  sport: { titolo: 'Lo sport della settimana', compito: (g) => `Scegli le 5 notizie sportive nazionali più importanti degli ultimi ${g} giorni e raccontale: 5 paragrafi separati da una riga vuota, ognuno di 50-60 parole, introdotti da "Prima notizia", "Seconda notizia" e così via. Comincia con "Lo sport della settimana."` },
+};
+async function rassegna(tipo) {
+  const R = RASSEGNE[tipo], info = $('rassegnaInfo');
+  const mio = preparaLettura(R.titolo, 'Preparo la rassegna…'); // dentro il tocco: sblocca l'audio
+  const pronta = Ed.rassegneServer?.[tipo]; // già scritta e letta sul server
+  if (pronta) {
+    const gg = pronta.giorni || [];
+    info.textContent = gg.length ? `Settimana dal ${giornoNome(gg[0])} al ${giornoNome(gg[gg.length - 1])}` + (gg.length < 7 ? ` (per ora ${gg.length} ${gg.length === 1 ? 'giorno' : 'giorni'} in archivio: la rassegna si completa giorno dopo giorno).` : '.') : '';
+    $('rassegnaTesto').innerHTML = pronta.testo.split(/\n\s*\n/).map((x) => `<p>${esc(x.trim())}</p>`).join('');
+    return ascoltaVaria(`rassegna-${tipo}`, R.titolo, pronta.testo, mio, pronta.audio);
+  }
+  info.textContent = 'Preparo la rassegna: ci vuole circa mezzo minuto…'; $('rassegnaTesto').innerHTML = '';
+  try {
+    const r = await fetch(CONFIG.dati + 'settimana.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error('settimana ' + r.status);
+    const sett = await r.json();
+    const giorni = Object.keys(sett.giorni || {}).sort();
+    const righe = giorni.map((d) => `## ${giornoNome(d)}\n` + (sett.giorni[d][tipo] || []).map((n) => `${n.f} | ${n.t}${n.s ? ' — ' + n.s : ''}`).join('\n')).join('\n\n');
+    if (!giorni.length || righe.length < 200) throw new Error('archivio vuoto');
+    const k = `rassegna:${VERSIONE_CACHE}:${giorni[giorni.length - 1]}:${giorni.length}:${tipo}`;
+    let testo = (await db.get(k))?.testo;
+    if (!testo) {
+      testo = await testoLibero(`Sei il caporedattore di un notiziario radiofonico italiano. Qui sotto trovi i titoli (fonte | titolo — sommario) raccolti giorno per giorno nell'ultima settimana.
+${R.compito(giorni.length)}
+Dai più spazio ai fatti che ricorrono in più giorni o su più testate. Tono neutrale e fattuale, frasi brevi pensate per l'ascolto, niente elenchi, niente simboli, numeri scritti in modo leggibile. Usa solo le informazioni presenti nei titoli e nei sommari: non inventare nulla. Rispondi solo con il testo da leggere.
+
+${righe}`);
+      db.set(k, { testo });
+    }
+    if (mio !== P.token) { info.textContent = ''; }
+    else info.textContent = `Settimana dal ${giornoNome(giorni[0])} al ${giornoNome(giorni[giorni.length - 1])}` + (giorni.length < 7 ? ` (per ora ${giorni.length} ${giorni.length === 1 ? 'giorno' : 'giorni'} in archivio: la rassegna si completa giorno dopo giorno).` : '.');
+    $('rassegnaTesto').innerHTML = testo.split(/\n\s*\n/).map((x) => `<p>${esc(x.trim())}</p>`).join('');
+    ascoltaVaria(`rassegna-${tipo}-${codice(testo)}`, R.titolo, testo, mio);
+  } catch (e) {
+    console.warn('rassegna', e);
+    if (mio === P.token) fermaTutto();
+    info.textContent = e.messaggioUtente || 'La rassegna non è disponibile ora. Riprova più tardi.';
+  }
+}
+
 let stazioni = null;
 async function caricaStazioni() {
   if (stazioni) return stazioni;
@@ -2229,10 +2436,10 @@ function schedaPodcast(p, attributo) {
     </article>`;
 }
 /* Schede CALCIO e VARIE: in alto i tasti-intestazione, sotto si apre solo la sezione scelta. */
-const sezioneAperta = { calcio: null, varie: null };
+const sezioneAperta = { calcio: null, varie: null, novita: null, tech: null, altro: null };
 function apriSezione(scheda, id, scorri = true) {
   sezioneAperta[scheda] = id;
-  const pagina = $({ calcio: 'paginaCalcio', varie: 'paginaVarie' }[scheda]);
+  const pagina = $({ calcio: 'paginaCalcio', varie: 'paginaVarie', novita: 'paginaNovita', tech: 'paginaTech', altro: 'paginaAltro' }[scheda]);
   let scelta = null;
   pagina.querySelectorAll('[data-sezione]').forEach((el) => {
     const questa = el.dataset.sezione === id;
@@ -2250,7 +2457,8 @@ function renderVarie() {
   if (!v || !g) {
     $('menuCalcio').innerHTML = tastoAI;
     $('contenutoCalcio').innerHTML = attesa('Le notizie di calcio compariranno qui appena pronte.');
-    $('contenutoVarie').innerHTML = ['meteo', 'tv', 'accadde'].map((id) => `<section data-sezione="${id}" class="nascosto">${attesa('Arriva tra poco, appena le notizie sono pronte.')}</section>`).join('');
+    $('contenutoVarie').innerHTML = ['meteo', 'tv', 'accadde'].map((id) => `<section data-sezione="${id}" class="nascosto">${attesa('Arriva tra poco, appena le notizie sono pronte.')}</section>`).join('') + '<div id="extraVarie"></div>';
+    renderExtra();
     apriSezione('calcio', sezioneAperta.calcio, false);
     return;
   }
@@ -2287,22 +2495,450 @@ function renderVarie() {
   h += '</section><section data-sezione="accadde" class="nascosto"><h2>📜 Accadde oggi</h2>';
   h += Ed.accadde ? `<article class="scheda accadde"><p style="margin-top:0">${esc(Ed.accadde)}</p>
       <button class="btn rosso" data-ascolta="accadde" type="button">▶️ Ascolta</button></article>` : '<p class="scheda">Oggi la curiosità storica non è disponibile.</p>';
-  $('contenutoVarie').innerHTML = h + '</section>';
+  $('contenutoVarie').innerHTML = h + '</section><div id="extraVarie"></div>';
+  renderExtra();
   apriSezione('calcio', sezioneAperta.calcio, false);
-  apriSezione('varie', sezioneAperta.varie, false);
 }
 
-const registroAscolto = {}; // id -> { titolo, testo } dei testi che si possono ascoltare
+/* ---------- Scheda ALTRO: futuro del lavoro, news dalla ricerca, economia circolare ---------- */
+function renderAltro() {
+  const a = Ed.grezzo?.altro, dalTelefono = conCercati(null)?.lavoro;
+  const lav = Ed.tech?.lavoro?.notizie?.length || !dalTelefono ? Ed.tech?.lavoro : { ...(Ed.tech?.lavoro || {}), ...dalTelefono };
+  const spiega = (t) => `<p class="spiega">${t}</p>`;
+  const sezione = (id, titolo, corpo) => `<section data-sezione="${id}" class="nascosto"><h2>${titolo}</h2>${corpo}</section>`;
+  const attesa = '<p class="segnaposto scheda">Arriva tra poco, appena i dati di oggi sono pronti.</p>';
+  const quando = (iso) => (iso ? giornoNome(iso.slice(0, 10)) + (iso.slice(0, 4) !== new Date().getFullYear() + '' ? ' ' + iso.slice(0, 4) : '') : '');
+  const fuori = (url, testo, cls = 'btn') => `<a class="${cls}" href="${esc(linkSicuro(url))}" target="_blank" rel="noopener">${testo}</a>`;
+  const podcastHtml = (r, voci) => voci.map(({ p, i }) => {
+    const u = p.ultimo;
+    return `<article class="scheda podcast"><div class="testa">${u?.immagine ? `<img src="${esc(linkSicuro(u.immagine))}" alt="" loading="lazy">` : ''}
+      <div><div class="nome">${esc(p.nome)}</div><div class="episodio">${u ? esc(u.episodio) + (u.data ? ' · ' + esc(quando(u.data)) : '') : esc(p.autore || '')}</div></div></div>
+      <p>${esc(p.descrizione || '')}</p><div class="azioni">${u ? `<button class="btn rosso" data-podcast-altro="${r}:${i}" type="button">▶️ Ascolta l'ultima puntata</button>${fuori(u.link, 'Apri episodio ↗')}`
+        : fuori(p.url || `https://www.google.com/search?q=${encodeURIComponent(p.nome + ' ' + (p.autore || '') + ' podcast')}`, 'Apri il sito ↗')}</div></article>`;
+  }).join('');
+  const sitiHtml = (lista) => lista.map((x) => `<article class="scheda"><h3 style="margin-top:0">${esc(x.nome)}</h3><p>${esc(x.descrizione || '')}</p>
+      ${x.titoli?.length ? `<p class="piccolo" style="margin:0">Gli ultimi articoli:</p><ul class="titoli-sito">${x.titoli.map((t) => `<li><a href="${esc(linkSicuro(t.link))}" target="_blank" rel="noopener">${esc(t.titolo)}</a>${t.data ? ` <span class="piccolo">· ${esc(quando(t.data))}</span>` : ''}</li>`).join('')}</ul>` : ''}
+      ${fuori(x.url, 'Apri il sito ↗')}</article>`).join('');
+  const canaliHtml = (lista) => lista.map((c) => `<article class="scheda"><h3 style="margin-top:0">▶️ ${esc(c.nome)}</h3><p>${esc(c.descrizione || '')}</p>
+      ${(c.video || []).map((v) => `<a class="video-mini" href="${esc(linkSicuro(v.link))}" target="_blank" rel="noopener"><img src="${esc(linkSicuro(v.immagine))}" alt="" loading="lazy"><span><b>${esc(v.titolo)}</b><br><span class="piccolo">${esc(quando(v.data))}</span></span></a>`).join('')}
+      ${fuori('https://www.youtube.com/channel/' + c.canale, 'Apri il canale ↗', 'btn rosso')}</article>`).join('');
+  const rubrica = (r, testa) => (a?.[r] ? `<h3>📰 Siti da seguire</h3>${sitiHtml(a[r].siti || [])}<h3>🎧 Podcast</h3>${podcastHtml(r, (a[r].podcast || []).map((p, i) => ({ p, i })))}<h3>📺 Canali YouTube</h3>${canaliHtml(a[r].youtube || [])}` : attesa);
+  let h = '';
+  // ---- Futuro del lavoro
+  let corpo = spiega('Come sta cambiando il lavoro: intelligenza artificiale, nuove professioni e competenze, lavoro da remoto e formazione. Ogni mattina le notizie più interessanti, un podcast sul tema e tre video da YouTube.');
+  if (lav?.notizie?.length) {
+    const testo = 'Il futuro del lavoro.\n\n' + (lav.intro ? lav.intro + '\n\n' : '') + lav.notizie.map((n) => `${n.titolo}.\n\n${n.testo}`).join('\n\n');
+    registroAscolto.lavoro = { titolo: 'Il futuro del lavoro', testo };
+    corpo += (lav.intro ? `<article class="scheda scintilla"><p style="margin:0">${esc(lav.intro)}</p></article>` : '')
+      + '<p><button class="btn rosso" data-ascolta="lavoro" type="button">▶️ Ascolta le notizie</button></p>' + lav.notizie.map(schedaNotizia).join('');
+  } else if (Ed.grezzo) corpo += tastoCerca('lavoro', 'Le notizie sul lavoro si preparano da sole ogni mattina, ma oggi non si sono caricate.');
+  else corpo += attesa;
+  const pods = (a?.lavoro?.podcast || []).map((p, i) => ({ p, i })).filter((x) => x.p.ultimo).sort((x, y) => (y.p.ultimo.data || '').localeCompare(x.p.ultimo.data || ''));
+  if (pods.length) corpo += `<h3>🎧 Il podcast</h3>` + podcastHtml('lavoro', [pods[0]]);
+  const vids = lav?.video?.length ? lav.video : [...(a?.lavoro?.video_cercati || [])].sort((x, y) => y.visualizzazioni - x.visualizzazioni).slice(0, 3);
+  if (vids.length) corpo += '<h3>▶️ Tre video da YouTube</h3>' + vids.map((v) => `<article class="scheda video"><a href="${esc(linkSicuro(v.link))}" target="_blank" rel="noopener"><img src="${esc(linkSicuro(v.immagine))}" alt="" loading="lazy"></a><h3 style="margin:0 0 6px">${esc(v.titolo)}</h3><div class="fonte" style="margin:0 0 8px">${esc(v.canale)}${v.quando ? ' · ' + esc(v.quando) : ''}</div>${v.perche ? `<p>${esc(v.perche)}</p>` : ''}${fuori(v.link, '▶️ Guarda su YouTube', 'btn rosso')}</article>`).join('');
+  h += sezione('alavoro', '💼 Futuro del lavoro', corpo);
+  // ---- News ricerca
+  h += sezione('aricerca', '🔬 News ricerca', spiega('Scienza, innovazione e tecnologia da fonti affidabili: per ogni sito gli ultimi articoli usciti, l\'ultima puntata di tre podcast di divulgazione e gli ultimi video di due canali YouTube. Tutto si aggiorna da solo ogni mattina.') + rubrica('ricerca'));
+  // ---- Economia circolare
+  h += sezione('acircolare', '♻️ News economia circolare', spiega('Riciclo, riuso, materie prime e sostenibilità: le fonti più autorevoli sull\'economia circolare, in Italia e nel mondo. Per i siti con notizie aggiornate trovi gli ultimi articoli; per gli altri il collegamento diretto. Poi i podcast e i canali YouTube sul tema.') + rubrica('circolare'));
+  $('contenutoAltro').innerHTML = h;
+  apriSezione('altro', sezioneAperta.altro, false);
+}
 
+function schedaRicetta(r, etichetta, id) {
+  const testo = `${r.nome}, dalla zona di ${r.zona}. ${r.storia || ''} Per ${r.porzioni || 'quattro persone'} servono: ${(r.ingredienti || []).join(', ')}. ${(r.procedimento || []).join(' ')} ${r.consiglio ? 'Il consiglio: ' + r.consiglio : ''}`;
+  registroAscolto[id] = { titolo: 'Ricettario di famiglia', testo };
+  return `<article class="scheda"><p class="piccolo" style="margin-top:0">${esc(etichetta)} · ${esc(r.zona)}</p><h3 style="margin:0 0 8px">🍽️ ${esc(r.nome)}</h3>
+    ${r.storia ? `<p><i>${esc(r.storia)}</i></p>` : ''}
+    <p><b>Ingredienti${r.porzioni ? ' (' + esc(r.porzioni) + ')' : ''}</b></p><ul style="margin-top:0">${(r.ingredienti || []).map((i) => `<li>${esc(i)}</li>`).join('')}</ul>
+    <p><b>Procedimento</b></p><ol style="margin-top:0">${(r.procedimento || []).map((i) => `<li style="margin-bottom:6px">${esc(i)}</li>`).join('')}</ol>
+    ${r.consiglio ? `<p class="evidenza"><b>Il trucco della nonna:</b> ${esc(r.consiglio)}</p>` : ''}
+    <button class="btn rosso" data-ascolta="${esc(id)}" type="button">▶️ Ascolta la ricetta</button></article>`;
+}
+function schedeFaidate(idee, id) {
+  registroAscolto[id] = { titolo: 'Angolo del fai da te', testo: idee.map((d) => `${d.titolo}. Serve: ${d.cosa_serve}. ${d.come_fare}`).join('\n\n') };
+  return `<p><button class="btn rosso" data-ascolta="${esc(id)}" type="button">▶️ Ascolta le idee</button></p>` + idee.map((d, i) => `<article class="scheda"><h3 style="margin-top:0"><span class="numerino">${i + 1}</span>${d.tipo === 'giardinaggio' ? '🌱' : '🔨'} ${esc(d.titolo)}</h3>
+    <span class="badge">${esc(d.tipo || '')} · ${esc(d.difficolta || '')}</span><p><b>Serve:</b> ${esc(d.cosa_serve)}</p><p style="margin-bottom:0">${esc(d.come_fare)}</p></article>`).join('');
+}
+const SCHEMA_RICETTA = {
+  type: 'OBJECT', required: ['storia', 'porzioni', 'ingredienti', 'procedimento', 'consiglio'], propertyOrdering: ['storia', 'porzioni', 'ingredienti', 'procedimento', 'consiglio'],
+  properties: { storia: { type: 'STRING' }, porzioni: { type: 'STRING' }, ingredienti: { type: 'ARRAY', items: { type: 'STRING' } }, procedimento: { type: 'ARRAY', items: { type: 'STRING' } }, consiglio: { type: 'STRING' } },
+};
+const SCHEMA_FAIDATE = {
+  type: 'OBJECT', required: ['idee'], properties: { idee: { type: 'ARRAY', items: { type: 'OBJECT', required: ['titolo', 'tipo', 'cosa_serve', 'come_fare', 'difficolta'], propertyOrdering: ['titolo', 'tipo', 'cosa_serve', 'come_fare', 'difficolta'],
+    properties: { titolo: { type: 'STRING' }, tipo: { type: 'STRING', enum: ['hobbistica', 'giardinaggio'] }, cosa_serve: { type: 'STRING' }, come_fare: { type: 'STRING' }, difficolta: { type: 'STRING', enum: ['facile', 'media'] } } } } },
+};
+$('altreIdee').onclick = async () => {
+  const st = $('statoFaidate');
+  st.classList.remove('errore');
+  if (!chiave) { st.textContent = 'Per avere altre idee serve la chiave Gemini: tocca ⚙️ in alto e incollala. Intanto ci sono quelle di oggi, qui sopra.'; return; }
+  const mese = new Date().toLocaleDateString('it-IT', { month: 'long' });
+  const temi = ['legno', 'riciclo creativo', 'regali fatti a mano', 'piccole riparazioni di casa', 'decorazioni', 'orto sul balcone', 'piante aromatiche', 'potature', 'semina', 'compostaggio', 'piante da interno', 'attrezzi da giardino'];
+  const spunti = temi.sort(() => Math.random() - 0.5).slice(0, 3).join(', ');
+  st.textContent = 'Cerco nuove idee…'; $('faidateNuove').innerHTML = ''; $('altreIdee').disabled = true;
+  try {
+    const j = await jsonLibero(`Proponi in italiano 5 idee nuove e semplici per il tempo libero da fare in casa o in giardino a ${mese}: 3 di hobbistica e 2 di giardinaggio o orto (anche sul balcone), adatte alla stagione. Prendi spunto da: ${spunti}. Per ciascuna "titolo" (massimo 7 parole), "tipo", "cosa_serve" (materiali, massimo 20 parole), "come_fare" (tra 40 e 60 parole) e "difficolta". Niente emoji.`, SCHEMA_FAIDATE);
+    $('faidateNuove').innerHTML = schedeFaidate((j.idee || []).slice(0, 5), 'faidate-' + Date.now().toString(36));
+    st.textContent = '';
+  } catch (e) { console.warn('fai da te', e); st.textContent = e.messaggioUtente || 'Le idee non sono arrivate. Riprova tra poco.'; st.classList.add('errore'); }
+  $('altreIdee').disabled = false;
+};
+
+/* ---------- Scheda TECH & AI: preparata ogni mattina sul server (testi e voce neurale) ---------- */
+/** Dieci libri a settimana dalla vetrina, mescolati e alternando i temi (filosofia, mente, società, economia). */
+function libriDellaSettimana(libri) {
+  const settimana = Math.floor(Date.parse(new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Rome' }) + 'T00:00:00Z') / 86400000 / 7);
+  const r = casuale(settimana * 104729 + 3), mescolati = libri.map((l) => [r(), l]).sort((x, y) => x[0] - y[0]).map((x) => x[1]);
+  const perTema = {};
+  mescolati.forEach((l) => (perTema[l.tema] = perTema[l.tema] || []).push(l));
+  const temi = Object.keys(perTema), out = [];
+  for (let i = 0; out.length < Math.min(10, libri.length); i++) { const t = perTema[temi[i % temi.length]]; if (t.length) out.push(t.shift()); }
+  return out;
+}
+const TEMI_LIBRI = { filosofia: '🧠 Filosofia e IA', mente: '💭 La mente che cambia', 'società': '🏛️ Società', economia: '📈 Economia e business' };
+function renderTech() {
+  const x = Ed.tech, t = Ed.grezzo?.tech;
+  const spiega = (s2) => `<p class="spiega">${s2}</p>`;
+  const nonPronto = '<p class="scheda">Questa sezione si prepara con l&rsquo;intelligenza artificiale quando apri la scheda (serve la chiave Gemini): se non compare, riprova tra poco.</p>';
+  const ascolta = (id, titolo, testo, etichetta = '▶️ Ascolta') => { registroAscolto[id] = { titolo, testo }; return `<p><button class="btn rosso" data-ascolta="${id}" type="button">${etichetta}</button></p>`; };
+  const sezione = (id, titolo, corpo) => `<section data-sezione="${id}" class="nascosto"><h2>${titolo}</h2>${corpo}</section>`;
+  let h = '';
+  // Notizie AI
+  h += sezione('tnotizie', '📰 Notizie AI', spiega('Le dieci notizie più importanti di oggi su tecnologia e intelligenza artificiale, raccolte da testate italiane e internazionali e spiegate in parole semplici. In fondo, i trend del futuro.')
+    + (x?.notizie?.length ? ascolta('tech-notizie', 'Notizie AI', x.notizie.map((n) => `${n.titolo}. ${n.testo}`).join('\n\n'), '▶️ Ascolta tutte le notizie')
+      + x.notizie.map(schedaNotizia).join('') + (x.tendenze ? `<article class="scheda scintilla"><h3 style="margin-top:0">🔮 I trend del futuro</h3><p style="margin:0">${esc(x.tendenze)}</p></article>` : '') : nonPronto));
+  // Podcast AI
+  h += sezione('tpodcast', '🎧 Podcast AI', spiega('Una decina di podcast italiani su tecnologia e intelligenza artificiale, con l\'ultima puntata uscita e due righe che la spiegano. Tocca ▶️ per ascoltarla qui.')
+    + (x?.podcast?.length ? x.podcast.map((p2, i) => schedaPodcast(p2, `data-podcast-tech="${i}"`)).join('') : nonPronto));
+  // Radio AI
+  h += sezione('tradio', '📻 Radio AI', spiega('Dieci radio da ascoltare per stare al passo con tecnologia, intelligenza artificiale e trend del futuro: informazione, cultura digitale e intrattenimento. Tocca una radio per ascoltarla in diretta.')
+    + (t?.radio?.length ? `<div class="scheda">${t.radio.map((r, i) => {
+      const ok = r.url || r.episodio;
+      const sotto = r.episodio ? `${r.perche} Ultima puntata: “${r.episodio.titolo}”.` : r.perche;
+      return `<div style="margin-bottom:14px"><button class="btn ${ok ? 'rosso' : ''}" data-radio-tech="${i}" type="button" style="width:100%;justify-content:flex-start" ${ok ? '' : 'disabled'}>📻 ${esc(r.nome)}</button><p class="piccolo" style="margin:6px 0 0">${esc(sotto)}</p></div>`;
+    }).join('')}<p class="piccolo" id="statoRadioTech"></p></div>` : nonPronto));
+  // Idee AI
+  h += sezione('tidee', '💡 Idee AI', spiega('Ogni giorno dieci idee nuove da realizzare con la tecnologia e l\'intelligenza artificiale: per la famiglia, il lavoro, una piccola impresa o il territorio. Con il primo passo da fare e quanto è difficile.')
+    + (x?.idee?.length ? ascolta('tech-idee', 'Idee AI', x.idee.map((d) => `${d.titolo}. ${d.idea}`).join('\n\n'), '▶️ Ascolta le idee')
+      + x.idee.map((d, i) => `<article class="scheda"><h3 style="margin-top:0"><span class="numerino">${i + 1}</span>${esc(d.titolo)}</h3><span class="badge">${esc(d.difficolta || '')}</span><p>${esc(d.idea)}</p><p class="piccolo" style="margin:0"><b>Primo passo:</b> ${esc(d.primo_passo)}</p></article>`).join('') : nonPronto));
+  // Futuro AI
+  h += sezione('tfuturo', '🔭 Futuro AI', spiega('Il futuro in pillole: dieci curiosità e scoperte sorprendenti su scienza, tecnologia, intelligenza artificiale e robotica, e su come l\'IA sta già cambiando il mondo reale. Prese dalle notizie degli ultimi giorni.')
+    + (x?.futuro?.length ? ascolta('tech-futuro', 'Futuro AI', x.futuro.map((f) => `${f.titolo}. ${f.testo}`).join('\n\n'), '▶️ Ascolta le pillole')
+      + x.futuro.map((f, i) => `<article class="scheda"><h3 style="margin-top:0"><span class="numerino">${i + 1}</span>${esc(f.titolo)}</h3><p>${esc(f.testo)}</p>${f.link ? `<a class="btn" href="${esc(linkSicuro(f.link))}" target="_blank" rel="noopener">Approfondisci ↗</a>` : ''}${f.fonte ? `<div class="fonte" style="margin:8px 0 0">Fonte: ${esc(f.fonte)}</div>` : ''}</article>`).join('') : nonPronto));
+  // YouTube
+  h += sezione('tyoutube', '▶️ YouTube link', spiega('Dieci video recenti su notizie di tecnologia e intelligenza artificiale, scelti dai canali italiani e internazionali più seguiti. Tocca per guardarli su YouTube. Alcuni sono in inglese.')
+    + (x?.video?.length ? x.video.map((v) => `<article class="scheda video"><a href="${esc(linkSicuro(v.link))}" target="_blank" rel="noopener"><img src="${esc(linkSicuro(v.immagine))}" alt="" loading="lazy"></a><h3 style="margin:0 0 6px">${esc(v.titolo)}</h3><div class="fonte" style="margin:0 0 8px">${esc(v.canale)} · ${esc(giornoNome(v.data.slice(0, 10)))}</div>${v.perche ? `<p>${esc(v.perche)}</p>` : ''}<a class="btn rosso" href="${esc(linkSicuro(v.link))}" target="_blank" rel="noopener">▶️ Guarda su YouTube</a></article>`).join('') : nonPronto));
+  // Consigli sul futuro
+  const libri = t?.libri?.length ? libriDellaSettimana(t.libri) : [];
+  h += sezione('tlibri', '📚 Consigli sul futuro', spiega('Una vetrina di dieci libri e saggi per capire il futuro: la filosofia dell\'intelligenza artificiale, come cambiano la mente e la società, gli effetti economici e di business dell\'innovazione. Cambia ogni settimana.')
+    + (libri.length ? libri.map((l) => `<article class="scheda"><span class="badge">${esc(TEMI_LIBRI[l.tema] || l.tema)}</span><h3 style="margin:4px 0 4px">${esc(l.titolo)}</h3><div class="fonte" style="margin:0 0 8px">${esc(l.autore)} · ${esc(String(l.anno))}</div><p>${esc(l.perche)}</p><a class="btn" href="https://www.google.com/search?q=${encodeURIComponent(l.titolo + ' ' + l.autore + ' libro')}" target="_blank" rel="noopener">Cerca il libro ↗</a></article>`).join('') : nonPronto));
+  $('contenutoTech').innerHTML = h;
+  // Scintilla del giorno
+  const sc = x?.scintilla;
+  $('scintillaOggi').innerHTML = sc?.idea ? schedaScintilla(sc, 'La scintilla di oggi', 'tech-scintilla') : '';
+  // Dibattito: testo
+  const d = x?.dibattito;
+  if (d?.turni?.length && !$('testoDibattito').dataset.mio) $('testoDibattito').innerHTML = `<h3>${esc(d.titolo)}</h3>` + d.turni.map(battutaHtml).join('');
+  apriSezione('tech', sezioneAperta.tech, false);
+}
+function schedaScintilla(sc, etichetta, id) {
+  const testo = `Uniamo ${sc.a} e ${sc.b}. ${sc.ponte || ''} L'idea si chiama ${sc.nome_idea || ''}. ${sc.idea} L'intuizione: ${sc.intuizione || ''} Primo passo: ${sc.primo_passo || ''}`;
+  registroAscolto[id] = { titolo: 'La scintilla della serendipità', testo };
+  return `<article class="scheda scintilla"><p class="piccolo" style="margin-top:0">${esc(etichetta)}</p>
+    <p class="concetti">${esc(sc.a)} ✨ ${esc(sc.b)}</p>${sc.ponte ? `<p><i>${esc(sc.ponte)}</i></p>` : ''}
+    <h3>💼 ${esc(sc.nome_idea || 'L\'idea')}</h3><p>${esc(sc.idea)}</p>
+    <h3>💡 L'intuizione</h3><p>${esc(sc.intuizione || '')}</p>
+    ${sc.primo_passo ? `<p class="piccolo"><b>Primo passo:</b> ${esc(sc.primo_passo)}</p>` : ''}
+    <p><button class="btn rosso" data-ascolta="${esc(id)}" type="button">▶️ Ascolta</button></p></article>`;
+}
+const SCHEMA_SCINTILLA = {
+  type: 'OBJECT', required: ['ponte', 'nome_idea', 'idea', 'intuizione', 'primo_passo'], propertyOrdering: ['ponte', 'nome_idea', 'idea', 'intuizione', 'primo_passo'],
+  properties: { ponte: { type: 'STRING' }, nome_idea: { type: 'STRING' }, idea: { type: 'STRING' }, intuizione: { type: 'STRING' }, primo_passo: { type: 'STRING' } },
+};
+$('accendiScintilla').onclick = async () => {
+  const st = $('statoScintilla'), out = $('scintillaNuova');
+  st.classList.remove('errore');
+  if (!chiave) { st.textContent = 'Per accendere nuove scintille serve la chiave Gemini: tocca ⚙️ in alto e incollala. Intanto c\'è quella di oggi, qui sopra.'; return; }
+  const c = Ed.grezzo?.tech?.concetti || {};
+  const pesca = (l, riserva) => (l?.length ? l[Math.floor(Math.random() * l.length)] : riserva);
+  const a = $('concettoA').value.trim() || pesca(c.vicini, 'orto di casa'), b = $('concettoB').value.trim() || pesca(c.lontani, 'intelligenza artificiale');
+  st.textContent = `Sto unendo "${a}" e "${b}"…`; out.innerHTML = ''; $('accendiScintilla').disabled = true;
+  try {
+    const j = await jsonLibero(`Sei un inventore creativo e concreto. Unisci i due concetti lontani "${a}" e "${b}" in modo inaspettato ma sensato, in italiano semplice.
+"ponte": una frase su che cosa li collega. "nome_idea": il nome dell'idea di business (massimo 5 parole). "idea": tra 60 e 80 parole, l'idea di business concreta (che cosa offre, a chi, come guadagna). "intuizione": tra 40 e 60 parole, l'intuizione creativa inaspettata che nasce dall'incontro dei due concetti. "primo_passo": massimo 20 parole. Niente elenchi puntati, niente emoji.`, SCHEMA_SCINTILLA);
+    out.innerHTML = schedaScintilla({ ...j, a, b }, 'La tua scintilla', 'scintilla-' + codice(a + b + j.idea));
+    st.textContent = '';
+  } catch (e) {
+    console.warn('scintilla', e);
+    st.textContent = e.messaggioUtente || 'La scintilla non si è accesa. Riprova tra poco.'; st.classList.add('errore');
+  }
+  $('accendiScintilla').disabled = false;
+};
+/** Dibattito tra AI: se il server l'ha preparato si ascolta subito con le due voci neurali; altrimenti si crea sul telefono. */
+$('playDibattito').onclick = () => {
+  const d = Ed.tech?.dibattito, st = $('statoDibattito');
+  st.classList.remove('errore');
+  if (d?.audio?.length) {
+    st.textContent = 'In onda: Ada e Alan.';
+    const mio = preparaLettura(d.titolo || 'Dibattito tra AI', 'Ada e Alan');
+    return ascoltaVaria('dibattito', d.titolo || 'Dibattito tra AI', d.turni.map((t2) => t2.testo).join('\n\n'), mio, d.audio);
+  }
+  if (d?.turni?.length) { // testo pronto ma senza voce: lo legge il telefono (o Gemini), battuta dopo battuta
+    const mio = preparaLettura(d.titolo || 'Dibattito tra AI', 'Ada e Alan');
+    const l = lettoreCopione('dibattito-' + codice(d.turni[0].testo), ['Ada', 'Alan'], mio);
+    d.turni.forEach((t2) => l.aggiungi(t2)); l.fine();
+    st.textContent = 'In onda: Ada e Alan.';
+    return;
+  }
+  $('testoDibattito').dataset.mio = '1';
+  creaCopione({
+    campo: 'argomentoDibattito', statoEl: 'statoDibattito', testoEl: 'testoDibattito', tasto: 'playDibattito', id: 'dibattito',
+    titolo: 'Dibattito tra AI sulla AI', attesa: 'Ada e Alan si stanno preparando…', nomi: ['Ada', 'Alan'],
+    prompt: () => `Scrivi in italiano il copione di un dibattito radiofonico sull'intelligenza artificiale tra due intelligenze artificiali: Ada (voce femminile, curiosa e ottimista) e Alan (voce maschile, riflessivo e un po' scettico). Si rispettano, si fanno domande e ogni tanto ironizzano sul fatto di essere loro stesse delle IA. Parlano di che cosa cambia per una famiglia normale, delle opportunità e dei rischi, e alla fine trovano una conclusione condivisa e salutano. Durata circa 9 minuti: tra 1150 e 1300 parole in 22-24 battute alternate di 45-65 parole, cominciando da Ada. Frasi adatte all'ascolto, niente elenchi, niente emoji. "titolo": un titolo breve. "turni": le battute in ordine, con "chi" uguale a "Ada" oppure "Alan".
+${Ed.notizie.length ? 'Spunti dalle notizie di oggi: ' + Ed.notizie.slice(0, 6).map((n) => n.titolo).join('; ') : ''}`,
+  });
+};
+/* ---------- Podcast fai da te, Gran consiglio dell'IA, TG in dialetto (con la chiave Gemini dell'utente) ---------- */
+async function jsonLibero(prompt, schema) {
+  return conModelli(CONFIG.modelliTesto, async (modello, giro) => {
+    const chiedi = async (cfg) => {
+      const j = await chiamaGemini(modello, { contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: cfg }, false, 90000 * giro);
+      const t = (j.candidates?.[0]?.content?.parts || []).filter((q) => q.text && !q.thought).map((q) => q.text).join('').trim();
+      return JSON.parse(t.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, ''));
+    };
+    const base = { responseMimeType: 'application/json', responseSchema: schema, temperature: 0.8 };
+    try { return await chiedi({ ...base, thinkingConfig: { thinkingBudget: 0 } }); }
+    catch (e) { if (e.status === 400) return chiedi(base); throw e; }
+  }, 'tg_modello_testo');
+}
+const SCHEMA_COPIONE = {
+  type: 'OBJECT', required: ['titolo', 'turni'], propertyOrdering: ['titolo', 'turni'],
+  properties: { titolo: { type: 'STRING' }, turni: { type: 'ARRAY', items: { type: 'OBJECT', required: ['chi', 'testo'], propertyOrdering: ['chi', 'testo'], properties: { chi: { type: 'STRING' }, testo: { type: 'STRING' } } } } },
+};
+/** Chiede a Gemini un copione e consegna ogni battuta appena è scritta (onTurno), senza aspettare la fine. */
+async function copioneInDiretta(prompt, onTurno) {
+  return conModelli(CONFIG.modelliTesto, async (modello, giro) => {
+    const prova = async (cfg) => {
+      const res = await chiamaGemini(modello, { contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: cfg }, true, 20000 * giro);
+      let visti = 0;
+      const testo = await leggiSSE(res, (buf) => {
+        const lista = notizieComplete(buf, 'turni');
+        for (; visti < lista.length; visti++) onTurno(lista[visti], visti);
+      });
+      const j = JSON.parse(testo.trim().replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, ''));
+      (j.turni || []).forEach((t, i) => { if (i >= visti) onTurno(t, i); });
+      return j;
+    };
+    const base = { responseMimeType: 'application/json', responseSchema: SCHEMA_COPIONE, temperature: 0.8 };
+    try { return await prova({ ...base, thinkingConfig: { thinkingBudget: 0 } }); }
+    catch (e) { if (e.status === 400) return prova(base); throw e; }
+  }, 'tg_modello_testo');
+}
+/** Personaggi: voce di Gemini e, come riserva, come distinguerli con la voce del telefono (voce maschile se c'è, tono, ritmo). */
+const PERSONAGGI = {
+  Marco: { voce: 'Charon', maschile: true, tono: 0.8, ritmo: 0.95 },
+  Giulia: { voce: 'Kore', donna: true, tono: 1.1, ritmo: 0.97 },
+  Leo: { voce: 'Puck', maschile: true, tono: 1.0, ritmo: 1.04 },
+  Sara: { voce: 'Kore', donna: true, tono: 1.15, ritmo: 0.96 },
+  Bruno: { voce: 'Charon', maschile: true, tono: 0.7, ritmo: 0.9 },
+  // I sei cappelli di de Bono e la voce che tira le somme
+  Bianco: { nome: '⚪ Cappello bianco', voce: 'Charon', maschile: true, tono: 0.85, ritmo: 0.93 },
+  Rosso: { nome: '🔴 Cappello rosso', voce: 'Aoede', donna: true, tono: 1.25, ritmo: 1.02 },
+  Nero: { nome: '⚫ Cappello nero', voce: 'Orus', maschile: true, tono: 0.6, ritmo: 0.88 },
+  Giallo: { nome: '🟡 Cappello giallo', voce: 'Puck', maschile: true, tono: 1.15, ritmo: 1.06 },
+  Verde: { nome: '🟢 Cappello verde', voce: 'Zephyr', donna: true, tono: 1.4, ritmo: 1.08 },
+  Blu: { nome: '🔵 Cappello blu', voce: 'Kore', donna: true, tono: 1.0, ritmo: 0.94 },
+  Sintesi: { nome: '🎓 La sintesi', voce: 'Leda', donna: true, tono: 1.1, ritmo: 0.9 },
+  // Il dibattito tra AI
+  Ada: { nome: '🤖 Ada', voce: 'Aoede', donna: true, tono: 1.15, ritmo: 1.0 },
+  Alan: { nome: '🤖 Alan', voce: 'Charon', maschile: true, tono: 0.8, ritmo: 0.95 },
+};
+/** Lettore di un copione che cresce: comincia a parlare appena c'è la prima battuta.
+ *  Gemini legge al massimo due voci per chiamata: a due voci gruppi di 5 battute, con più voci coppie di battute.
+ *  Il primo gruppo è corto (una o due battute) così la voce parte subito. Restituisce { aggiungi, fine }. */
+function lettoreCopione(id, nomi, mio) {
+  const V = P.varia, turni = [], gruppi = [];
+  let scritto = false;
+  const dueVoci = nomi.length <= 2;
+  const primo = dueVoci ? 2 : 1, passo = dueVoci ? 5 : 2;
+  const da = (i) => (i === 0 ? 0 : primo + (i - 1) * passo), quante = (i) => (i === 0 ? primo : passo);
+  V.completo = false; V.attesaMassima = 15000; V.parti = []; V.pronti = [];
+  V.parlaParte = async (i) => { for (const t of gruppi[i]) { if (mio !== P.token) return; await parla(t.testo, PERSONAGGI[t.chi] || {}); } };
+  const base = `varia:${VERSIONE_CACHE}:${Ed.grezzo?.generato || 'oggi'}:${id}`;
+  (async () => {
+    for (let i = 0; ; i++) {
+      for (;;) { // aspetta che ci siano le battute del gruppo i
+        if (mio !== P.token) return;
+        if (turni.length >= da(i) + quante(i) || (scritto && turni.length > da(i))) break;
+        if (scritto) { V.completo = true; Ed.avvisa(); return; }
+        await Promise.race([Ed.attendiCambio(), sleep(700)]);
+      }
+      const g = turni.slice(da(i), da(i) + quante(i));
+      gruppi[i] = g;
+      V.parti[i] = g.map((t) => `${t.chi}: ${t.testo}`).join('\n');
+      Ed.avvisa();
+      let blob = null;
+      const c = await db.get(`${base}:${i}`);
+      if (c && c.testo === V.parti[i]) blob = c.blob;
+      else if (!vocePerOggiKO) {
+        try {
+          const chi = [...new Set(g.map((t) => t.chi))];
+          blob = chi.length > 1
+            ? await sintetizza(V.parti[i], undefined, false, { voci: chi.map((n) => ({ nome: n, voce: (PERSONAGGI[n] || {}).voce || CONFIG.voce })) })
+            : await sintetizza(g.map((t) => t.testo).join('\n\n'), undefined, false, { voce: (PERSONAGGI[chi[0]] || {}).voce });
+          db.set(`${base}:${i}`, { testo: V.parti[i], blob });
+        } catch (e) {
+          console.warn('TTS copione', e);
+          if (e.tipo === 'chiave') erroreChiave(e);
+          else if (e.tipo === 'quota' || e.tipo === 'modello') vocePerOggiKO = true;
+        }
+      }
+      if (mio !== P.token) return;
+      V.pronti[i] = { blob };
+      Ed.avvisa();
+    }
+  })();
+  suonaParteVaria(0); // parte appena è pronta la prima voce; intanto suona il sottofondo
+  return {
+    aggiungi(t) { turni.push(t); Ed.avvisa(); },
+    fine() { scritto = true; Ed.avvisa(); },
+  };
+}
+function battutaHtml(t) {
+  const p = PERSONAGGI[t.chi] || {};
+  return `<p class="turno ${p.donna ? 'donna' : ''}"><b>${esc(p.nome || t.chi)}:</b> ${esc(t.testo)}</p>`;
+}
+/** Crea un copione a più voci e lo fa ascoltare subito: il testo compare e viene letto battuta dopo battuta, mentre Gemini lo scrive. */
+async function creaCopione({ campo, statoEl, testoEl, tasto, titolo, attesa, prompt, nomi, id }) {
+  const richiesta = $(campo).value.trim(), st = $(statoEl), out = $(testoEl);
+  st.classList.remove('errore');
+  if (!richiesta) { st.textContent = 'Scrivi prima qualcosa nel riquadro.'; return; }
+  if (!chiave) { st.textContent = 'Per questa funzione serve la chiave Gemini: tocca ⚙️ in alto e incollala.'; return; }
+  const mio = preparaLettura(titolo, attesa); // dentro il tocco: sblocca l'audio, intanto suona il sottofondo
+  st.textContent = attesa + ' Tra pochi secondi comincia a parlare.'; out.innerHTML = ''; $(tasto).disabled = true;
+  const lettore = lettoreCopione(`${id}-${codice(richiesta)}-${Date.now().toString(36)}`, nomi, mio);
+  let accettati = 0, parole = 0;
+  try {
+    const j = await copioneInDiretta(prompt(richiesta), (t, i) => {
+      if (i !== accettati || !t?.testo || !nomi.includes(t.chi)) return; // solo in ordine, solo i personaggi previsti
+      accettati++; parole += t.testo.split(/\s+/).length;
+      if (mio === P.token) lettore.aggiungi(t);
+      out.insertAdjacentHTML('beforeend', battutaHtml(t));
+      st.textContent = `Sto scrivendo… ${accettati} ${accettati === 1 ? 'intervento' : 'interventi'}.`;
+    });
+    if (accettati < 3) throw new Error('copione troppo corto');
+    if (j.titolo) out.insertAdjacentHTML('afterbegin', `<h3>${esc(j.titolo)}</h3>`);
+    st.textContent = `Pronto: ${accettati} interventi, circa ${Math.max(1, Math.round(parole / 140))} minuti. Sotto trovi il testo.`;
+  } catch (e) {
+    console.warn(id, e);
+    if (accettati < 3) {
+      if (mio === P.token) fermaTutto();
+      st.textContent = e.messaggioUtente || 'Non sono riuscito a prepararlo. Riprova tra poco.'; st.classList.add('errore');
+    } else st.textContent = 'Il collegamento si è interrotto: ascolti la parte già scritta.';
+  }
+  lettore.fine();
+  $(tasto).disabled = false;
+}
+$('creaPodcast').onclick = () => creaCopione({
+  campo: 'argomentoPodcast', statoEl: 'statoPodcast', testoEl: 'testoPodcast', tasto: 'creaPodcast', id: 'podcast',
+  titolo: 'Podcast fai da te', attesa: 'Marco e Giulia si stanno preparando…', nomi: ['Marco', 'Giulia'],
+  prompt: (argomento) => `Scrivi il copione di un podcast in italiano in cui due conduttori, Marco (uomo) e Giulia (donna), discutono dell'argomento indicato sotto.
+Durata: circa 10 minuti di ascolto, cioè tra 1300 e 1450 parole in tutto: scrivi esattamente 28 battute alternate, ognuna di almeno 45 e al massimo 60 parole (conta le parole: un copione più corto non va bene).
+Marco e Giulia partono da posizioni diverse e le difendono con argomenti concreti, esempi e qualche dato noto; si ascoltano, si fanno domande, ogni tanto scherzano. Nell'ultima parte cercano un punto d'incontro e chiudono con una conclusione condivisa e un saluto.
+Tono naturale e colloquiale, frasi adatte a essere lette ad alta voce, niente elenchi, niente indicazioni di scena, niente emoji. Non inventare statistiche precise o citazioni.
+"titolo": un titolo breve per la puntata. "turni": le battute in ordine, con "chi" uguale a "Marco" oppure "Giulia".
+
+ARGOMENTO: ${argomento}`,
+});
+$('creaConsiglio').onclick = () => creaCopione({
+  campo: 'problemaConsiglio', statoEl: 'statoConsiglio', testoEl: 'testoConsiglio', tasto: 'creaConsiglio', id: 'consiglio',
+  titolo: 'Gran consiglio dell\'IA', attesa: 'Il consiglio si sta riunendo…', nomi: ['Leo', 'Sara', 'Bruno'],
+  prompt: (problema) => `Scrivi in italiano il verbale parlato di una riunione in cui tre consiglieri aiutano una persona a risolvere il problema indicato sotto.
+I consiglieri: Leo, il creativo (uomo), propone idee nuove e spunti originali; Sara, la realista (donna), spiega rischi, costi e punti deboli e propone correzioni; Bruno, il pragmatico (uomo), mette le cose nel contesto, confronta le alternative e propone decisioni concrete.
+Durata: circa 10 minuti di ascolto, cioè tra 1250 e 1400 parole in tutto, in 12-14 interventi di 80-110 parole ciascuno. Comincia Bruno riassumendo il problema; poi si alternano, rispondendosi a vicenda e migliorando le proposte; l'ultimo intervento è di Bruno, che indica la soluzione su cui i tre sono d'accordo e i primi tre passi da fare.
+Tono chiaro e cordiale, frasi adatte a essere lette ad alta voce, niente elenchi puntati, niente emoji. Se il problema riguarda salute, soldi o questioni legali ricordate di sentire anche un professionista.
+"titolo": un titolo breve. "turni": gli interventi in ordine, con "chi" uguale a "Leo", "Sara" oppure "Bruno".
+
+PROBLEMA: ${problema}`,
+});
+$('creaCappelli').onclick = () => creaCopione({
+  campo: 'domandaCappelli', statoEl: 'statoCappelli', testoEl: 'testoCappelli', tasto: 'creaCappelli', id: 'cappelli',
+  titolo: '6 cappelli per pensare', attesa: 'I sei cappelli stanno riflettendo…', nomi: ['Bianco', 'Rosso', 'Nero', 'Giallo', 'Verde', 'Blu', 'Sintesi'],
+  prompt: (domanda) => `Applica il metodo dei "Sei cappelli per pensare" di Edward de Bono alla domanda indicata sotto. Scrivi in italiano sette interventi, in quest'ordine, uno per ciascuna voce:
+1. "Bianco" – il cappello bianco: fatti, dati e informazioni. Dice che cosa si sa con certezza, che cosa manca e che cosa andrebbe verificato.
+2. "Rosso" – il cappello rosso: emozioni, sensazioni e intuito, senza bisogno di giustificarsi.
+3. "Nero" – il cappello nero: prudenza e giudizio critico. Rischi, punti deboli, che cosa potrebbe andare storto.
+4. "Giallo" – il cappello giallo: ottimismo ragionato. Vantaggi, opportunità, perché potrebbe funzionare.
+5. "Verde" – il cappello verde: creatività. Idee nuove, alternative, modi diversi di vedere la questione.
+6. "Blu" – il cappello blu: regia e metodo. Mette ordine, indica come organizzare la decisione e i passi successivi.
+7. "Sintesi" – una settima voce, che non porta nessun cappello: riassume in breve che cosa hanno detto gli altri e propone una conclusione sensata ed equilibrata.
+Ognuno dei sei cappelli comincia presentandosi in una frase ("Sono il cappello bianco e guardo ai fatti…"), poi espone il suo punto di vista sulla domanda e dice come la risolverebbe secondo la propria visione: tra 100 e 130 parole ciascuno. La Sintesi parla per 80-110 parole e chiude con un consiglio pratico.
+Tono chiaro e naturale, frasi adatte a essere lette ad alta voce, niente elenchi puntati, niente emoji. Non inventare dati precisi. Se la domanda riguarda salute, soldi o questioni legali la Sintesi ricorda di sentire anche un professionista.
+"titolo": un titolo breve. "turni": i sette interventi in ordine, con "chi" uguale a "Bianco", "Rosso", "Nero", "Giallo", "Verde", "Blu" e "Sintesi".
+
+DOMANDA: ${domanda}`,
+});
+async function tgInDialetto(dialetto) {
+  const st = $('statoDialetto'), out = $('testoDialetto');
+  st.classList.remove('errore');
+  document.querySelectorAll('[data-dialetto]').forEach((b) => b.classList.toggle('attiva', b.dataset.dialetto === dialetto));
+  if (!Ed.notizie.length) { st.textContent = 'Aspetta che le notizie di oggi siano pronte, poi riprova.'; return; }
+  if (!chiave) { st.textContent = 'Per questa funzione serve la chiave Gemini: tocca ⚙️ in alto e incollala.'; return; }
+  const titolo = 'TG in ' + nomeDialetto(dialetto);
+  const mio = preparaLettura(titolo, 'Traduco il TG…');
+  st.textContent = 'Sto riscrivendo le notizie in dialetto: ci vuole mezzo minuto…'; out.innerHTML = '';
+  try {
+    const k = `dialetto:${VERSIONE_CACHE}:${Ed.grezzo?.generato}:${dialetto}:2`;
+    let testo = (await db.get(k))?.testo;
+    if (!testo) {
+      const DESCRIZIONI = {}, STILI = {};
+      testo = await testoLibero(`Riscrivi il telegiornale qui sotto in ${nomeDialetto(dialetto)}, come lo racconterebbe una persona del posto, simpatica ma rispettosa. Usa le forme e le espressioni tipiche di quella parlata e qualche paragone preso dalla vita del luogo; scrivi le parole come si pronunciano.
+Comincia con un saluto in dialetto, poi racconta ogni notizia in 2 o 3 frasi (un paragrafo per notizia, separati da una riga vuota) e chiudi con un saluto. In tutto tra 450 e 550 parole.
+Mantieni esatti i fatti, i nomi e i numeri: cambia solo il modo di dirli. Usa un dialetto comprensibile, con grafia semplice e leggibile ad alta voce; niente volgarità, niente prese in giro di persone o tragedie. Rispondi solo con il testo.
+
+NOTIZIE DI OGGI:
+${Ed.notizie.map((n, i) => `${i + 1}. ${n.titolo}. ${n.testo}`).join('\n')}`);
+      db.set(k, { testo });
+    }
+    out.innerHTML = testo.split(/\n\s*\n/).map((x) => `<p>${esc(x.trim())}</p>`).join('');
+    st.textContent = '';
+    ascoltaVaria(`dialetto-${dialetto}-${codice(testo)}`, titolo, testo, mio);
+  } catch (e) {
+    console.warn('dialetto', e);
+    if (mio === P.token) fermaTutto();
+    st.textContent = e.messaggioUtente || 'Non sono riuscito a prepararlo. Riprova tra poco.'; st.classList.add('errore');
+  }
+}
 function toccoSchede(e) {
   const v = Ed.varie;
   let b;
-  if ((b = e.target.closest('[data-apri]'))) return apriSezione(b.closest('#paginaCalcio') ? 'calcio' : 'varie', b.dataset.apri);
+  if ((b = e.target.closest('[data-apri]'))) return apriSezione({ paginaCalcio: 'calcio', paginaNovita: 'novita', paginaTech: 'tech', paginaAltro: 'altro' }[b.closest('[id^="pagina"]')?.id] || 'varie', b.dataset.apri);
+  if ((b = e.target.closest('[data-podcast-tech]'))) return suonaPodcast(Ed.tech.podcast[+b.dataset.podcastTech]);
+  if ((b = e.target.closest('[data-cerca]'))) return cercaOra(b.dataset.cerca);
+  if ((b = e.target.closest('[data-podcast-altro]'))) {
+    const [r, i] = b.dataset.podcastAltro.split(':');
+    const p2 = Ed.grezzo?.altro?.[r]?.podcast?.[+i];
+    if (p2?.ultimo) return suonaPodcast({ ...p2.ultimo, nome: p2.nome });
+    return;
+  }
+  if ((b = e.target.closest('[data-radio-tech]'))) {
+    const r = Ed.grezzo?.tech?.radio?.[+b.dataset.radioTech];
+    if (!r) return;
+    if (r.episodio) return suonaPodcast({ nome: r.nome, episodio: r.episodio.titolo, audio: r.episodio.audio, link: r.episodio.link });
+    if (!r.url) return;
+    if (!leggibile(r)) { $('statoRadioTech').textContent = `${r.nome} non si può ascoltare su questo dispositivo: prova dal telefono.`; return; }
+    $('statoRadioTech').textContent = '';
+    return suonaDiretta(r.nome, r.url, 'Radio in diretta');
+  }
+  if ((b = e.target.closest('[data-citta]'))) { ls.set('tg_citta', b.dataset.citta); return renderExtra(); }
   if ((b = e.target.closest('[data-luogo]'))) { ls.set('tg_meteo', b.dataset.luogo); return renderVarie(); }
+  if ((b = e.target.closest('[data-dialetto]'))) return tgInDialetto(b.dataset.dialetto);
   if ((b = e.target.closest('[data-ascolta]')) && registroAscolto[b.dataset.ascolta]) {
     const r = registroAscolto[b.dataset.ascolta];
     return ascoltaVaria(b.dataset.ascolta, r.titolo, r.testo);
   }
+  if ((b = e.target.closest('[data-rassegna]'))) return rassegna(b.dataset.rassegna);
   if ((b = e.target.closest('[data-preferita]'))) return suonaRadioScelta(radioPreferite()[+b.dataset.preferita]);
   if ((b = e.target.closest('[data-togli]'))) { const l = radioPreferite(); l.splice(+b.dataset.togli, 1); return salvaRadioPreferite(l); }
   if ((b = e.target.closest('[data-prova]'))) return suonaRadioScelta(risultatiRadio[+b.dataset.prova]);
@@ -2315,15 +2951,15 @@ function toccoSchede(e) {
   if (!v) return;
   if ((b = e.target.closest('[data-ascolta]'))) {
     const id = b.dataset.ascolta;
-    if (id === 'tv') ascoltaVaria('tv', 'Stasera in TV', 'Stasera in TV.\n\n' + v.tv);
+    if (id === 'meteo') ascoltaVaria('meteo', 'Meteo', v.meteo);
+    else if (id === 'tv') ascoltaVaria('tv', 'Stasera in TV', 'Stasera in TV.\n\n' + v.tv);
     else if (id === 'accadde') ascoltaVaria('accadde', 'Accadde oggi', 'Accadde oggi.\n\n' + Ed.accadde);
-    else if (id.startsWith('squadra-')) {
+    else {
       const q = v.squadre[+id.split('-')[1]];
       ascoltaVaria('squadra-' + q.id, 'Notizie ' + q.nome, `Le notizie: ${q.nome}.\n\n` + q.notizie.map((n) => `${n.titolo}.\n\n${n.testo}`).join('\n\n'));
     }
   } else if ((b = e.target.closest('[data-podcast-squadra]'))) {
     const [i, j] = b.dataset.podcastSquadra.split(':').map(Number);
-    window.evento('podcast');
     suonaPodcast(v.squadre[i].podcast[j]);
   } else if ((b = e.target.closest('[data-radio-squadra]'))) {
     const q = v.squadre[+b.dataset.radioSquadra];
@@ -2333,6 +2969,9 @@ function toccoSchede(e) {
 $('paginaCalcio').addEventListener('click', toccoSchede);
 $('paginaVarie').addEventListener('click', toccoSchede);
 $('paginaRadio').addEventListener('click', toccoSchede);
+$('paginaNovita').addEventListener('click', toccoSchede);
+$('paginaTech').addEventListener('click', toccoSchede);
+$('paginaAltro').addEventListener('click', toccoSchede);
 // statistiche anonime: Approfondisci e podcast aperti
 document.addEventListener('click', (e) => {
   const a = e.target.closest('a[href]');
@@ -2344,13 +2983,13 @@ $('ascoltaRisposta').onclick = () => ascoltaVaria('ai-' + codice(ultimaRisposta)
 $('cercaRadioBtn').onclick = cercaRadio;
 $('cercaRadio').addEventListener('keydown', (e) => { if (e.key === 'Enter') cercaRadio(); });
 function mostraScheda(quale, inCima = true) {
-  for (const id of ['TG', 'Podcast', 'Radio', 'Calcio', 'Varie']) {
+  for (const id of ['TG', 'Podcast', 'Radio', 'Calcio', 'Varie', 'Novita', 'Tech', 'Altro']) {
     $('pagina' + id).classList.toggle('nascosto', quale !== id.toLowerCase());
     $('scheda' + id).classList.toggle('attiva', quale === id.toLowerCase());
   }
   if (inCima) window.scrollTo({ top: 0 });
 }
-for (const id of ['TG', 'Podcast', 'Radio', 'Calcio', 'Varie']) $('scheda' + id).onclick = () => mostraScheda(id.toLowerCase());
+for (const id of ['TG', 'Podcast', 'Radio', 'Calcio', 'Varie', 'Novita', 'Tech', 'Altro']) $('scheda' + id).onclick = () => apriScheda(id);
 function renderPodcast() {
   const el = $('listaPodcast');
   if (!Ed.podcast) { el.innerHTML = '<p class="segnaposto scheda">I podcast compariranno qui dopo le notizie.</p>'; return; }
@@ -2372,7 +3011,7 @@ function evidenzia(indici, scorri = true) {
 
 /* ---------- Schermate ---------- */
 function mostra(schermata) {
-  for (const [id, nome] of [['schermataDemo', 'demo'], ['schermataConfig', 'config'], ['schermataTG', 'tg'], ['schermataPremium', 'premium']]) $(id).classList.toggle('nascosto', schermata !== nome);
+  for (const [id, nome] of [['schermataDemo', 'demo'], ['schermataConfig', 'config'], ['schermataTG', 'tg'], ['schermataSblocca', 'sblocca']]) $(id).classList.toggle('nascosto', schermata !== nome);
   $('apriImpostazioni').classList.toggle('nascosto', schermata !== 'tg');
   window.scrollTo({ top: 0 });
 }
@@ -2410,13 +3049,19 @@ function renderDemo(attiva = -1) {
     <article class="scheda podcast"><div class="testa"><div><div class="nome">${esc(p.nome)}</div><div class="episodio">${esc(p.episodio)}</div></div></div>
       <p>${esc(p.spiegazione)}</p><div class="azioni"><button class="btn" data-bloccato type="button">▶️ Ascolta <span class="lucchetto">🔒</span></button></div></article>`).join('');
 }
+function renderFunzioniDemo() {
+  const base = PUBBLICO.FUNZIONI_BASE, comp = PUBBLICO.FUNZIONI_COMPLETO;
+  $('demoFunzioni').innerHTML = `<p class="piccolo" style="margin-top:0">${esc(testoOfferta())}</p>`
+    + base.map((f) => `<div class="funzione"><span>✅</span><span>${esc(NOMI_FUNZIONI[f] || f)}</span><span class="badge">Gratis</span></div>`).join('')
+    + comp.map((f) => `<button class="funzione bloccata" data-funzione="${esc(f)}" type="button"><span>🔒</span><span>${esc(NOMI_FUNZIONI[f] || f)}</span><span class="badge">Sblocca con ${esc(PUBBLICO.SBLOCCO['3M'].prezzo)}</span></button>`).join('');
+}
 function etichettaDemo(testo) {
   $('etichettaDemo').textContent = testo;
   $('iconaDemo').innerHTML = /Pausa/.test(testo) ? '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>' : '<path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/>';
 }
 function mostraDemo() {
   mostra('demo');
-  renderDemo();
+  renderDemo(); renderFunzioniDemo();
   avviaDemo(false); // prova a partire da sola; se il browser blocca l'audio resta il grande tasto
 }
 function avviaTimerDemo() {
@@ -2477,11 +3122,16 @@ async function avviaDemo(daTocco) {
 $('tastoDemo').onclick = () => avviaDemo(true);
 $('tgOggiBloccato').onclick = () => { pausaDemo(); apriSblocco('lucchetto'); };
 $('apriSblocco').onclick = () => { pausaDemo(); apriSblocco('tasto'); };
-$('schermataDemo').addEventListener('click', (e) => { if (e.target.closest('[data-bloccato]')) { pausaDemo(); apriSblocco('lucchetto'); } });
+$('schermataDemo').addEventListener('click', (e) => {
+  const f = e.target.closest('[data-funzione]');
+  if (f) { pausaDemo(); return mostraSblocca(f.dataset.funzione); }
+  if (e.target.closest('[data-bloccato]')) { pausaDemo(); apriSblocco('lucchetto'); }
+});
 
 /* ---------- Riquadro di sblocco con la chiave Gemini ---------- */
 function apriSblocco() {
   D.riquadroVisto = true;
+  $('rigaOfferta').textContent = '🎁 La chiave è gratuita. ' + (regaloNatale() || !nuoveRegole() ? `TG di Famiglia è gratis fino al ${PUBBLICO.REGALO_NATALE_FINO_AL.split('-').reverse().join('/')}.` : `Hai ${PUBBLICO.GIORNI_PROVA} giorni gratis con tutte le funzioni.`);
   if (!$('sblocco').open) { $('statoChiave').textContent = ''; $('statoChiave').classList.remove('errore'); $('sblocco').showModal(); }
   window.evento('riquadro-chiave');
 }
@@ -2547,6 +3197,8 @@ async function mostraConfig(prima) {
   const squadre = await caricaSquadre();
   $('campoSquadra').innerHTML = '<option value="">Nessuna in particolare</option>' + squadre.map((q) => `<option value="${esc(q.id)}">${esc(q.nome)}</option>`).join('');
   $('campoSquadra').value = squadre.some((q) => q.id === bozza.squadra) ? bozza.squadra : '';
+  $('campoSquadra').disabled = !ha('squadra');
+  $('notaSquadra').classList.toggle('nascosto', ha('squadra'));
 }
 function aggiornaSaluto() {
   bozza.nome = pulisciNome($('campoNome').value).slice(0, 40);
@@ -2586,6 +3238,7 @@ async function coordinate(c) {
 const attese = new Set(); // città di cui si stanno cercando le coordinate
 function aggiungiCitta(c) {
   $('statoCitta').classList.remove('errore');
+  if (bozza.citta.length >= 1 && !ha('citta5')) { $('statoCitta').textContent = `🔒 Con la versione gratuita c'è 1 città. Fino a 5 città con TG di Famiglia Completo.`; return mostraSblocca('citta5'); }
   if (bozza.citta.length >= 5) { $('statoCitta').textContent = 'Puoi scegliere al massimo 5 città.'; return; }
   if (bozza.citta.some((x) => x.nome === c.nome && x.sigla === c.sigla)) { $('statoCitta').textContent = `${c.nome} c'è già.`; return; }
   const nuova = { nome: c.nome, sigla: c.sigla };
@@ -2641,10 +3294,8 @@ $('apriImpostazioni').onclick = () => {
   $('riassuntoPreferenze').innerHTML = `<b>Famiglia:</b> ${esc(imp.nome || '—')}<br><b>Città:</b> ${esc(imp.citta.map((c) => c.nome).join(', ') || 'nessuna')}<br><b>Calcio:</b> ${imp.calcio ? 'sì' + (sq ? ` (${esc(sq)})` : '') : 'no'}`;
   $('chiaveMascherata').textContent = chiave ? chiave.slice(0, 6) + '…' + chiave.slice(-4) : '(nessuna)';
   $('statoImpostazioni').textContent = '';
-  $('statoProva').textContent = !PUBBLICO.PREMIUM_ENABLED ? '' : premiumAttivo() ? '⭐ TG di Famiglia Premium attivo. Grazie!'
-    : !giornoProva() ? `Prova gratuita di ${PUBBLICO.giorni_prova} giorni: parte dal primo TG ascoltato.`
-    : giorniRimasti() > 0 ? `Prova gratuita: mancano ${giorniRimasti()} ${giorniRimasti() === 1 ? 'giorno' : 'giorni'}.`
-    : giornoProva() <= PUBBLICO.giorni_prova ? "Prova gratuita: oggi è l'ultimo giorno." : 'La prova gratuita è finita.';
+  $('statoProva').textContent = statoLivello();
+  renderSceltaVoce();
   $('infoVersione').textContent = `Versione ${CONFIG.versione} · suoni di oggi: ${PACCHETTO.nome} · voce: ${ls.get('tg_modello_voce') || '—'} · testo: ${ls.get('tg_modello_testo') || '—'}` + (Ed.grezzo ? ` · dati del ${new Date(Ed.grezzo.generato).toLocaleString('it-IT')}` : '');
   $('impostazioni').showModal();
 };
@@ -2700,86 +3351,255 @@ async function avvioAutomatico() {
 }
 
 /* =====================================================================
-   PROVA GRATUITA, DONAZIONE, PREMIUM (config.json → PREMIUM_ENABLED) E CONDIVISIONE
+   LIVELLI: Base (gratis) e Completo (sbloccato). Regole nel tempo e prezzi in ../config.json
    ===================================================================== */
 const PUBBLICO = {
-  PREMIUM_ENABLED: true, giorni_prova: 15, giorno_donazione: 3, giorno_avviso: 12, prezzo: '1,99 €/mese',
-  sito: 'https://tg-di-famiglia.pages.dev', kofi_caffe: 'https://ko-fi.com/tgdifamiglia', kofi_abbonamento: 'https://ko-fi.com/tgdifamiglia/tiers',
+  REGALO_NATALE_FINO_AL: '2026-12-31', INIZIO_NUOVE_REGOLE: '2027-01-01', GIORNI_PROVA: 15, GIORNO_AVVISO_PROVA: 12,
+  GIORNI_AVVISO_SCADENZA: 7, DOPO_PROVA: 'blocco',
+  FUNZIONI_BASE: ['tg', 'saluto', 'citta1', 'fonti'],
+  FUNZIONI_COMPLETO: ['citta5', 'squadra', 'podcast', 'sigla', 'meteo', 'radio', 'serale', 'voce', 'varie', 'novita', 'tech', 'altro'],
+  SBLOCCO: {
+    '3M': { nome: 'Contributo una tantum', prezzo: '5 €', descrizione: '3 mesi di TG di Famiglia Completo', mesi: 3, giorni_extra: 0, link: 'https://ko-fi.com/tgdifamiglia/shop' },
+    '1M': { nome: 'Mensile', prezzo: '1,99 €/mese', descrizione: 'finché è attivo · disdici quando vuoi', mesi: 1, giorni_extra: 5, link: 'https://ko-fi.com/tgdifamiglia/tiers' },
+  },
+  sito: 'https://tg-di-famiglia.pages.dev', kofi_caffe: 'https://ko-fi.com/tgdifamiglia',
 };
-let codiciPremium = null;
+const NOMI_FUNZIONI = {
+  tg: 'Il TG del giorno: 10 notizie lette dalla voce', saluto: 'Il saluto per la tua famiglia', citta1: '1 città con le sue notizie locali',
+  fonti: 'Il link alla fonte di ogni notizia (Approfondisci)', citta5: 'Fino a 5 città, con notizie locali e meteo',
+  squadra: 'La tua squadra del cuore, con notizie dedicate', podcast: '10 podcast consigliati al giorno, anche della tua zona',
+  sigla: 'Sigla, stacchi e musica, come al vero TG', meteo: 'Il meteo delle tue città', radio: 'Radio per genere, preferite e della tua zona',
+  serale: "L'edizione della sera, con le notizie aggiornate", voce: 'La scelta della voce', calcio: 'La scheda calcio e le domande all\'AI',
+  varie: 'Varie: TV, accadde oggi, rassegna, sport, cultura, sentieri, ricette, fai da te',
+  novita: 'Novità: eventi nelle tue città, detto del giorno, podcast fai da te, consiglio dell\'IA, TG in dialetto',
+  tech: 'Tech & AI: notizie, idee, futuro, video, la scintilla, libri, dibattito', altro: 'Futuro del lavoro, news dalla ricerca, economia circolare',
+};
+let codiciSblocco = null;
 async function caricaPubblico() {
   try { Object.assign(PUBBLICO, await (await fetch('../config.json', { cache: 'no-store' })).json()); } catch {}
-  try { codiciPremium = new Set((await (await fetch('../premium-codes.json', { cache: 'no-store' })).json()).hash || []); } catch {}
+  try { codiciSblocco = new Set((await (await fetch('../codici-sblocco.json', { cache: 'no-store' })).json()).hash || []); } catch {}
 }
-const giornoDi = (t) => Math.floor((new Date(t).setHours(12, 0, 0, 0)) / 864e5);
-/** Giorno di prova (1 = il giorno del primo TG ascoltato), 0 se la prova non è ancora iniziata. */
-function giornoProva() {
-  const inizio = +ls.get('tg_prova_inizio') || 0;
-  return inizio ? giornoDi(Date.now()) - giornoDi(inizio) + 1 : 0;
+
+/* ---------- Data di oggi (Europe/Rome). In sviluppo (localhost) si può simulare con ?oggi=AAAA-MM-GG ---------- */
+const SVILUPPO = ['localhost', '127.0.0.1'].includes(location.hostname);
+(() => {
+  if (!SVILUPPO) return;
+  const q = new URLSearchParams(location.search).get('oggi');
+  try { if (q && /^\d{4}-\d{2}-\d{2}$/.test(q)) sessionStorage.setItem('tg_oggi_test', q); } catch {}
+})();
+function oggiISO() {
+  if (SVILUPPO) { try { const t = sessionStorage.getItem('tg_oggi_test'); if (t) return t; } catch {} }
+  return new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Rome' });
 }
-const giorniRimasti = () => Math.max(0, PUBBLICO.giorni_prova - giornoProva()); // giorni dopo oggi
-const premiumAttivo = () => ls.get('tg_premium') === 'codice';
-const bloccato = () => PUBBLICO.PREMIUM_ENABLED && giornoProva() > PUBBLICO.giorni_prova && !premiumAttivo();
+const giornoUTC = (iso) => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10));
+const diffGiorni = (a, b) => Math.round((giornoUTC(b) - giornoUTC(a)) / 864e5);
+function piuMesi(iso, mesi, giorni = 0) {
+  const d = new Date(giornoUTC(iso));
+  const g = d.getUTCDate();
+  d.setUTCMonth(d.getUTCMonth() + mesi);
+  if (d.getUTCDate() < g) d.setUTCDate(0); // 31 gennaio + 1 mese = 28/29 febbraio
+  d.setUTCDate(d.getUTCDate() + giorni);
+  return d.toISOString().slice(0, 10);
+}
+const dataLunga = (iso) => new Date(giornoUTC(iso)).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const regaloNatale = () => oggiISO() <= PUBBLICO.REGALO_NATALE_FINO_AL;
+const nuoveRegole = () => oggiISO() >= PUBBLICO.INIZIO_NUOVE_REGOLE;
+
+/* ---------- Prova di 15 giorni (dal 2027): dal primo TG ascoltato; chi c'era già parte dal 1/1/2027 ---------- */
+function inizioProva() {
+  if (!nuoveRegole()) return null;
+  const primo = ls.get('tg_primo_tg');
+  if (!primo) return null;
+  return primo > PUBBLICO.INIZIO_NUOVE_REGOLE ? primo : PUBBLICO.INIZIO_NUOVE_REGOLE;
+}
+function giornoProva() { const i = inizioProva(); return i ? diffGiorni(i, oggiISO()) + 1 : 0; }
+const giorniRimasti = () => Math.max(0, PUBBLICO.GIORNI_PROVA - giornoProva());
+const inProva = () => { const g = giornoProva(); return g >= 1 && g <= PUBBLICO.GIORNI_PROVA; };
+const provaFinita = () => giornoProva() > PUBBLICO.GIORNI_PROVA;
+/** Al primo TG ascoltato. */
 function iniziaProva() {
-  if (!ls.get('tg_prova_inizio')) { ls.set('tg_prova_inizio', String(Date.now())); window.evento('prova-iniziata'); }
+  if (!ls.get('tg_primo_tg')) ls.set('tg_primo_tg', oggiISO());
+  controllaLivello();
 }
+
+/* ---------- Sblocco con codice ---------- */
+function sblocco() { try { return JSON.parse(ls.get('tg_sblocco') || 'null'); } catch { return null; } }
+const sbloccoAttivo = () => { const s = sblocco(); return !!s && oggiISO() <= s.scadenza; };
+
+/** Livello di oggi: 'completo', 'base' oppure 'bloccato'. */
+function livello() {
+  if (sbloccoAttivo()) return 'completo';
+  if (!nuoveRegole()) return 'base';                       // fino al 31/12/2026: Base gratis per tutti
+  if (!inizioProva() || inProva()) return 'completo';      // dal 2027: 15 giorni con tutto (anche prima del primo TG)
+  return PUBBLICO.DOPO_PROVA === 'base' ? 'base' : 'bloccato';
+}
+const completo = () => livello() === 'completo';
+const bloccato = () => livello() === 'bloccato';
+const ha = (f) => PUBBLICO.FUNZIONI_BASE.includes(f) || completo();
+/** Statistiche dei passaggi di stato (una volta sola ciascuno). */
+function controllaLivello() {
+  if (nuoveRegole() && inizioProva() && !ls.get('tg_ev_prova')) { ls.set('tg_ev_prova', '1'); window.evento('prova-iniziata'); }
+  if (provaFinita() && !ls.get('tg_ev_prova_scaduta')) { ls.set('tg_ev_prova_scaduta', '1'); window.evento('prova-scaduta'); }
+  const s = sblocco();
+  if (s && oggiISO() > s.scadenza && ls.get('tg_ev_sblocco_scaduto') !== s.scadenza) { ls.set('tg_ev_sblocco_scaduto', s.scadenza); window.evento('sblocco-scaduto'); }
+  aggiornaLucchetti();
+}
+/** Avvisi gentili: 12° giorno di prova e 7 giorni prima della scadenza dello sblocco (una volta ciascuno). */
+function avvisiLivello() {
+  const g = giornoProva();
+  if (!sbloccoAttivo() && g >= PUBBLICO.GIORNO_AVVISO_PROVA && g <= PUBBLICO.GIORNI_PROVA && !ls.get('tg_avviso_prova')) {
+    ls.set('tg_avviso_prova', '1');
+    const n = giorniRimasti();
+    avviso(`${n > 0 ? `Mancano ${n} giorni alla fine della prova gratuita` : 'Oggi è l’ultimo giorno della prova gratuita'}. Poi puoi scegliere: ${PUBBLICO.SBLOCCO['3M'].prezzo} per 3 mesi oppure ${PUBBLICO.SBLOCCO['1M'].prezzo}. Tocca ⚙️ → Sblocca tutto.`);
+    window.evento('avviso-fine-prova');
+  }
+  const s = sblocco();
+  if (s && sbloccoAttivo() && diffGiorni(oggiISO(), s.scadenza) <= PUBBLICO.GIORNI_AVVISO_SCADENZA && ls.get('tg_avviso_scadenza') !== s.scadenza) {
+    ls.set('tg_avviso_scadenza', s.scadenza);
+    avviso(`Il tuo TG di Famiglia Completo scade il ${dataLunga(s.scadenza)}. Per continuare: ⚙️ → Sblocca tutto.`);
+  }
+}
+/** Testo dell'offerta, cambia da solo il 1/1/2027. */
+function testoOfferta() {
+  const a = PUBBLICO.SBLOCCO['3M'], b = PUBBLICO.SBLOCCO['1M'];
+  return regaloNatale() || !nuoveRegole()
+    ? `🎄 Regalo di Natale: TG di Famiglia è gratis fino al ${dataLunga(PUBBLICO.REGALO_NATALE_FINO_AL)}. Con un contributo di ${a.prezzo} sblocchi tutte le funzioni per 3 mesi.`
+    : `${PUBBLICO.GIORNI_PROVA} giorni gratis, poi scegli: ${a.prezzo} per 3 mesi oppure ${b.prezzo}.`;
+}
+function statoLivello() {
+  const s = sblocco();
+  if (sbloccoAttivo()) return `⭐ TG di Famiglia Completo attivo fino al ${dataLunga(s.scadenza)}.`;
+  if (!nuoveRegole()) return `🎄 Versione Base gratis fino al ${dataLunga(PUBBLICO.REGALO_NATALE_FINO_AL)}. Sblocca il Completo con un contributo.`;
+  if (!inizioProva()) return `Prova gratuita di ${PUBBLICO.GIORNI_PROVA} giorni: parte dal primo TG ascoltato.`;
+  if (inProva()) return giorniRimasti() > 0 ? `Prova gratuita: mancano ${giorniRimasti()} ${giorniRimasti() === 1 ? 'giorno' : 'giorni'} (tutte le funzioni).` : "Prova gratuita: oggi è l'ultimo giorno.";
+  return PUBBLICO.DOPO_PROVA === 'base' ? 'La prova gratuita è finita: hai la versione Base. Sblocca tutto con un contributo.' : 'La prova gratuita è finita: sblocca il TG con un contributo.';
+}
+
+/* ---------- Lucchetti sulle schede ---------- */
+const SCHEDE_FUNZIONE = { Podcast: 'podcast', Radio: 'radio', Calcio: 'squadra', Varie: 'varie', Novita: 'novita', Tech: 'tech', Altro: 'altro' };
+function aggiornaLucchetti() {
+  for (const [id, f] of Object.entries(SCHEDE_FUNZIONE)) {
+    const b = $('scheda' + id);
+    if (!b) continue;
+    if (!b.dataset.etichetta) b.dataset.etichetta = b.textContent.trim();
+    b.textContent = b.dataset.etichetta + (ha(f) ? '' : ' 🔒');
+  }
+}
+function apriScheda(id) {
+  const f = SCHEDE_FUNZIONE[id];
+  if (f && !ha(f)) return mostraSblocca(f);
+  mostraScheda(id.toLowerCase());
+  if (id === 'Radio') radioDellaZona();
+  if (id === 'Varie' || id === 'Novita') preparaExtra();
+  if (id === 'Tech' || id === 'Altro') preparaTech();
+}
+
+/* ---------- Schermata "Sblocca tutto" ---------- */
+let schermataPrima = 'tg';
+function mostraSblocca(funzione = '', obbligatoria = false) {
+  if (funzione && funzione !== 'tg') window.evento('funzione-bloccata-toccata/' + funzione);
+  window.evento('schermata-sblocca-mostrata');
+  const visibile = ['demo', 'config', 'tg'].find((x) => !$('schermata' + { demo: 'Demo', config: 'Config', tg: 'TG' }[x]).classList.contains('nascosto'));
+  if (visibile) schermataPrima = visibile;
+  fermaTutto();
+  const a = PUBBLICO.SBLOCCO['3M'], b = PUBBLICO.SBLOCCO['1M'];
+  $('sbloccaSituazione').textContent = (funzione && NOMI_FUNZIONI[funzione] && funzione !== 'tg' ? `🔒 «${NOMI_FUNZIONI[funzione]}» fa parte di TG di Famiglia Completo. ` : '') + (bloccato() ? statoLivello() : testoOfferta());
+  $('sbloccaTabella').innerHTML = `<thead><tr><th></th><th>Base</th><th>Completo</th></tr></thead><tbody>`
+    + [...PUBBLICO.FUNZIONI_BASE, ...PUBBLICO.FUNZIONI_COMPLETO].map((f) => `<tr><td>${esc(NOMI_FUNZIONI[f] || f)}</td><td>${PUBBLICO.FUNZIONI_BASE.includes(f) ? '✅' : '—'}</td><td>✅</td></tr>`).join('') + '</tbody>';
+  $('opzioni3M').innerHTML = `<b>${esc(a.nome)}</b><span class="prezzo">${esc(a.prezzo)}</span><span>${esc(a.descrizione)}</span>`;
+  $('opzioni1M').innerHTML = `<b>${esc(b.nome)}</b><span class="prezzo">${esc(b.prezzo)}</span><span>${esc(b.descrizione)}</span>`;
+  $('sbloccaIndietro').classList.toggle('nascosto', obbligatoria && bloccato());
+  $('statoSblocca').textContent = '';
+  mostra('sblocca');
+}
+$('scegli3M').onclick = () => { window.evento('scelta-5euro-3mesi'); window.open(PUBBLICO.SBLOCCO['3M'].link, '_blank', 'noopener'); $('statoSblocca').textContent = 'Dopo il contributo su Ko-fi ricevi un codice personale: inseriscilo qui sotto.'; };
+$('scegli1M').onclick = () => { window.evento('scelta-mensile'); window.open(PUBBLICO.SBLOCCO['1M'].link, '_blank', 'noopener'); $('statoSblocca').textContent = 'Dopo l\'iscrizione su Ko-fi ricevi un codice personale: inseriscilo qui sotto. A ogni rinnovo ne ricevi uno nuovo.'; };
+$('sbloccaIndietro').onclick = () => {
+  if (schermataPrima === 'demo') return mostraDemo();
+  if (schermataPrima === 'config') return mostra('config');
+  mostra('tg');
+};
+$('apriSbloccaTutto').onclick = () => { $('impostazioni').close(); mostraSblocca(); };
 async function impronta(testo) {
   const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(testo));
   return [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, '0')).join('');
 }
-async function controllaCodiceSalvato() {
-  if (ls.get('tg_premium') !== 'codice' || !codiciPremium) return;
-  if (!codiciPremium.has(ls.get('tg_codice_hash'))) { ls.del('tg_premium'); ls.del('tg_codice_hash'); } // codice revocato
-}
-
-/* ---------- Schermata Premium (dal 16° giorno) ---------- */
-function mostraPremium() {
-  fermaTutto();
-  mostra('premium');
-  $('prezzoPremium').textContent = PUBBLICO.prezzo;
-  $('statoPremium').textContent = '';
-  window.evento('premium-mostrata');
-}
-$('abbonati').onclick = () => {
-  window.evento('abbonati');
-  window.open(PUBBLICO.kofi_abbonamento, '_blank', 'noopener');
-  $('statoPremium').textContent = 'Dopo l\'abbonamento su Ko-fi riceverai un codice personale: inseriscilo qui sotto.';
-};
-$('attivaCodice').onclick = async () => {
-  const codice = $('campoCodice').value.trim().toUpperCase().replace(/\s+/g, '');
-  if (!codice) { $('statoPremium').textContent = 'Scrivi prima il codice.'; return; }
-  if (!codiciPremium) await caricaPubblico();
+/** Attiva un codice TGF-3M-… o TGF-1M-…: la scadenza parte da oggi (o dalla scadenza attuale, se è un rinnovo). */
+async function attivaCodice(testo) {
+  const codice = String(testo || '').trim().toUpperCase().replace(/\s+/g, '');
+  const tipo = (codice.match(/^TGF-(3M|1M)-[A-Z0-9]{4}-[A-Z0-9]{4}$/) || [])[1];
+  if (!codiciSblocco) await caricaPubblico();
   const h = await impronta(codice);
-  if (!codiciPremium?.has(h)) { $('statoPremium').textContent = 'Codice non valido: controlla di averlo scritto tutto (es. TGF-ABCD-EFGH-JKLM).'; return; }
-  ls.set('tg_premium', 'codice'); ls.set('tg_codice_hash', h);
-  window.evento('codice-premium-attivato');
-  $('statoPremium').textContent = '✅ Premium attivato. Grazie!';
-  setTimeout(sbloccaPremium, 1000);
+  if (!tipo || !codiciSblocco?.has(h)) { window.evento('codice-non-valido'); return { ok: false, msg: 'Codice non valido: controlla di averlo scritto tutto (es. TGF-3M-ABCD-EFGH).' }; }
+  let usati = []; try { usati = JSON.parse(ls.get('tg_codici_usati') || '[]'); } catch {}
+  if (usati.includes(h)) { window.evento('codice-non-valido'); return { ok: false, msg: 'Questo codice è già stato usato su questo telefono.' }; }
+  const regola = PUBBLICO.SBLOCCO[tipo];
+  const att = sblocco();
+  const da = att && sbloccoAttivo() && att.scadenza > oggiISO() ? att.scadenza : oggiISO();
+  const nuovo = { tipo, attivato: oggiISO(), scadenza: piuMesi(da, regola.mesi, regola.giorni_extra) };
+  ls.set('tg_sblocco', JSON.stringify(nuovo));
+  ls.set('tg_codici_usati', JSON.stringify([...usati, h]));
+  window.evento('codice-attivato-' + tipo);
+  aggiornaLucchetti();
+  return { ok: true, msg: `✅ TG di Famiglia Completo attivo fino al ${dataLunga(nuovo.scadenza)}. Grazie!` };
+}
+$('attivaCodice').onclick = async () => {
+  const r = await attivaCodice($('campoCodice').value);
+  $('statoSblocca').textContent = r.msg;
+  if (r.ok) { $('campoCodice').value = ''; setTimeout(sbloccaTutto, 1200); }
 };
-$('premiumDemo').onclick = () => { D.stato = 'ferma'; D.passo = 0; D.riquadroVisto = true; mostraDemo(); };
-function sbloccaPremium() { applicaImpostazioni(null); if (Ed.gen) { mostra('tg'); prepara(); } else avviaApp(); }
-
-/* ---------- Dopo il TG: condivisione, donazione al 3° giorno ---------- */
-function dopoTG() {
-  document.querySelectorAll('.condividi-fine').forEach((x) => x.classList.remove('nascosto'));
-  if (!PUBBLICO.PREMIUM_ENABLED || premiumAttivo()) return;
-  if (giornoProva() >= PUBBLICO.giorno_donazione && !ls.get('tg_donazione_vista')) {
-    ls.set('tg_donazione_vista', '1'); // una sola volta
-    setTimeout(() => { $('donazione').showModal(); window.evento('donazione-mostrata'); }, 1500);
-  }
-}
-$('offriCaffe').onclick = () => { window.evento('caffe'); window.open(PUBBLICO.kofi_caffe, '_blank', 'noopener'); $('donazione').close(); };
-$('altraVolta').onclick = () => { window.evento('caffe-altra-volta'); $('donazione').close(); };
-function avvisoFineProva() {
-  if (!PUBBLICO.PREMIUM_ENABLED || premiumAttivo()) return;
-  const g = giornoProva();
-  if (g >= PUBBLICO.giorno_avviso && g <= PUBBLICO.giorni_prova && !ls.get('tg_avviso_visto')) {
-    ls.set('tg_avviso_visto', '1');
-    avviso(`Mancano ${giorniRimasti()} giorni alla fine della prova gratuita. Continua con Premium a ${PUBBLICO.prezzo}.`);
-    window.evento('avviso-fine-prova');
-  }
+function sbloccaTutto() {
+  aggiornaLucchetti();
+  if (!sbloccata()) return mostraDemo();
+  if (!impostazioni().fatto) return mostraConfig(true);
+  applicaImpostazioni(null);
+  if (Ed.gen) { mostra('tg'); prepara(true); } else avviaApp();
 }
 
+/* ---------- Scelta della voce (Completo) ---------- */
+const VOCI = [['Kore', 'Kore (femminile, chiara)'], ['Aoede', 'Aoede (femminile, calda)'], ['Leda', 'Leda (femminile, giovane)'], ['Zephyr', 'Zephyr (femminile, luminosa)'], ['Charon', 'Charon (maschile, profonda)'], ['Puck', 'Puck (maschile, vivace)'], ['telefono', 'La voce del telefono']];
+function vocePreferita() { const v = ls.get('tg_voce'); return ha('voce') && VOCI.some(([k]) => k === v) ? v : 'Kore'; }
+function renderSceltaVoce() {
+  const v = vocePreferita();
+  $('sceltaVoce').innerHTML = `<h3>🎙️ La voce del TG ${ha('voce') ? '' : '🔒'}</h3>`
+    + (ha('voce') ? `<select class="campo" id="campoVoce">${VOCI.map(([k, n]) => `<option value="${k}" ${k === v ? 'selected' : ''}>${esc(n)}</option>`).join('')}</select>`
+      : `<p class="piccolo">Con TG di Famiglia Completo puoi scegliere tra sei voci o la voce del telefono.</p><div class="riga-btn"><button class="btn" data-funzione-impostazioni="voce" type="button">🔒 Scegli la voce</button></div>`);
+}
+document.addEventListener('change', async (e) => {
+  if (e.target.id !== 'campoVoce') return;
+  ls.set('tg_voce', e.target.value);
+  applicaVoce();
+  for (const k of await db.keys()) if (/^(audio|titoli|varia|saluto):/.test(String(k))) await db.del(k);
+  $('statoImpostazioni').textContent = 'Voce cambiata: vale dal prossimo ascolto.';
+});
+document.addEventListener('click', (e) => { const b = e.target.closest('[data-funzione-impostazioni]'); if (b) { $('impostazioni').close(); mostraSblocca(b.dataset.funzioneImpostazioni); } });
+function applicaVoce() { const v = vocePreferita(); CONFIG.voce = v === 'telefono' ? 'Kore' : v; vocePerOggiKO = v === 'telefono'; }
+
+/* ---------- Radio della tua zona (Radio Browser, per nome delle città) ---------- */
+let radioZonaDi = '';
+async function radioDellaZona() {
+  const box = $('radioZona');
+  if (!box) return;
+  const citta = impostazioni().citta.map((c) => c.nome);
+  const chiaveZona = citta.join('|');
+  if (!citta.length) { box.innerHTML = '<p class="piccolo">Aggiungi le tue città nelle impostazioni ⚙️ per trovare le radio della tua zona.</p>'; return; }
+  if (radioZonaDi === chiaveZona) return;
+  radioZonaDi = chiaveZona;
+  box.innerHTML = '<p class="piccolo">Cerco le radio della tua zona…</p>';
+  const trovate = [];
+  for (const nome of citta) {
+    try {
+      const q = new URLSearchParams({ name: nome, countrycode: 'IT', hidebroken: 'true', order: 'clickcount', reverse: 'true', limit: '6' });
+      const r = await fetch(`https://de1.api.radio-browser.info/json/stations/search?${q}`);
+      for (const x of await r.json()) if (x.url_resolved && !trovate.some((y) => y.url === x.url_resolved)) trovate.push({ nome: x.name.trim(), url: x.url_resolved, citta: nome, tipo: /m3u8/i.test(x.url_resolved) ? 'hls' : (x.codec === 'OGG' ? 'ogg' : undefined) });
+    } catch (e) { console.warn('radio zona', e); }
+  }
+  radioZona = trovate.slice(0, 12);
+  box.innerHTML = radioZona.length ? radioZona.map((r, i) => `<div class="riga-radio"><button class="btn" data-radio-zona="${i}" type="button">📻 ${esc(r.nome)} <span class="piccolo">· ${esc(r.citta)}</span></button></div>`).join('')
+    : '<p class="piccolo">Per le tue città non ho trovato radio locali nell\'elenco pubblico: prova la ricerca qui sotto.</p>';
+}
+let radioZona = [];
+document.addEventListener('click', (e) => { const b = e.target.closest('[data-radio-zona]'); if (b) suonaRadioScelta(radioZona[+b.dataset.radioZona]); });
 /* ---------- Condividi (WhatsApp, o il pannello di condivisione del telefono) ---------- */
 async function condividi() {
   window.evento('condivisione');
@@ -2842,6 +3662,308 @@ async function installa() {
 document.addEventListener('click', (e) => { if (e.target.closest('[data-installa]')) installa(); });
 $('chiudiGuidaInstalla').onclick = () => $('guidaInstalla').close();
 
+/* =====================================================================
+   SEZIONI COMPLETE (Varie, Novità, Tech & AI, Altro): le stesse dell'app di famiglia, ma sulle città
+   dell'utente. Il testo lo scrive Gemini sul telefono, con la chiave dell'utente, la prima volta che si
+   apre la scheda ogni giorno (poi resta in cache fino a domani).
+   ===================================================================== */
+const registroAscolto = {}; // id -> { titolo, testo } dei testi che si possono ascoltare
+const GIORNI_BREVI = ['dom', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab'];
+const GIORNI_LUNGHI = ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato'];
+const MESI_IT = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+const cittaUtente = () => impostazioniAttive().citta;
+const nomiCittaUtente = () => elencoNomi(cittaUtente().map((c) => c.nome));
+const nomeDialetto = (d) => `dialetto di ${d}`;
+function fineSettimana(iso) {
+  const g = new Date(iso + 'T12:00:00'), w = (g.getDay() + 6) % 7; // 0 = lunedì
+  const ven = new Date(g); ven.setDate(g.getDate() + (w <= 4 ? 4 - w : -(w - 4)));
+  const dom = new Date(ven); dom.setDate(ven.getDate() + 2);
+  return [ven, dom];
+}
+const righeNotizie = (lista, massimo) => lista.slice(0, massimo).map((n) => `${n.fonte} | ${(n.data || '').slice(5, 16).replace('T', ' ')} | ${n.titolo}${n.sommario ? ' — ' + n.sommario.slice(0, 200) : ''}`).join('\n') || '(nessuna)';
+const perCategoria = (cat) => (Ed.grezzo?.notizie || []).filter((n) => cat.includes(n.categoria));
+const MA = { S: { type: 'STRING' } };
+const ogg = (campi, altro = {}) => { const prop = Object.fromEntries(campi.map((c) => [c, MA.S])); Object.assign(prop, altro); return { type: 'OBJECT', properties: prop, required: Object.keys(prop), propertyOrdering: Object.keys(prop) }; };
+const lista = (item) => ({ type: 'ARRAY', items: item });
+const elencoStr = { type: 'ARRAY', items: MA.S };
+
+/* ---------- Segnaposto e ricerca: se una sezione non c'è, un tasto la prepara ---------- */
+let statoExtra = '', statoTech = '', extraInCorso = null, techInCorso = null;
+function conCercati() { return Ed.extra; }
+function tastoCerca(sez, motivo) {
+  const tech = ['lavoro', 'tech'].includes(sez);
+  const inCorso = tech ? techInCorso : extraInCorso;
+  const stato = tech ? statoTech : statoExtra;
+  if (inCorso) return '<p class="scheda cerca-ora">🔎 Sto preparando questa sezione con l\'intelligenza artificiale: ci vogliono circa 30 secondi…</p>';
+  return `<div class="scheda cerca-ora"><p style="margin-top:0">${esc(motivo || 'Questa sezione si prepara con l\'intelligenza artificiale quando apri la scheda.')}</p>
+    <button class="btn rosso" data-cerca="${sez}" type="button">▶️ Prepara ora</button>${stato ? `<p class="piccolo" style="margin:8px 0 0">${esc(stato)}</p>` : ''}</div>`;
+}
+async function cercaOra(sez) { return ['lavoro', 'tech'].includes(sez) ? preparaTech(true) : preparaExtra(true); }
+
+/* ---------- Varie e Novità: sport, partite, cultura, eventi, detto, sentieri, ricetta, fai da te ---------- */
+const chiaveExtra = () => `varia:${VERSIONE_CACHE}:${Ed.grezzo?.generato}:extra:${codice(JSON.stringify([cittaUtente().map((c) => c.nome), impostazioniAttive().calcio]))}`;
+function promptExtra() {
+  const iso = oggiISO(), g = new Date(iso + 'T12:00:00');
+  const oggi = g.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const [ven, dom] = fineSettimana(iso);
+  const citta = cittaUtente(), nomi = citta.map((c) => c.nome);
+  const sigle = [...new Set(citta.map((c) => c.sigla))];
+  const locali = sigle.map((s) => `NOTIZIE E EVENTI LOCALI – ${citta.filter((c) => c.sigla === s).map((c) => c.nome).join(', ')} (provincia ${s}):\n${righeNotizie(perCategoria(['locale']).filter((n) => n.provincia === s), 70)}`).join('\n\n');
+  const tvSport = (Ed.grezzo?.tv?.sport || []).map((t) => `${t.canale} | ${t.ora} | ${t.titolo}`).join('\n') || '(nessun dato)';
+  const giornoAnno = Math.round((giornoUTC(iso) - giornoUTC(iso.slice(0, 4) + '-01-01')) / 864e5) + 1;
+  const dialetto = nomi.length ? nomi[giornoAnno % nomi.length] : '';
+  return `Sei il redattore di un notiziario per una famiglia che vive a ${elencoNomi(nomi) || 'in Italia'}. Oggi è ${oggi}.
+Per le sezioni basate sugli elenchi usa SOLO le informazioni degli elenchi: non inventare eventi, date, orari, luoghi, canali TV o risultati. Quando non c'è materiale lascia "testo" vuoto ("") e "lista" vuota. I testi servono per essere letti ad alta voce: frasi brevi, niente elenchi puntati né emoji. Scrivi in italiano corretto.
+
+COMPITO 1 – "eventi_citta": per ciascuna città (${nomi.join(', ') || 'nessuna'}) gli eventi e le sagre del fine settimana da venerdì ${ven.getDate()} ${MESI_IT[ven.getMonth()]} a domenica ${dom.getDate()} ${MESI_IT[dom.getMonth()]} (dagli elenchi locali). Per ogni città "citta" (il nome esatto), "lista" (fino a 6 voci con "titolo", "dove", "quando") e "testo" (tra 40 e 70 parole).
+COMPITO 2 – "cultura": per ciascuna città concerti, spettacoli teatrali e mostre dei prossimi 30 giorni (dagli elenchi locali): "citta", "lista" (fino a 6 voci con "titolo", "tipo", "dove", "quando") e "testo" (tra 40 e 70 parole).
+COMPITO 3 – "altri_sport": tre testi, "tennis" (Sinner e gli altri italiani), "formula1" e "motogp", ciascuno tra 60 e 80 parole: notizie principali, risultati recenti e, solo se indicati negli elenchi, prossimi appuntamenti con orario e canale TV.
+COMPITO 4 – "partite_oggi": le partite di calcio di oggi di squadre italiane (Serie A, coppe europee, Nazionale). "lista": "partita", "competizione", "ora", "canale" (vuoto se non risulta). "testo": tra 40 e 80 parole. Se non ci sono partite scrivi: "Dalle notizie raccolte non risultano partite di squadre italiane in programma oggi." e lascia la lista vuota.
+COMPITO 5 – "detto": un proverbio popolare in ${dialetto ? nomeDialetto(dialetto) : 'dialetto italiano'}, realmente tramandato nella tradizione di quella zona (non inventarne uno). Oggi è il giorno ${giornoAnno} dell'anno: non scegliere sempre i più ovvi. Campi: "dialetto" (${dialetto ? `"${dialetto}"` : 'il nome del dialetto'}), "proverbio", "traduzione", "spiegazione" (30-40 parole).
+COMPITO 6 – "ricetta": una ricetta tradizionale della cucina di ${elencoNomi(nomi) || 'una regione italiana'}, diversa ogni giorno (giorno ${giornoAnno}): "nome", "zona", "storia" (1-2 frasi), "porzioni", "ingredienti" (uno per voce, con le quantità), "procedimento" (passaggi, uno per voce), "consiglio" (un trucco della nonna, massimo 25 parole). Per questo compito puoi usare la tua conoscenza.
+COMPITO 7 – "fai_da_te": 5 idee semplici per il tempo libero a ${MESI_IT[g.getMonth()]}: 3 di hobbistica e 2 di giardinaggio o orto, adatte alla stagione. "titolo" (massimo 7 parole), "tipo" ("hobbistica" o "giardinaggio"), "cosa_serve" (massimo 20 parole), "come_fare" (40-60 parole), "difficolta" ("facile" o "media"). Per questo compito puoi usare la tua conoscenza.
+COMPITO 8 – "sentieri": 5 percorsi a piedi facili (camminate, trekking leggeri, sentieri nella natura) realmente esistenti e conosciuti nei dintorni di ${elencoNomi(nomi) || 'le tue città'}. "nome", "comune" (dove si trova), "citta" (la città scelta più vicina, nome esatto), "difficolta" ("facile" o "media"), "durata", "descrizione" (30-50 parole), "cerca" (testo per cercarlo su Google Maps). Se non conosci percorsi sicuri per una zona, proponi meno voci: non inventare.
+
+Rispondi solo con il JSON richiesto.
+
+${locali || 'NOTIZIE E EVENTI LOCALI: (nessuna città scelta)'}
+
+TENNIS:\n${righeNotizie(perCategoria(['tennis']), 30)}
+FORMULA 1:\n${righeNotizie(perCategoria(['formula1']), 30)}
+MOTOGP:\n${righeNotizie(perCategoria(['motogp']), 30)}
+CALCIO E SPORT (per le partite di oggi):\n${righeNotizie(perCategoria(['sport', 'calcio']), 100)}
+SPORT IN TV OGGI (canale | ora | programma):\n${tvSport}`;
+}
+function schemaExtra() {
+  const ev = lista(ogg(['titolo', 'dove', 'quando'])), cu = lista(ogg(['titolo', 'tipo', 'dove', 'quando']));
+  const ordine = ['eventi_citta', 'cultura', 'altri_sport', 'partite_oggi', 'detto', 'ricetta', 'fai_da_te', 'sentieri'];
+  return { type: 'OBJECT', required: ordine, propertyOrdering: ordine, properties: {
+    eventi_citta: lista(ogg(['citta', 'testo'], { lista: ev })), cultura: lista(ogg(['citta', 'testo'], { lista: cu })),
+    altri_sport: ogg(['tennis', 'formula1', 'motogp']), partite_oggi: ogg(['testo'], { lista: lista(ogg(['partita', 'competizione', 'ora', 'canale'])) }),
+    detto: ogg(['dialetto', 'proverbio', 'traduzione', 'spiegazione']),
+    ricetta: ogg(['nome', 'zona', 'storia', 'porzioni', 'consiglio'], { ingredienti: elencoStr, procedimento: elencoStr }),
+    fai_da_te: lista(ogg(['titolo', 'tipo', 'cosa_serve', 'come_fare', 'difficolta'])),
+    sentieri: lista(ogg(['nome', 'comune', 'citta', 'difficolta', 'durata', 'descrizione', 'cerca'])),
+  } };
+}
+function normalizzaExtra(j) {
+  const per = (v) => Object.fromEntries((v || []).filter((x) => x?.citta).map((x) => [x.citta, { testo: (x.testo || '').trim(), lista: (x.lista || []).filter((e) => e && Object.values(e).some(Boolean)) }]));
+  const r = j.ricetta || {};
+  return {
+    eventi_citta: per(j.eventi_citta), cultura: per(j.cultura),
+    altri_sport: Object.fromEntries(['tennis', 'formula1', 'motogp'].map((c) => [c, ((j.altri_sport || {})[c] || '').trim()])),
+    partite_oggi: { testo: (j.partite_oggi?.testo || '').trim(), lista: (j.partite_oggi?.lista || []).filter((m) => m?.partita) },
+    detto: j.detto?.proverbio ? { ...j.detto, scelto_da: 'ia' } : null,
+    ricetta: (r.ingredienti?.length && r.procedimento?.length) ? r : null,
+    fai_da_te: (j.fai_da_te || []).filter((x) => x?.titolo && x?.come_fare).slice(0, 5),
+    sentieri: (j.sentieri || []).filter((x) => x?.nome),
+  };
+}
+/** I dati del giorno possono arrivare dopo l'apertura della scheda: si aspetta (al massimo 40 s). */
+async function attendiGrezzo() { for (let i = 0; i < 80 && !Ed.grezzo; i++) await sleep(500); return !!Ed.grezzo; }
+function preparaExtra(forza = false) {
+  if (extraInCorso) return extraInCorso; // impostato subito: aprire due schede insieme non fa partire due richieste
+  statoExtra = '';
+  extraInCorso = (async () => {
+    try {
+      if (!(await attendiGrezzo())) throw new ErroreGemini('dati', 'Le notizie di oggi non sono ancora arrivate.');
+      const k = chiaveExtra();
+      const c = forza ? null : await db.get(k);
+      if (c) Ed.extra = c;
+      else if (!sbloccata()) statoExtra = 'Serve la chiave Gemini: aggiungila da ⚙️ Impostazioni.';
+      else { Ed.extra = normalizzaExtra(await jsonLibero(promptExtra(), schemaExtra())); db.set(k, Ed.extra); }
+    } catch (e) { console.warn('extra', e); statoExtra = (e.messaggioUtente || 'Non è arrivato niente.') + ' Riprova tra poco.'; }
+    extraInCorso = null; renderExtra();
+  })();
+  return extraInCorso;
+}
+function renderExtra() {
+  const g = Ed.grezzo, x = Ed.extra, citta = cittaUtente(), imp = impostazioniAttive();
+  if (g && !Ed.tech) Ed.tech = tecnoDiBase(g);
+  const spiega = (t) => `<p class="spiega">${t}</p>`;
+  const ascolta = (id, titolo, testo, etichetta = '▶️ Ascolta') => { registroAscolto[id] = { titolo, testo }; return `<button class="btn rosso" data-ascolta="${id}" type="button">${etichetta}</button>`; };
+  const sezione = (id, titolo, corpo) => `<section data-sezione="${id}" class="nascosto"><h2>${titolo}</h2>${corpo}</section>`;
+  const elenco = (l, riga) => (l?.length ? `<ul class="elenco">${l.map(riga).join('')}</ul>` : '');
+  const senzaCitta = '<p class="scheda">Per vedere le sezioni della tua zona aggiungi le tue città da ⚙️ Impostazioni → Nome, città e calcio.</p>';
+  const manca = (sez, perCitta) => (perCitta && !citta.length ? senzaCitta : tastoCerca(sez, x ? 'Per questa sezione oggi non ho trovato niente.' : undefined));
+  let h = '';
+  // ---- VARIE
+  const sport = [['tennis', '🎾 Tennis'], ['formula1', '🏎️ Formula 1'], ['motogp', '🏍️ MotoGP']];
+  h += sezione('sport', '🎾 Altri sport', spiega('Tennis (Sinner e gli altri italiani), Formula 1 e MotoGP: le notizie principali, i risultati e, quando sono noti, gli orari in TV.')
+    + (x && sport.some(([c]) => x.altri_sport?.[c]) ? sport.filter(([c]) => x.altri_sport[c]).map(([c, nome]) => `<article class="scheda"><h3 style="margin-top:0">${nome}</h3><p>${esc(x.altri_sport[c])}</p>${ascolta('sport-' + c, nome.replace(/^\S+ /, ''), x.altri_sport[c])}</article>`).join('') : manca('sport')));
+  const pa = x?.partite_oggi;
+  h += sezione('partite', '⚽ Partite di oggi', spiega('Orario e canale TV delle partite di oggi delle squadre italiane: Serie A, coppe e Nazionale. Se manca il canale, non era indicato nelle notizie raccolte.')
+    + (pa?.testo ? `<div class="scheda"><p>${esc(pa.testo)}</p>${ascolta('partite', 'Partite di oggi', pa.testo)}${elenco(pa.lista, (m) => `<li><b>${esc(m.ora || '—')}</b> · ${esc(m.partita)}<span>${esc([m.competizione, m.canale].filter(Boolean).join(' · '))}</span></li>`)}</div>` : manca('partite')));
+  const scelta = citta.find((c) => c.nome === ls.get('tg_citta')) || citta[0];
+  const cu = scelta && x?.cultura?.[scelta.nome];
+  h += sezione('cultura', '🎭 Concerti, teatro e mostre', spiega('Che cosa c\'è da vedere e da ascoltare nei prossimi 30 giorni nelle tue città. Scegli la città:')
+    + (citta.length > 1 ? `<div class="scelte">${citta.map((c) => `<button class="btn ${c === scelta ? 'attiva' : ''}" data-citta="${esc(c.nome)}" type="button">${esc(c.nome)}</button>`).join('')}</div>` : '')
+    + (cu?.testo ? `<div class="scheda"><p>${esc(cu.testo)}</p>${ascolta('cultura-' + codice(scelta.nome), 'Concerti, teatro e mostre a ' + scelta.nome, cu.testo)}${elenco(cu.lista, (ev) => `<li><b>${esc(ev.titolo)}</b><span>${esc([ev.tipo, ev.dove, ev.quando].filter(Boolean).join(' · '))}</span></li>`)}</div>`
+      : (x && citta.length ? '<p class="scheda">Per questa città oggi non risultano appuntamenti nelle notizie raccolte.</p>' : manca('cultura', true))));
+  if ($('extraVarie')) $('extraVarie').innerHTML = h;
+  // ---- NOVITÀ
+  h = '';
+  const [ven, dom] = fineSettimana(oggiISO());
+  h += sezione('eventi', '🎪 Eventi e sagre nelle tue città', spiega(`Sagre, feste e appuntamenti nel fine settimana da venerdì ${ven.getDate()} a domenica ${dom.getDate()} ${MESI_IT[dom.getMonth()]}, nelle città che hai scelto.`)
+    + (citta.length ? citta.map((c) => {
+      const ec = x?.eventi_citta?.[c.nome];
+      if (!x) return '';
+      return `<h3>📍 ${esc(c.nome)}</h3>` + (ec?.testo ? `<div class="scheda"><p style="margin-top:0">${esc(ec.testo)}</p>${ascolta('eventi-' + codice(c.nome), 'Eventi e sagre a ' + c.nome, ec.testo)}${elenco(ec.lista, (e2) => `<li><b>${esc(e2.titolo)}</b><span>${esc([e2.dove, e2.quando].filter(Boolean).join(' · '))}</span></li>`)}</div>`
+        : `<p class="scheda">Per questo fine settimana a ${esc(c.nome)} non risultano eventi nelle notizie raccolte.</p>`);
+    }).join('') + (x ? '' : manca('eventi')) : senzaCitta));
+  const d = x?.detto;
+  h += sezione('detto', '💬 Il detto del giorno', spiega('Ogni giorno un proverbio nel dialetto di una delle tue città, con la traduzione e la spiegazione.')
+    + (d?.proverbio ? `<article class="scheda accadde"><p class="piccolo" style="margin-top:0">In ${esc(String(d.dialetto || '').toLowerCase())}</p><p class="detto">“${esc(d.proverbio)}”</p>
+        <p><b>Vuol dire:</b> ${esc(d.traduzione)}</p><p>${esc(d.spiegazione)}</p>
+        ${ascolta('detto', 'Il detto del giorno', `${d.proverbio}. Vuol dire: ${d.traduzione}. ${d.spiegazione}`)}
+        <p class="piccolo">Scelto dall'intelligenza artificiale: la grafia dialettale può non essere perfetta.</p></article>` : manca('detto', true)));
+  if ($('contenutoNovita')) $('contenutoNovita').innerHTML = h;
+  if ($('sceltaDialetti')) $('sceltaDialetti').innerHTML = citta.length ? citta.map((c) => `<button class="btn" data-dialetto="${esc(c.nome)}" type="button">${esc(c.nome)}</button>`).join('') : '<p class="piccolo">Aggiungi le tue città da ⚙️ Impostazioni per sentire il TG nel loro dialetto.</p>';
+  $('paginaPartiteNascondi')?.remove();
+  document.querySelector('#paginaVarie [data-apri="partite"]')?.classList.toggle('nascosto', !imp.calcio);
+  renderSalute();
+  renderTech();
+  renderAltro();
+  apriSezione('varie', sezioneAperta.varie, false); apriSezione('novita', sezioneAperta.novita, false);
+}
+function prossimaDomenica() {
+  const oggi = new Date(oggiISO() + 'T12:00:00');
+  oggi.setDate(oggi.getDate() + ((7 - oggi.getDay()) % 7));
+  return oggi.toLocaleDateString('sv-SE');
+}
+function renderSalute() {
+  const g = Ed.grezzo, x = Ed.extra;
+  if (!$('sentieriContenuto')) return;
+  const tutti = x?.sentieri || [];
+  let h = '';
+  if (tutti.length) {
+    const scelto = tutti[Math.floor(giornoUTC(oggiISO()) / 864e5 / 7) % tutti.length];
+    const altri = tutti.filter((t) => t !== scelto);
+    const dom = prossimaDomenica();
+    const luogo = (g?.meteo_luoghi || []).find((m) => senzaAccenti(m.localita) === senzaAccenti(scelto.citta));
+    const prev = luogo?.giorni?.find((d) => d.data === dom);
+    const meteoTesto = prev ? `${meteoCodice(prev.codice).emoji} ${meteoCodice(prev.codice).testo}, da ${prev.tmin} a ${prev.tmax} gradi, pioggia ${prev.pioggia_prob ?? '–'}%` : '';
+    const consiglioPioggia = prev && (prev.pioggia_prob ?? 0) >= 60 ? ' Per domenica è prevista pioggia: meglio un percorso breve o rimandare.' : '';
+    registroAscolto['sentiero'] = { titolo: 'Il sentiero della domenica', testo: `Il sentiero di questa domenica: ${scelto.nome}, a ${scelto.comune}. ${scelto.descrizione} Difficoltà ${scelto.difficolta}, durata ${scelto.durata}.${prev ? ` Il meteo previsto per domenica: ${meteoCodice(prev.codice).testo}, da ${prev.tmin} a ${prev.tmax} gradi.` : ''}${consiglioPioggia} Prima di partire controlla sempre accessi e condizioni del sentiero.` };
+    h += `<article class="scheda scintilla"><p class="piccolo" style="margin-top:0">Il consiglio per ${esc(giornoNome(dom))}</p><h3 style="margin:0 0 6px">${esc(scelto.nome)}</h3>
+      <div class="fonte" style="margin:0 0 8px">${esc(scelto.comune)} · ${esc(scelto.difficolta)} · ${esc(scelto.durata)}</div><p>${esc(scelto.descrizione)}</p>
+      ${meteoTesto ? `<p class="evidenza"><b>Meteo di domenica:</b> ${esc(meteoTesto)}${esc(consiglioPioggia)}</p>` : ''}
+      <div class="riga-btn"><button class="btn rosso" data-ascolta="sentiero" type="button">▶️ Ascolta</button><a class="btn" href="https://www.google.com/maps/search/${encodeURIComponent(scelto.cerca || scelto.nome + ' ' + scelto.comune)}" target="_blank" rel="noopener">🗺️ Come arrivare</a></div></article>`;
+    h += '<h3>Altri percorsi</h3>' + altri.map((t) => `<article class="scheda"><h3 style="margin:0 0 6px">${esc(t.nome)}</h3>
+      <div class="fonte" style="margin:0 0 8px">${esc(t.comune)} · ${esc(t.difficolta)} · ${esc(t.durata)}</div><p>${esc(t.descrizione)}</p>
+      <a class="btn" href="https://www.google.com/maps/search/${encodeURIComponent(t.cerca || t.nome + ' ' + t.comune)}" target="_blank" rel="noopener">🗺️ Come arrivare</a></article>`).join('')
+      + '<p class="piccolo">Percorsi proposti dall\'intelligenza artificiale: prima di partire verifica sempre accessi, orari e condizioni; porta acqua e scarpe adatte.</p>';
+  } else h = cittaUtente().length ? tastoCerca('sentieri', 'I percorsi si preparano con l\'intelligenza artificiale quando apri la scheda.') : '<p class="scheda">Aggiungi le tue città da ⚙️ Impostazioni per avere percorsi vicino a te.</p>';
+  $('sentieriContenuto').innerHTML = h;
+  $('ricettaOggi').innerHTML = x?.ricetta ? schedaRicetta(x.ricetta, 'La ricetta di oggi', 'ricetta') : tastoCerca('ricetta', 'La ricetta del giorno si prepara con l\'intelligenza artificiale quando apri la scheda.');
+  $('faidateOggi').innerHTML = x?.fai_da_te?.length ? schedeFaidate(x.fai_da_te, 'faidate') : tastoCerca('faidate', 'Le idee del giorno si preparano con l\'intelligenza artificiale quando apri la scheda.');
+}
+const SCHEMA_RICETTA2 = ogg(['nome', 'zona', 'storia', 'porzioni', 'consiglio'], { ingredienti: elencoStr, procedimento: elencoStr });
+let ultimoPiatto = '';
+$('altraRicetta').onclick = async () => {
+  const st = $('statoRicetta');
+  st.classList.remove('errore');
+  if (!sbloccata()) { st.textContent = 'Per altre ricette serve la chiave Gemini: aggiungila da ⚙️ Impostazioni.'; return; }
+  st.textContent = 'Apro il ricettario…'; $('ricettaNuova').innerHTML = ''; $('altraRicetta').disabled = true;
+  try {
+    const zone = nomiCittaUtente() || 'una regione italiana';
+    const r = await jsonLibero(`Scrivi in italiano una ricetta tradizionale della cucina di ${zone}, diversa da "${ultimoPiatto || Ed.extra?.ricetta?.nome || ''}", come si fa in famiglia. "nome", "zona", "storia" (1-2 frasi), "porzioni", "ingredienti" (uno per voce, con le quantità), "procedimento" (passaggi in ordine, uno per voce), "consiglio" (un trucco della nonna, massimo 25 parole). Niente emoji.`, SCHEMA_RICETTA2);
+    ultimoPiatto = r.nome;
+    $('ricettaNuova').innerHTML = schedaRicetta(r, 'Pescata a caso', 'ricetta-' + codice(r.nome));
+    st.textContent = '';
+  } catch (e) { console.warn('ricetta', e); st.textContent = e.messaggioUtente || 'Il ricettario non risponde. Riprova tra poco.'; st.classList.add('errore'); }
+  $('altraRicetta').disabled = false;
+};
+function dopoTG() { document.querySelectorAll('.condividi-fine').forEach((x) => x.classList.remove('nascosto')); }
+
+/* ---------- Tech & AI e Altro ---------- */
+function tecnoDiBase(g) {
+  const youtube = [...(g.tech?.youtube || [])].sort((a, b) => String(b.data).localeCompare(String(a.data))).slice(0, 10);
+  return { notizie: [], tendenze: '', idee: [], futuro: [], video: youtube, scintilla: null, lavoro: null,
+    podcast: (g.podcast || []).filter((p) => p.gruppo === 'tech').slice(0, 10).map((p) => ({ ...p, spiegazione: riassunto(p.descrizione) })) };
+}
+function promptTech() {
+  const g = Ed.grezzo, iso = oggiISO();
+  const oggi = new Date(iso + 'T12:00:00').toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const elenco = (cat, max) => (g.notizie || []).filter((n) => n.categoria === cat).slice(0, max).map((n) => `${n.id} | ${n.fonte} | ${(n.data || '').slice(5, 16).replace('T', ' ')} | ${n.titolo}${n.sommario ? ' — ' + n.sommario.slice(0, 200) : ''}`).join('\n') || '(nessuna)';
+  const video = (g.tech?.youtube || []).slice(0, 60).map((v) => `${v.vid} | ${v.canale} | ${(v.data || '').slice(0, 10)} | ${v.titolo} — ${(v.descrizione || '').slice(0, 150)}`).join('\n') || '(nessuno)';
+  const vl = (g.altro?.lavoro?.video_cercati || []).map((v) => `${v.vid} | ${v.canale} | ${v.quando} | ${v.visualizzazioni} | ${v.titolo}`).join('\n') || '(nessuno)';
+  const r = casuale(giornoUTC(iso) / 864e5);
+  const c = g.tech?.concetti || {};
+  const sc = [(c.vicini || ['orto'])[Math.floor(r() * (c.vicini || ['orto']).length)], (c.lontani || ['intelligenza artificiale'])[Math.floor(r() * (c.lontani || ['x']).length)]];
+  Ed._scintilla = sc;
+  return `Sei il curatore di una rubrica su tecnologia e intelligenza artificiale per una famiglia italiana. Oggi è ${oggi}.
+Scrivi in italiano semplice e chiaro, da leggere ad alta voce: frasi brevi, niente elenchi puntati, niente emoji, sigle spiegate. Per notizie, futuro, video usa SOLO le informazioni degli elenchi: non inventare fatti, cifre, nomi o date.
+
+COMPITO 1 – "notizie": le 10 notizie più importanti del giorno su tecnologia e intelligenza artificiale, dall'elenco NOTIZIE TECH (almeno 6 sull'IA; evita offerte, recensioni e doppioni). Per ciascuna "id", "titolo" (massimo 10 parole) e "testo" (45-65 parole).
+COMPITO 2 – "tendenze": 70-90 parole sui trend futuri che emergono dalle notizie di oggi.
+COMPITO 3 – "idee": 10 idee nuove e concrete da realizzare con la tecnologia e l'IA, per persone, famiglie, piccole imprese o il territorio. Per ciascuna "titolo" (massimo 8 parole), "idea" (40-60 parole), "primo_passo" (massimo 20 parole), "difficolta" ("facile", "media" o "impegnativa").
+COMPITO 4 – "futuro": 10 pillole di futuro, le scoperte più sorprendenti su scienza, tecnologia, IA o robotica, dagli elenchi NOTIZIE TECH e SCIENZA E FUTURO. "id", "titolo" (massimo 8 parole), "testo" (35-55 parole).
+COMPITO 5 – "video": fino a 10 video dall'elenco VIDEO che parlano di notizie su tecnologia o IA. "vid" e "perche" (massimo 25 parole).
+COMPITO 6 – "scintilla": unisci i due concetti lontani "${sc[0]}" e "${sc[1]}" in modo inaspettato ma sensato. "ponte", "nome_idea" (massimo 5 parole), "idea" (60-80 parole), "intuizione" (40-60 parole), "primo_passo" (massimo 20 parole).
+COMPITO 7 – "lavoro": le 6 notizie più interessanti sul futuro del lavoro (IA e occupazione, nuove professioni, lavoro da remoto, formazione), dagli elenchi NOTIZIE TECH, SCIENZA E FUTURO e LAVORO ED ECONOMIA. "id", "titolo" (massimo 10 parole), "testo" (40-60 parole). Poi "lavoro_video": i 3 video più seri dall'elenco VIDEO SUL LAVORO ("vid", "perche" massimo 25 parole) e "lavoro_intro": una frase (massimo 30 parole) sul tema del giorno.
+
+Rispondi solo con il JSON richiesto.
+
+NOTIZIE TECH:\n${elenco('tech', 120)}
+
+SCIENZA E FUTURO:\n${elenco('futuro', 45)}
+
+VIDEO (vid | canale | data | titolo — descrizione):\n${video}
+
+LAVORO ED ECONOMIA:\n${elenco('lavoro', 50)}
+
+VIDEO SUL LAVORO (vid | canale | quando | visualizzazioni | titolo):\n${vl}`;
+}
+function schemaTech() {
+  const ord = ['notizie', 'tendenze', 'idee', 'futuro', 'video', 'scintilla', 'lavoro', 'lavoro_video', 'lavoro_intro'];
+  return { type: 'OBJECT', required: ord, propertyOrdering: ord, properties: {
+    notizie: lista(ogg(['id', 'titolo', 'testo'])), tendenze: MA.S, idee: lista(ogg(['titolo', 'idea', 'primo_passo', 'difficolta'])),
+    futuro: lista(ogg(['id', 'titolo', 'testo'])), video: lista(ogg(['vid', 'perche'])),
+    scintilla: ogg(['ponte', 'nome_idea', 'idea', 'intuizione', 'primo_passo']),
+    lavoro: lista(ogg(['id', 'titolo', 'testo'])), lavoro_video: lista(ogg(['vid', 'perche'])), lavoro_intro: MA.S,
+  } };
+}
+function costruisciTech(j) {
+  const g = Ed.grezzo, base = tecnoDiBase(g);
+  const per = Object.fromEntries(g.notizie.map((n) => [n.id, n]));
+  const nota = (n, cat) => completaNotizia({ id: n.id, titolo: n.titolo, testo: n.testo, fonti_ids: [] }, cat);
+  const per_vid = Object.fromEntries((g.tech?.youtube || []).map((v) => [v.vid, v]));
+  const video = []; for (const v of j.video || []) if (per_vid[v.vid] && !video.some((x) => x.id === per_vid[v.vid].id)) video.push({ ...per_vid[v.vid], perche: (v.perche || '').trim() });
+  const cercati = Object.fromEntries((g.altro?.lavoro?.video_cercati || []).map((v) => [v.vid, v]));
+  const lv = []; for (const v of j.lavoro_video || []) if (cercati[v.vid] && !lv.some((x) => x.id === cercati[v.vid].id)) lv.push({ ...cercati[v.vid], perche: (v.perche || '').trim() });
+  return {
+    ...base,
+    notizie: (j.notizie || []).filter((n) => per[n.id]).slice(0, 10).map((n) => nota(n, 'tech')),
+    tendenze: (j.tendenze || '').trim(), idee: (j.idee || []).slice(0, 10),
+    futuro: (j.futuro || []).slice(0, 10).map((f) => ({ titolo: pulisciTitolo(f.titolo), testo: (f.testo || '').trim(), fonte: per[f.id]?.fonte || '', link: per[f.id]?.link || '' })),
+    video: video.length ? video.slice(0, 10) : base.video,
+    scintilla: j.scintilla?.idea ? { ...j.scintilla, a: Ed._scintilla?.[0], b: Ed._scintilla?.[1] } : null,
+    lavoro: { intro: (j.lavoro_intro || '').trim(), notizie: (j.lavoro || []).filter((n) => per[n.id]).slice(0, 6).map((n) => nota(n, 'lavoro')), video: lv.slice(0, 3) },
+  };
+}
+function preparaTech(forza = false) {
+  if (techInCorso) return techInCorso;
+  statoTech = '';
+  techInCorso = (async () => {
+    try {
+      if (!(await attendiGrezzo())) throw new ErroreGemini('dati', 'Le notizie di oggi non sono ancora arrivate.');
+      const k = `varia:${VERSIONE_CACHE}:${Ed.grezzo.generato}:tech`;
+      const c = forza ? null : await db.get(k);
+      if (c) Ed.tech = c;
+      else if (!sbloccata()) statoTech = 'Serve la chiave Gemini: aggiungila da ⚙️ Impostazioni.';
+      else {
+        const t = costruisciTech(await jsonLibero(promptTech(), schemaTech()));
+        if (!t.notizie.length && !t.lavoro.notizie.length) throw new ErroreGemini('vuoto', 'La risposta non conteneva notizie utilizzabili.');
+        Ed.tech = t; db.set(k, Ed.tech);
+      }
+    } catch (e) { console.warn('tech', e); statoTech = (e.messaggioUtente || 'Non è arrivato niente.') + ' Riprova tra poco.'; }
+    techInCorso = null; renderTech(); renderAltro();
+  })();
+  renderTech(); renderAltro();
+  return techInCorso;
+}
+
 /* ---------- Avvio ---------- */
 $('oggi').textContent = new Date().toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 chiaveDaIndirizzo();
@@ -2853,10 +3975,10 @@ window.addEventListener('appinstalled', () => window.evento('installata'));
   await Promise.race([caricaPubblico(), sleep(4000)]);
   aggiornaTastiInstalla();
   if (new URLSearchParams(location.search).has('installa') && !installata()) setTimeout(installa, 800); // dal tasto della landing
-  await controllaCodiceSalvato();
   if (sbloccata() && impostazioni().fatto) {
-    if (bloccato()) return mostraPremium();     // prova finita e niente Premium
-    applicaImpostazioni(null); avviaApp(); avvisoFineProva();
+    controllaLivello();
+    if (bloccato()) return mostraSblocca('tg', true);   // prova finita: serve lo sblocco
+    applicaVoce(); applicaImpostazioni(null); avviaApp(); avvisiLivello();
   } else if (sbloccata()) mostraConfig(true);   // chiave già inserita ma configurazione non finita
   else mostraDemo();                            // primo avvio: subito la demo, senza chiedere niente
 })();
@@ -2864,8 +3986,10 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
 document.addEventListener('visibilitychange', () => {
   // Riaperta il giorno dopo senza ricaricare: controlla se ci sono dati nuovi
   if (document.visibilityState === 'visible' && sbloccata() && impostazioni().fatto && !audioAttivo() && Ed.finito) {
-    if (bloccato()) return mostraPremium();
-    caricaGrezzo().then((g) => { if (g && Ed.grezzo && g.generato !== Ed.grezzo.generato) { $('avvisi').innerHTML = ''; prepara(true); } });
+    controllaLivello();
+    if (bloccato()) return mostraSblocca('tg', true);
+    // edizione della sera solo con il Completo: la Base tiene l'edizione già preparata oggi
+    caricaGrezzo().then((g) => { if (g && Ed.grezzo && g.generato !== Ed.grezzo.generato && (ha('serale') || g.giorno !== Ed.grezzo.giorno)) { $('avvisi').innerHTML = ''; prepara(true); } });
   }
 });
 </script>

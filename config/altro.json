@@ -1,0 +1,151 @@
+{
+  "_nota": "Scheda ALTRO. Per ogni rubrica: siti (con 'feed' si mostrano gli ultimi titoli, senza si mostra solo il link), podcast (cercati su Apple Podcasts come in podcast.json: si ascolta l'ultima puntata), youtube (canali: ultimi video). 'lavoro' cerca anche i video del mese su YouTube con 'youtube_cerca'. Un podcast con 'url' e senza ricerca ('solo_link': true) mostra solo il collegamento al sito. 'escludi' scarta i titoli che cominciano così (guide agli acquisti).",
+  "lavoro": {
+    "podcast": [
+      {
+        "nome": "Futuro al Lavoro",
+        "autore": "AxL",
+        "descrizione": "Il podcast di un'agenzia per il lavoro su competenze, nuove professioni e cambiamenti del mercato."
+      },
+      {
+        "nome": "That's Y - Generazioni al Lavoro",
+        "autore": "Giulio Beronia",
+        "descrizione": "Come cambia il lavoro tra generazioni diverse, nuove tecnologie e nuove aspettative."
+      }
+    ],
+    "youtube_cerca": "futuro del lavoro intelligenza artificiale"
+  },
+  "ricerca": {
+    "siti": [
+      {
+        "nome": "Le Scienze",
+        "url": "https://www.lescienze.it/",
+        "feed": "https://www.lescienze.it/rss",
+        "descrizione": "L'edizione italiana di Scientific American: approfondimenti rigorosi su fisica, medicina, biologia e ricerca internazionale."
+      },
+      {
+        "nome": "ANSA Scienza & Tecnica",
+        "url": "https://www.ansa.it/canale_scienza_tecnica/",
+        "feed": "https://www.ansa.it/canale_scienza_tecnica/notizie/scienzaetecnica_rss.xml",
+        "descrizione": "Aggiornamento quotidiano su scoperte, missioni spaziali, innovazione e comunicati degli enti di ricerca (CNR, INFN, ASI)."
+      },
+      {
+        "nome": "Nature News",
+        "url": "https://www.nature.com/news",
+        "feed": "https://www.nature.com/nature.rss",
+        "descrizione": "La sezione giornalistica della celebre rivista scientifica (in inglese): gli studi più rilevanti a livello mondiale."
+      },
+      {
+        "nome": "WIRED Italia",
+        "url": "https://www.wired.it/",
+        "feed": "https://www.wired.it/feed/scienza/rss",
+        "descrizione": "L'impatto sociale, tecnologico ed economico della ricerca: intelligenza artificiale, biotecnologie, futuro del lavoro.",
+        "escludi": [
+          "I migliori",
+          "Le migliori",
+          "Gli ultimi",
+          "Offerte",
+          "Il miglior",
+          "La miglior"
+        ]
+      },
+      {
+        "nome": "CORDIS – Commissione Europea",
+        "url": "https://cordis.europa.eu/it",
+        "descrizione": "Il portale ufficiale dell'Unione Europea con i risultati dei progetti di ricerca e innovazione finanziati dall'Europa."
+      }
+    ],
+    "podcast": [
+      {
+        "nome": "Ci vuole una scienza",
+        "autore": "Il Post",
+        "descrizione": "Emanuele Menietti e Beatrice Mautino raccontano ogni settimana le notizie scientifiche più importanti, smontando falsi miti."
+      },
+      {
+        "nome": "Scientificast",
+        "autore": "Scientificast",
+        "descrizione": "Il primo podcast indipendente di divulgazione scientifica in Italia: dalla chimica all'astrofisica, con tono informale ma solido."
+      },
+      {
+        "nome": "2024",
+        "autore": "Radio 24",
+        "descrizione": "Il programma di Enrico Pagliarini su innovazione tecnologica, ricerca applicata, digitale e startup."
+      }
+    ],
+    "youtube": [
+      {
+        "nome": "Entropy for Life",
+        "canale": "UCQPnCKNfzKn4OmPrx1KDWvg",
+        "descrizione": "Il biologo Giacomo Moro Mauretto spiega evoluzione, biologia, ambiente e attualità della ricerca, partendo dagli studi scientifici."
+      },
+      {
+        "nome": "Kurzgesagt – In a Nutshell",
+        "canale": "UCsXVk37bltHxD1rDPwtNM8Q",
+        "descrizione": "Animazioni curate e verifiche rigorose su fisica, spazio, biologia e futuro dell'umanità (in inglese, con sottotitoli in italiano)."
+      }
+    ]
+  },
+  "circolare": {
+    "siti": [
+      {
+        "nome": "EconomiaCircolare.com",
+        "url": "https://www.economiacircolare.com/",
+        "feed": "https://www.economiacircolare.com/feed/",
+        "descrizione": "Il primo web magazine italiano dedicato al tema: norme europee, filiere, ecodesign e buone pratiche delle aziende."
+      },
+      {
+        "nome": "Materia Rinnovabile",
+        "url": "https://www.renewablematter.eu/",
+        "descrizione": "Rivista internazionale bilingue sulla bioeconomia e la circolarità: analisi strategiche, industriali e finanziarie."
+      },
+      {
+        "nome": "Ellen MacArthur Foundation",
+        "url": "https://www.ellenmacarthurfoundation.org/",
+        "descrizione": "L'organizzazione mondiale più autorevole sul tema (in inglese): rapporti, casi aziendali e linee guida per la transizione circolare."
+      },
+      {
+        "nome": "Rinnovabili.it",
+        "url": "https://www.rinnovabili.it/",
+        "feed": "https://www.rinnovabili.it/feed/",
+        "descrizione": "Quotidiano online su transizione energetica, gestione dei rifiuti, green economy e innovazione sostenibile."
+      },
+      {
+        "nome": "ICESP",
+        "url": "https://www.icesp.it/",
+        "descrizione": "La piattaforma italiana degli attori dell'economia circolare coordinata da ENEA: buone pratiche, bandi e documenti tecnici."
+      }
+    ],
+    "podcast": [
+      {
+        "nome": "2030",
+        "autore": "Il Sole 24 Ore",
+        "solo_link": true,
+        "url": "https://www.ilsole24ore.com/podcast",
+        "descrizione": "Sostenibilità, transizione ecologica e nuovi modelli di business circolare raccontati con dati e casi aziendali. Non è sulle piattaforme pubbliche di podcast: si apre la pagina dei podcast del Sole 24 Ore."
+      },
+      {
+        "nome": "News dal pianeta Terra",
+        "autore": "LifeGate",
+        "url": "https://www.lifegate.it/podcast",
+        "descrizione": "Al posto di “A Piedi Nudi”, che non si trova più tra i podcast pubblici: le notizie di LifeGate su ambiente, risorse e sostenibilità."
+      },
+      {
+        "nome": "The Circular Economy Show",
+        "autore": "Ellen MacArthur Foundation",
+        "descrizione": "Il podcast ufficiale della fondazione (in inglese): interviste a manager, designer e ricercatori che riprogettano le filiere."
+      }
+    ],
+    "youtube": [
+      {
+        "nome": "Ellen MacArthur Foundation",
+        "canale": "UCQAC2otE5_agzHZPnk3mE5w",
+        "descrizione": "Video brevi, casi reali di grandi aziende e conferenze sui modelli circolari in moda, plastica, cibo ed edilizia."
+      },
+      {
+        "nome": "Geopop",
+        "canale": "UCx7EWheHmjCW3vX8K2d09vg",
+        "descrizione": "Divulgazione su scienze della Terra e ingegneria, con una serie dedicata a riciclo, rifiuti, materie prime e filiere circolari."
+      }
+    ]
+  }
+}

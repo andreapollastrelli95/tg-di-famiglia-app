@@ -19,7 +19,7 @@
 /config.json
   Cache-Control: no-cache
 
-/premium-codes.json
+/codici-sblocco.json
   Cache-Control: no-cache
 
 # dati del mattino: sempre freschi

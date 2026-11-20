@@ -284,6 +284,202 @@ def raccogli_tv(cfg: dict) -> dict | None:
 
 
 
+# ---------------------------------------------------------------- scheda TECH & AI
+def raccogli_tech() -> dict | None:
+    """Video recenti dei canali YouTube (dai feed RSS pubblici, senza chiave) e i dati fissi della scheda."""
+    try:
+        cfg = leggi_config("tech.json")
+    except Exception as e:  # noqa: BLE001
+        log(f"  ! tech: {e}")
+        return None
+    limite = ORA - timedelta(days=cfg.get("youtube_giorni", 10))
+    video = []
+    for c in cfg.get("youtube", []):
+        try:
+            feed = feedparser.parse(scarica(f"https://www.youtube.com/feeds/videos.xml?channel_id={c['canale']}", ua=UA_BROWSER))
+            presi = 0
+            for e in feed.entries:
+                quando = data_voce(e)
+                vid = e.get("yt_videoid") or (e.get("id", "").split(":")[-1])
+                if not vid or not quando or quando < limite or "/shorts/" in e.get("link", ""):
+                    continue
+                video.append({"id": vid, "titolo": pulisci(e.get("title"), 160), "canale": c["nome"],
+                              "descrizione": pulisci(e.get("summary") or (e.get("media_description") or ""), 220),
+                              "data": quando.isoformat(timespec="minutes"), "link": f"https://www.youtube.com/watch?v={vid}",
+                              "immagine": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg"})
+                presi += 1
+            log(f"  youtube {c['nome']:<18} {presi:>2} video recenti")
+        except Exception as e:  # noqa: BLE001
+            log(f"  ! youtube {c['nome']}: {e}")
+    video.sort(key=lambda v: v["data"], reverse=True)
+    for i, v in enumerate(video, 1):
+        v["vid"] = f"y{i}"
+    radio = []
+    for r in cfg.get("radio", []):
+        r = dict(r)
+        if r.get("feed"):  # niente diretta: si ascolta l'ultima puntata
+            try:
+                feed = feedparser.parse(scarica(r["feed"], ua=UA_BROWSER))
+                for e in feed.entries:
+                    audio = audio_di(e)
+                    if audio and audio.startswith("https://"):
+                        r["episodio"] = {"titolo": pulisci(e.get("title"), 160), "audio": audio, "link": e.get("link") or audio,
+                                         "data": (data_voce(e) or ORA).isoformat(timespec="minutes")}
+                        break
+            except Exception as e:  # noqa: BLE001
+                log(f"  ! radio {r['nome']}: {e}")
+        radio.append(r)
+    return {"youtube": video, "radio": radio, "libri": cfg.get("libri", []), "concetti": cfg.get("concetti", {})}
+
+
+# ---------------------------------------------------------------- scheda ALTRO
+def ultimo_episodio(p: dict) -> dict | None:
+    """Ultima puntata pubblica di un podcast (cercato su Apple Podcasts), senza limite di età."""
+    try:
+        feed_url, immagine = cerca_feed(p)
+        if not feed_url:
+            return None
+        feed = feedparser.parse(scarica(feed_url))
+        migliore = None
+        for e in feed.entries:
+            quando, audio = data_voce(e), audio_di(e)
+            if audio and (migliore is None or (quando and quando > migliore[0])):
+                migliore = (quando or datetime(1970, 1, 1, tzinfo=timezone.utc), e, audio)
+        if not migliore:
+            return None
+        quando, e, audio = migliore
+        audio = audio_https(audio)
+        if not audio:
+            return None
+        return {"nome": pulisci(feed.feed.get("title"), 120) or p["nome"], "episodio": pulisci(e.get("title"), 200),
+                "descrizione": pulisci(e.get("summary") or e.get("description"), 400), "audio": audio,
+                "link": e.get("link") or feed.feed.get("link") or audio, "data": quando.isoformat(timespec="minutes"),
+                "immagine": immagine or (feed.feed.get("image") or {}).get("href")}
+    except Exception as ex:  # noqa: BLE001
+        log(f"  ! podcast {p['nome']}: {ex}")
+        return None
+
+
+def video_canale(canale: str, quanti: int) -> list[dict]:
+    feed = feedparser.parse(scarica(f"https://www.youtube.com/feeds/videos.xml?channel_id={canale}", ua=UA_BROWSER))
+    out = []
+    for e in feed.entries:
+        vid = e.get("yt_videoid") or e.get("id", "").split(":")[-1]
+        if vid and "/shorts/" not in e.get("link", ""):
+            quando = data_voce(e)
+            out.append({"id": vid, "titolo": pulisci(e.get("title"), 160), "data": quando.isoformat(timespec="minutes") if quando else "",
+                        "link": f"https://www.youtube.com/watch?v={vid}", "immagine": f"https://i.ytimg.com/vi/{vid}/hqdefault.jpg"})
+        if len(out) >= quanti:
+            break
+    return out
+
+
+def cerca_video(testo: str) -> list[dict]:
+    """Video italiani dell'ultimo mese trovati con la ricerca di YouTube (pagina pubblica, senza chiave)."""
+    q = urllib.parse.urlencode({"search_query": testo, "sp": "EgIIBA=="})  # filtro: caricati questo mese
+    pagina = scarica(f"https://www.youtube.com/results?{q}", ua=UA_BROWSER).decode("utf-8", "replace")
+    i = pagina.index("var ytInitialData = ") + len("var ytInitialData = ")
+    dati, _ = json.JSONDecoder().raw_decode(pagina[i:])
+    trovati = []
+
+    def visita(o):
+        if isinstance(o, dict):
+            v = o.get("videoRenderer")
+            if v and v.get("videoId"):
+                vista = re.sub(r"\D", "", (v.get("viewCountText") or {}).get("simpleText", "") or "0") or "0"
+                trovati.append({"id": v["videoId"], "titolo": pulisci("".join(r.get("text", "") for r in v.get("title", {}).get("runs", [])), 160),
+                                "canale": pulisci("".join(r.get("text", "") for r in v.get("ownerText", {}).get("runs", [])), 80),
+                                "quando": (v.get("publishedTimeText") or {}).get("simpleText", ""), "visualizzazioni": int(vista),
+                                "link": f"https://www.youtube.com/watch?v={v['videoId']}", "immagine": f"https://i.ytimg.com/vi/{v['videoId']}/hqdefault.jpg"})
+            for x in o.values():
+                visita(x)
+        elif isinstance(o, list):
+            for x in o:
+                visita(x)
+    visita(dati)
+    visti, out = set(), []
+    for v in trovati:
+        if v["id"] not in visti:
+            visti.add(v["id"])
+            v["vid"] = f"l{len(out) + 1}"
+            out.append(v)
+    return out[:20]
+
+
+def raccogli_altro() -> dict | None:
+    try:
+        cfg = leggi_config("altro.json")
+    except Exception as e:  # noqa: BLE001
+        log(f"  ! altro: {e}")
+        return None
+    out = {}
+    for chiave, r in cfg.items():
+        if chiave.startswith("_"):
+            continue
+        rubrica = {}
+        siti = []
+        for sito in r.get("siti", []):
+            sito = dict(sito)
+            if sito.get("feed"):
+                try:
+                    voci = []
+                    for e in feedparser.parse(scarica(sito["feed"], ua=UA_BROWSER)).entries:
+                        quando = data_voce(e)
+                        voci.append({"titolo": pulisci(e.get("title"), 200), "link": e.get("link", ""),
+                                     "data": quando.isoformat(timespec="minutes") if quando else ""})
+                    voci.sort(key=lambda v: v["data"], reverse=True)  # alcuni feed non sono in ordine
+                    via = tuple(sito.get("escludi") or ())
+                    sito["titoli"] = [v for v in voci if v["titolo"] and v["link"] and not (via and v["titolo"].startswith(via))][:4]
+                except Exception as e:  # noqa: BLE001
+                    log(f"  ! altro {sito['nome']}: {e}")
+            siti.append(sito)
+        rubrica["siti"] = siti
+        rubrica["podcast"] = [{**p, "ultimo": ultimo_episodio(p)} if not p.get("solo_link") else dict(p) for p in r.get("podcast", [])]
+        canali = []
+        for c in r.get("youtube", []):
+            try:
+                canali.append({**c, "video": video_canale(c["canale"], 2)})
+            except Exception as e:  # noqa: BLE001
+                log(f"  ! altro youtube {c['nome']}: {e}")
+                canali.append({**c, "video": []})
+        rubrica["youtube"] = canali
+        if r.get("youtube_cerca"):
+            try:
+                rubrica["video_cercati"] = cerca_video(r["youtube_cerca"])
+            except Exception as e:  # noqa: BLE001
+                log(f"  ! altro ricerca video: {e}")
+                rubrica["video_cercati"] = []
+        out[chiave] = rubrica
+        log(f"  altro {chiave}: {sum(len(s_.get('titoli', [])) for s_ in siti)} titoli, "
+            f"{sum(1 for p in rubrica['podcast'] if p.get('ultimo'))}/{len(rubrica['podcast'])} podcast, "
+            f"{sum(len(c['video']) for c in canali)} video dai canali, {len(rubrica.get('video_cercati', []))} video cercati")
+    return out
+
+
+# ---------------------------------------------------------------- archivio della settimana
+def aggiorna_settimana(cfg: dict, notizie: list[dict], giorno: str, uscita: Path) -> None:
+    """Rassegna della domenica: conserva i titoli degli ultimi giorni in data/settimana.json.
+    Il repository non contiene dati, quindi si riparte dal file già pubblicato sul sito:
+    lo si scarica, si aggiunge la giornata di oggi e si ripubblica."""
+    archivio = {"giorni": {}}
+    sito = pagina_del_sito()
+    if sito:
+        try:
+            archivio = json.loads(scarica(sito.rstrip("/") + "/data/settimana.json", timeout=20))
+        except Exception as e:  # noqa: BLE001 - prima esecuzione o sito non raggiungibile
+            log(f"  - settimana: archivio precedente non disponibile ({e}), riparto da oggi")
+    giorni = archivio.get("giorni", {})
+    oggi = {}
+    for cat, quante in cfg.get("per_giorno", {}).items():
+        oggi[cat] = [{"t": n["titolo"], "s": n["sommario"][:140], "f": n["fonte"]}
+                     for n in notizie if n["categoria"] == cat][:quante]
+    giorni[giorno] = oggi
+    tenuti = sorted(giorni)[-cfg.get("giorni", 7):]
+    archivio = {"aggiornato": ORA.isoformat(timespec="seconds"), "giorni": {g: giorni[g] for g in tenuti}}
+    (uscita / "settimana.json").write_text(json.dumps(archivio, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    log(f"  settimana: {len(tenuti)} giorni in archivio ({', '.join(tenuti)})")
+
+
 # ---------------------------------------------------------------- Google News (notizie locali e squadre)
 def google_news(query: str, ore: int, massimo: int) -> list[dict]:
     """Notizie di Google News per una ricerca, le più recenti per prime. Titoli e fonti, senza sommario."""
@@ -454,6 +650,7 @@ def main():
     notizie = raccogli_notizie()
     log("Podcast:")
     podcast = raccogli_podcast()
+    log("Tech, altro e settimana:")
     log("Squadre:")
     squadre = raccogli_squadre(uscita)
     log("Podcast locali:")
@@ -469,8 +666,11 @@ def main():
         "squadre_disponibili": squadre,
         "radio_preferite": varie.get("radio_preferite", []),
         "tv": raccogli_tv(varie["tv"]) if varie.get("tv") else None,
+        "tech": raccogli_tech(),
+        "altro": raccogli_altro(),
     }
     (uscita / "grezzo.json").write_text(json.dumps(dati, ensure_ascii=False, indent=1), encoding="utf-8")
+    aggiorna_settimana({"giorni": 7, "per_giorno": {"generale": 25, "sport": 12}}, notizie, dati["giorno"], uscita)
     conta = {}
     for n in notizie:
         conta[n["categoria"]] = conta.get(n["categoria"], 0) + 1
